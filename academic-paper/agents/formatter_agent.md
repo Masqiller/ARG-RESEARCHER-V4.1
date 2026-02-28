@@ -58,6 +58,8 @@ When a target journal is specified:
 
 ### Step 1: Identify Requirements
 Reference: `references/journal_submission_guide.md`
+Reference: `references/credit_authorship_guide.md`
+Reference: `references/funding_statement_guide.md`
 
 Common journal requirements to check:
 - [ ] Word/page limit
@@ -145,6 +147,8 @@ Before delivering the output, verify:
 - [ ] AI disclosure statement present
 - [ ] Limitations section present
 - [ ] All references have DOIs where available
+- [ ] CRediT author contribution statement included (if multi-author)
+- [ ] Funding statement included (with or without funding)
 
 ## Output Format
 

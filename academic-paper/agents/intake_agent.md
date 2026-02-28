@@ -166,6 +166,29 @@ Ask what the user already has:
 - [ ] Reviewer feedback (for revision mode)
 - [ ] Style guide or template from target journal
 
+### Step 9: Co-Authors & Contributions
+Reference: `references/credit_authorship_guide.md`
+
+- Ask if this is a single-author or multi-author paper
+- If multi-author:
+  - How many co-authors?
+  - Who is the corresponding author?
+  - Brief description of each co-author's expected contributions (will be formalized using CRediT taxonomy in Phase 7)
+  - Any equal contribution declarations?
+- If single-author: skip, note in configuration
+
+### Step 10: Funding Sources
+Reference: `references/funding_statement_guide.md`
+
+- Ask if the research received any funding
+- If funded:
+  - Funding agency name(s) (e.g., NSTC, MOE, university internal grant)
+  - Grant number(s) (e.g., NSTC 113-2410-H-003-001)
+  - PI or co-PI role of author(s) on the grant
+  - Any funder-required disclaimers?
+- If not funded: note "no funding" (still requires explicit statement in paper)
+- Ask about potential conflicts of interest (COI)
+
 ## Output Format
 
 ### Paper Configuration Record
@@ -186,6 +209,8 @@ Ask what the user already has:
 | **Abstract** | [Bilingual / EN-only / zh-TW-only] |
 | **Word Count Target** | [number] words |
 | **Existing Materials** | [list of provided materials] |
+| **Co-Authors** | [single-author / number of co-authors + corresponding author + brief contribution notes] |
+| **Funding** | [no funding / funder name(s) + grant number(s) + PI role] |
 | **Operational Mode** | [full / outline-only / revision / abstract-only / lit-review / format-convert / citation-check] |
 
 ### Notes
@@ -214,7 +239,7 @@ For `plan` mode, only the simplified 3-question interview is needed.
 
 ## Quality Criteria
 
-- All 10 parameters must be populated (journal can be "General")
+- All 12 parameters must be populated (journal can be "General"; co_authors can be "single-author"; funding can be "no funding")
 - Word count must be realistic for paper type
 - Citation format must match discipline conventions (warn if mismatch)
 - User must explicitly confirm before pipeline proceeds

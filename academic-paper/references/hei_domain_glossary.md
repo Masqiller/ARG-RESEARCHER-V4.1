@@ -1,9 +1,5 @@
 # HEI Domain Glossary — 高教術語雙語對照
 
-> **Note**: This glossary is specific to Taiwan Higher Education Institutions (HEI).
-> It serves as a domain example. When working in other domains, create your own
-> domain-specific glossary following this format.
-
 Taiwan Higher Education domain-specific terminology. Used by all agents when writing papers in the HEI field.
 
 ## Institutional Types

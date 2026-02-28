@@ -30,6 +30,8 @@ Quality Criteria:
 - Reproducible strategy
 - Dual screening (2 reviewers or reviewer + verification)
 - PRISMA checklist completed
+
+Reporting Standard: PRISMA 2020 (see references/equator_reporting_guidelines.md)
 ```
 
 ### PRISMA Flow Template
@@ -142,6 +144,8 @@ Quality Criteria:
 - Integration strategy explicit (not just parallel reporting)
 - Joint display or mixed methods matrix
 - Meta-inferences draw on both strands
+
+Reporting Standards: QUAL strand → COREQ; QUAN strand → STROBE/CONSORT (see references/equator_reporting_guidelines.md)
 ```
 
 ## Pattern 5: Content/Document Analysis
@@ -193,6 +197,8 @@ Quality Criteria:
 - Thick description
 - Data saturation discussed
 - Transferability criteria addressed
+
+Reporting Standard: COREQ for interviews/focus groups (see references/equator_reporting_guidelines.md)
 ```
 
 ## Pattern 7: Benchmarking Study

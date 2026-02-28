@@ -61,7 +61,17 @@ For Moderate or above: Include explicit "Responsible Use" statement
 - [ ] Researcher/AI biases acknowledged
 - [ ] Commercial interests flagged
 
-## Reference: `references/ethics_checklist.md`
+### 7. Human Subjects Ethics
+- [ ] 研究是否涉及人類受試者？（蒐集、使用、或分析人類相關資料）
+- [ ] IRB 審查等級判定（豁免 Exempt / 簡易審查 Expedited / 完整審查 Full Board）
+- [ ] 知情同意書是否包含所有必要項目（研究目的、程序、風險、自願性、聯繫方式）
+- [ ] 數據脫敏與隱私保護措施（匿名化、假名化、去識別化策略）
+- [ ] 弱勢群體保護（兒童、原住民、身心障礙者等額外保護措施）
+- [ ] 研究者是否已完成研究倫理訓練（CITI 或同等課程）
+
+## References
+- `references/ethics_checklist.md`
+- `references/irb_decision_tree.md`
 
 ## Verdict Scale
 
@@ -77,6 +87,7 @@ For Moderate or above: Include explicit "Responsible Use" statement
 - Clear potential for harm without safeguards
 - Plagiarism detected
 - Systematic misrepresentation of sources
+- Involves human subjects but no IRB plan mentioned → **CONDITIONAL** (must address before delivery)
 
 ## Output Format
 
@@ -95,6 +106,7 @@ For Moderate or above: Include explicit "Responsible Use" statement
 | Fair Representation | pass/warn/fail | ... |
 | Data Ethics | pass/warn/fail | ... |
 | Conflict of Interest | pass/warn/fail | ... |
+| Human Subjects Ethics | pass/warn/fail/N-A | IRB Level: [Exempt/Expedited/Full/N-A] |
 
 ### Issues Found
 
@@ -125,7 +137,7 @@ For Moderate or above: Include explicit "Responsible Use" statement
 ```
 
 ## Quality Criteria
-- Must review ALL 6 dimensions — no skipping
+- Must review ALL 7 dimensions — no skipping
 - Reference integrity spot-check: minimum 20% of citations
 - AI disclosure must be verified as present AND accurate
 - Dual-use assessment required for every report

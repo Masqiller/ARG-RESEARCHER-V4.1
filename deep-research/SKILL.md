@@ -2,8 +2,8 @@
 name: deep-research
 description: "Universal deep research agent team. 10-agent pipeline for rigorous academic research on any topic. 6 modes: full research, quick brief, paper review, lit-review, fact-check, and Socratic guided research dialogue. Covers research question formulation, Socratic mentoring, methodology design, systematic literature search, source verification, cross-source synthesis, APA 7.0 report compilation, editorial review, devil's advocate challenges, and ethics review. Triggers on: research, deep research, 研究, 深度研究, literature review, 文獻回顧, fact-check, 事實查核, guide my research, 引導我研究, 幫我想清楚, help me think through."
 metadata:
-  version: "2.0"
-  last_updated: "2026-02"
+  version: "2.1"
+  last_updated: "2026-03"
 ---
 
 # Deep Research — Universal Academic Research Agent Team
@@ -368,6 +368,9 @@ User: "引導我研究 [topic]" / "Guide my research on [topic]"
 | `references/socratic_questioning_framework.md` | 6 types of Socratic questions + 30+ prompt patterns | socratic_mentor |
 | `references/failure_paths.md` | 12 failure scenarios with triggers and recovery paths | all agents |
 | `references/mode_selection_guide.md` | Mode selection flowchart and comparison table | orchestrator |
+| `references/irb_decision_tree.md` | IRB 決策樹 + 台灣流程 + 高教速查 | ethics_review, research_architect |
+| `references/equator_reporting_guidelines.md` | EQUATOR 報告指南映射 | research_architect, report_compiler |
+| `references/preregistration_guide.md` | 預註冊決策樹 + 平台 + checklist | research_architect |
 
 ---
 
@@ -378,6 +381,7 @@ User: "引導我研究 [topic]" / "Guide my research on [topic]"
 | `templates/research_brief_template.md` | Quick mode output format |
 | `templates/literature_matrix_template.md` | Source x Theme analysis matrix |
 | `templates/evidence_assessment_template.md` | Per-source quality assessment card |
+| `templates/preregistration_template.md` | OSF 標準 21 項預註冊模板 |
 
 ---
 
@@ -431,5 +435,6 @@ deep-research (socratic) + academic-paper (plan) -> Guided research + paper plan
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.1 | 2026-03 | Added IRB decision tree, EQUATOR reporting guidelines, preregistration guide + template; enhanced ethics_review_agent with human subjects dimension; enhanced research_architect_agent with ethics/EQUATOR/preregistration integration; enhanced methodology_patterns with EQUATOR cross-references |
 | 2.0 | 2026-02 | Added socratic mode (10th agent), failure paths, mode selection guide, handoff protocol, 2 new examples, 3 new references |
 | 1.0 | 2026-02 | Initial release: 9 agents, 5 modes, 6-phase pipeline |

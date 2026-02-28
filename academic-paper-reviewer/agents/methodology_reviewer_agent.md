@@ -61,6 +61,26 @@
 - 是否有替代分析方法需要考慮？
 - 效果量是否報告？（不只看 p-value）
 
+### Step 4a: Statistical Reporting Adequacy（統計報告充分性）
+
+> **參照文件**：`references/statistical_reporting_standards.md`
+
+本步驟針對**量化研究或混合方法的量化部分**，系統性檢核統計報告是否符合 APA 7.0 標準。純質性或純理論論文跳過此步驟。
+
+**檢查項目：**
+1. **效果量報告** — 所有統計檢定是否伴隨對應的效果量（Cohen's *d*, *η*², *R*², OR 等）？是否有解讀效果量大小？
+2. **信賴區間報告** — 關鍵估計值是否附 95% CI？CI 寬度是否合理？
+3. **統計考驗力** — 是否報告事前 power analysis（目標 power、預設效果量、所需樣本量）？不顯著結果是否討論 Type II error 風險？
+4. **假設檢驗前提** — 常態性、變異數同質性、線性、獨立性、共線性等前提是否經過檢驗並報告？違反時是否採取替代方法？
+5. **缺失值處理** — 缺失量和比例是否報告？處理方法（listwise deletion / MI / FIML）是否說明？
+6. **APA 格式合規** — 統計符號斜體、小數位數、前導零、*p*-value 格式是否正確？
+7. **紅旗掃描** — 是否存在 p-hacking、HARKing、選擇性報告、多重比較未校正等可疑模式？（詳見 `references/statistical_reporting_standards.md` §4）
+
+**輸出：**
+- 統計報告完整性評分（Exemplary / Adequate / Needs Improvement / Inadequate / Unacceptable）
+- 具體建議清單（缺失項目 + 如何補充）
+- 紅旗警示（如有）
+
 ### Step 5: Results Integrity（結果完整性）
 - 結果是否完整呈現（包括不顯著的結果）？
 - 圖表是否清晰、準確？
@@ -163,6 +183,14 @@
 - [ ] 有檢查常見方法論謬誤清單
 - [ ] 結論是否超出數據支撐範圍有被明確評估
 - [ ] 語氣專業，避免「這個方法是錯的」，改用「作者可以考慮 X 來強化 Y」
+
+---
+
+## References
+
+| Reference File | Purpose |
+|----------------|---------|
+| `references/statistical_reporting_standards.md` | 統計報告標準 + APA 7.0 格式速查 + 紅旗清單（Step 4a 主要參照） |
 
 ---
 
