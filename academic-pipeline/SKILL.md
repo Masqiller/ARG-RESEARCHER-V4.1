@@ -63,7 +63,6 @@ metadata:
 | 只需要審查一篇論文 | `academic-paper-reviewer` |
 | 只需要檢查引用格式 | `academic-paper` (citation-check mode) |
 | 只需要轉換論文格式 | `academic-paper` (format-convert mode) |
-| 查詢台灣高教數據 | `tw-hei-intelligence` |
 
 ### Trigger Exclusions
 
@@ -91,83 +90,15 @@ metadata:
 
 ## Pipeline State Machine
 
-```
-[START]
-  |
-  v
-Stage 1 (RESEARCH)
-  |
-  +-- [使用者確認？]
-  |     +-- Yes --> Stage 2 (WRITE)
-  |     +-- 暫停 --> [PAUSED]
-  |
-  v
-Stage 2 (WRITE)
-  |
-  +-- [使用者確認？]
-  |     +-- Yes --> Stage 2.5 (INTEGRITY)
-  |     +-- 暫停 --> [PAUSED]
-  |
-  v
-Stage 2.5 (INTEGRITY) ← NEW
-  |
-  +-- [驗證結果]
-  |     +-- PASS     --> [使用者確認？] --> Stage 3 (REVIEW)
-  |     +-- FAIL     --> 修正 --> 重新驗證（最多 3 輪）
-  |     +-- 3 輪仍 FAIL --> 通知使用者，列出無法驗證項
-  |
-  v
-Stage 3 (REVIEW) — 第一次審查
-  |
-  +-- [Editorial Decision]
-  |     +-- Accept         --> [使用者確認？] --> Stage 4.5 (FINAL INTEGRITY)
-  |     +-- Minor Revision --> [使用者確認？] --> Stage 4 (REVISE)
-  |     +-- Major Revision --> [使用者確認？] --> Stage 4 (REVISE)
-  |     +-- Reject         --> [使用者選擇]
-  |           +-- 重大修改  --> Stage 2 (WRITE, 重構)
-  |           +-- 放棄      --> [END]
-  |
-  v
-Stage 4 (REVISE) — 第一次修訂
-  |
-  +-- [使用者確認？]
-  |     +-- Yes --> Stage 3' (RE-REVIEW)
-  |
-  v
-Stage 3' (RE-REVIEW) — 第二次審查（驗收）
-  |
-  +-- [Decision]
-  |     +-- Accept / Minor --> [使用者確認？] --> Stage 4.5 (FINAL INTEGRITY)
-  |     +-- Major          --> [使用者確認？] --> Stage 4' (RE-REVISE)
-  |
-  v
-Stage 4' (RE-REVISE) — 第二次修訂（如需要）
-  |
-  +-- [使用者確認？]
-  |     +-- Yes --> Stage 4.5 (FINAL INTEGRITY)
-  |     +-- （不再回到 RE-REVIEW，直接進最終驗證）
-  |
-  v
-Stage 4.5 (FINAL INTEGRITY) ← NEW
-  |
-  +-- [驗證結果]
-  |     +-- PASS (零問題) --> [使用者確認？] --> Stage 5 (FINALIZE)
-  |     +-- FAIL          --> 修正 --> 重新驗證（最多 3 輪）
-  |
-  v
-Stage 5 (FINALIZE)
-  |
-  +-- Step 1：自動產出 MD + DOCX
-  +-- Step 2：詢問使用者「是否需要 LaTeX 版本？」
-  |     +-- Yes --> 產出 LaTeX (.tex)
-  |     +-- No  --> 跳過
-  +-- Step 3：使用者確認內容無誤
-  +-- Step 4：產出 PDF（最終不可編輯版本）
-  |     +-- Yes --> [END, 輸出最終論文]
-  |
-  v
-[END]
-```
+1. **Stage 1 RESEARCH** → 使用者確認 → Stage 2
+2. **Stage 2 WRITE** → 使用者確認 → Stage 2.5
+3. **Stage 2.5 INTEGRITY** → PASS → Stage 3（FAIL → 修正重驗，最多 3 輪）
+4. **Stage 3 REVIEW** → Accept → Stage 4.5 / Minor|Major → Stage 4 / Reject → Stage 2 或結束
+5. **Stage 4 REVISE** → 使用者確認 → Stage 3'
+6. **Stage 3' RE-REVIEW** → Accept|Minor → Stage 4.5 / Major → Stage 4'
+7. **Stage 4' RE-REVISE** → 使用者確認 → Stage 4.5（不再回到審查）
+8. **Stage 4.5 FINAL INTEGRITY** → PASS（零問題）→ Stage 5（FAIL → 修正重驗）
+9. **Stage 5 FINALIZE** → MD + DOCX → 詢問 LaTeX → 確認 → PDF → 結束
 
 完整狀態轉換定義見 `references/pipeline_state_machine.md`。
 
@@ -335,98 +266,29 @@ pipeline_orchestrator_agent 分析使用者的輸入：
 
 ### Stage 3：第一次審查（Full Review）
 
-**審查團隊**：EIC + R1（方法論）+ R2（領域）+ R3（跨領域）+ **Devil's Advocate**
-**流程**：
-1. Field Analysis → 動態配置 5 位審查者
-2. 5 位審查者獨立審查（含魔鬼代言人挑戰核心論點）
-3. Editorial Synthesis → 綜合 5 份報告 → Editorial Decision + Revision Roadmap
-4. **Revision Coaching → 蘇格拉底式引導使用者理解審查意見並規劃修訂策略**
+- **輸入**：通過誠信審查的論文
+- **審查團隊**：EIC + R1（方法論）+ R2（領域）+ R3（跨領域）+ Devil's Advocate
+- **產出**：5 份審查報告 + Editorial Decision + Revision Roadmap + Socratic Revision Coaching
+- **Decision 分支**：Accept → Stage 4.5 / Minor|Major → Revision Coaching → Stage 4 / Reject → Stage 2 或結束
 
-**產出**：
-- 5 份獨立審查報告
-- 1 份 Editorial Decision Letter
-- 1 份 Revision Roadmap（Priority 1/2/3）
-- **1 次 Socratic Revision Coaching（引導使用者理解如何修改）**
+審查流程細節見 `academic-paper-reviewer/SKILL.md`。
 
-### Stage 3 → 4 轉場：蘇格拉底式修訂引導（Revision Coaching）
+### Stage 3 → 4 轉場：Revision Coaching
 
-**目的**：審查結果可能資訊量大且令人沮喪，使用者需要被引導理解問題本質、區分輕重緩急、規劃修改策略，而非直接被丟一份修訂清單。
-
-**引導流程**：
-```
-Phase 2.5: REVISION COACHING（審查完成後、修訂開始前）
-  |
-  +-> EIC 以蘇格拉底式對話引導使用者：
-      |
-      1. 整體定位 —— "你讀完審查意見後，覺得最意外的是哪一點？"
-      2. 核心問題聚焦 —— "五位審查者中，有三位都提到了 [X]，
-         你認為這個問題的根源是什麼？"
-      3. 修訂策略 —— "如果你只能改三個地方，你會選哪三個？為什麼？"
-      4. 反論回應 —— "魔鬼代言人提出的最強反論是 [Y]，
-         你打算怎麼在論文中回應這個挑戰？"
-      5. 實作規劃 —— "我們來排一下修訂的優先順序：
-         哪些要大改、哪些要補充、哪些只需微調？"
-  |
-  +-> 對話結束後產出：
-      - 使用者自己歸納的修訂策略（而非被動接受）
-      - 重新排序的 Revision Roadmap
-      - 進入 Stage 4 (REVISE)
-```
-
-**引導規則**：
-- 每輪回應 200-400 字，多問少答
-- 先肯定論文做得好的部分（建立信心）
-- 引導使用者自己理解問題，而非告訴他該怎麼改
-- 如果使用者說「直接幫我改」，尊重選擇，跳過引導直接進 Stage 4
-- 引導對話最多 8 輪，之後自動彙整並進入 Stage 4
+EIC 以蘇格拉底式對話引導使用者理解審查意見並規劃修訂策略（最多 8 輪）。使用者可說「直接幫我改」跳過。
 
 ### Stage 3'：第二次審查（Verification Review）
 
-**審查重點**：
-1. **修訂回應檢核**：逐項確認 Stage 3 的 Revision Roadmap 是否已回應
-   - Priority 1 items：必須全部回應
-   - Priority 2 items：至少 80% 回應
-   - Priority 3 items：盡力回應
-2. **修訂品質評估**：修訂的內容是否真正解決了問題（非敷衍）
-3. **新問題偵測**：修訂過程中是否引入新的問題
-4. **殘留問題評估**：未回應的 items 是否可接受為 Acknowledged Limitations
-5. **Revision Coaching → 蘇格拉底式引導使用者理解驗收結果（如需再修訂）**
+- **輸入**：修訂稿 + Response to Reviewers + 原始 Revision Roadmap
+- **模式**：`academic-paper-reviewer` re-review mode
+- **產出**：修訂回應對照表 + 新問題清單 + 新 Editorial Decision
+- **Decision 分支**：Accept|Minor → Stage 4.5 / Major → Residual Coaching → Stage 4'
 
-**產出**：
-- 修訂回應對照表（每個 item 的回應狀態 + 品質評估）
-- 新問題清單（如有）
-- 新的 Editorial Decision（Accept / Minor / Major）
-- **如需再修訂：1 次 Socratic Revision Coaching（聚焦殘留問題）**
+驗收審查流程見 `academic-paper-reviewer/SKILL.md` Re-Review Mode。
 
-### Stage 3' → 4' 轉場：蘇格拉底式殘留問題引導
+### Stage 3' → 4' 轉場：Residual Coaching
 
-**目的**：如果 Stage 3' 判 Major，使用者需要理解哪些問題仍未解決、為什麼第一次修訂不夠、以及如何在最後一次修訂中有效處理。
-
-**引導流程**：
-```
-Phase 2.5: RESIDUAL COACHING（驗收審查完成後、最終修訂前）
-  |
-  +-> EIC 以蘇格拉底式對話引導使用者：
-      |
-      1. 差距分析 —— "第一輪修訂解決了 [X] 個問題中的 [Y] 個，
-         你覺得剩下的問題為什麼比較難處理？"
-      2. 根因診斷 —— "審查者說 [Z] 仍然不夠充分，
-         你認為是證據不足、論述不清、還是結構問題？"
-      3. 取捨決策 —— "這是最後一次修訂機會。
-         有些問題可能無法完全解決，你覺得哪些可以標記為研究限制？"
-      4. 行動計畫 —— "讓我們為每個殘留問題規劃一個具體的修改方案。"
-  |
-  +-> 對話結束後產出：
-      - 使用者自己的取捨決策
-      - 聚焦的修訂計畫
-      - 進入 Stage 4' (RE-REVISE)
-```
-
-**引導規則**：
-- 同 Stage 3→4 的引導規則
-- 額外：幫助使用者接受某些問題可能只能標記為 Acknowledged Limitations
-- 如果使用者說「直接改」，尊重選擇，跳過引導直接進 Stage 4'
-- 引導對話最多 5 輪（第二輪應比第一輪簡短）
+EIC 引導使用者理解殘留問題並取捨（最多 5 輪）。使用者可說「直接改」跳過。
 
 ---
 
@@ -485,6 +347,7 @@ Phase 2.5: RESIDUAL COACHING（驗收審查完成後、最終修訂前）
 
 - Stage 3 (首次審查) → Stage 4 (修訂) → Stage 3' (驗收審查) → Stage 4' (再修訂，如需要) → Stage 4.5 (最終驗證)
 - **最多 1 輪 RE-REVISE**（Stage 4'）：如果 Stage 3' 判 Major，進入 Stage 4' 修訂後直接進 Stage 4.5（不再回到審查）
+- **Pipeline 下覆蓋 academic-paper 的 max 2 revision 規則**：Pipeline 中修訂只有 Stage 4 + Stage 4'（各一輪），取代 academic-paper 的 max 2 rounds 規則
 - 將未解決問題標記為 Acknowledged Limitations
 - 提供累計的 revision history（每輪的 decision、處理項目數、未處理項目）
 
@@ -605,9 +468,7 @@ Integrity Summary:
 
 ## Output Language
 
-- 跟隨使用者語言（中文輸入用中文回應，英文輸入用英文回應）
-- Pipeline Status Dashboard 固定使用使用者語言
-- 學術術語保留英文（如 IMRaD, APA 7.0, peer review 等）
+跟隨使用者語言。學術術語保留英文。
 
 ---
 

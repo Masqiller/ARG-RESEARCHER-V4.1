@@ -51,12 +51,9 @@ Research the impact of AI on higher education quality assurance
 
 | Scenario | Use Instead |
 |----------|-------------|
-| Taiwan university data query | `tw-hei-intelligence` |
-| Single institution analysis | `tw-hei-analysis` |
-| Multi-school comparison | `hei-agent-team` |
-| International partner intel | `hei-international-partners` |
 | Writing a paper (not researching) | `academic-paper` |
 | Reviewing a paper (structured review) | `academic-paper-reviewer` |
+| Full research-to-paper pipeline | `academic-pipeline` |
 
 ---
 
@@ -293,20 +290,6 @@ User: "引導我研究 [topic]" / "Guide my research on [topic]"
 | `fact-check` | Source Verification only | Verification report | 300-800 |
 | `socratic` | Socratic Mentor + RQ + Devil's Advocate | Research Plan Summary (INSIGHT collection) | N/A (iterative) |
 
-### Mode Selection
-
-```
-"Research AI in QA"                -> full (default)
-"Quick research on blockchain"     -> quick
-"Review this paper"                -> review
-"Literature review on SDGs"        -> lit-review
-"Fact-check these claims"          -> fact-check
-"引導我研究高教品保"              -> socratic
-"Guide my research"                -> socratic
-"幫我想清楚論文方向"              -> socratic
-"Help me think through my topic"   -> socratic
-```
-
 ---
 
 ## Failure Paths
@@ -351,21 +334,7 @@ User: "引導我研究 [topic]" / "Guide my research on [topic]"
 
 ## Full Academic Pipeline
 
-```
-deep-research (socratic/full)
-  --> academic-paper (plan/full)
-        --> academic-paper-reviewer (full/guided)
-              --> academic-paper (revision)
-                    --> [重複 review-revision 直到通過]
-```
-
-| Pipeline 階段 | Skill | 主要產出 |
-|--------------|-------|---------|
-| 1. 研究探索 | deep-research (socratic) | Research Plan Summary |
-| 2. 研究執行 | deep-research (full) | APA 7.0 Research Report |
-| 3. 論文撰寫 | academic-paper (full) | 學術論文草稿 |
-| 4. 論文審查 | academic-paper-reviewer | 結構化審稿意見 |
-| 5. 論文修訂 | academic-paper (revision) | 修訂版論文 |
+完整流程見 `academic-pipeline/SKILL.md`。
 
 ---
 
@@ -428,9 +397,7 @@ deep-research (socratic/full)
 
 ## Output Language
 
-Default: matches user's input language. If user writes in 繁體中文, output in 繁體中文. If in English, output in English. User can override explicitly.
-
-Socratic mode 特別注意：對話語氣自然，術語保留英文（如 research question、methodology、FINER），中英混用時 Mentor 也中英混用。
+跟隨使用者語言。學術術語保留英文。Socratic mode 中英混用自然對話。
 
 ---
 

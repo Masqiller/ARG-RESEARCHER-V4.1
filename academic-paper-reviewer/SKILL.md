@@ -49,8 +49,6 @@ Review this paper: [貼上論文或提供檔案]
 |------|---------------|
 | 需要撰寫論文（不是審查） | `academic-paper` |
 | 需要深度調查研究主題 | `deep-research` |
-| 查詢台灣高教數據 | `tw-hei-intelligence` |
-| 分析特定大學 | `tw-hei-analysis` |
 | 需要修改論文（已有審查意見） | `academic-paper` (revision mode) |
 
 ---
@@ -321,117 +319,22 @@ Phase 2: 不產出完整 Editorial Decision，改為進入對話模式
 
 ## Review Output Format
 
-每位 reviewer 的報告結構（詳見 `templates/peer_review_report_template.md`）：
-
-### 報告結構
-
-```markdown
-## Reviewer [#] Report: [Reviewer 身份描述]
-
-### Overall Recommendation
-[Accept / Minor Revision / Major Revision / Reject]
-
-### Confidence Score
-[1-5] — [信心等級說明]
-
-### Summary Assessment
-[100-200 字的整體評估]
-
-### Strengths (3-5 項)
-1. [S1: 具體優點，引用論文段落]
-2. [S2: ...]
-...
-
-### Weaknesses (3-5 項)
-1. [W1: 具體弱點，說明為何是問題，建議如何改善]
-2. [W2: ...]
-...
-
-### Detailed Comments（按章節）
-#### Introduction
-- [具體評論，引用頁碼/段落]
-#### Literature Review
-- [...]
-#### Methodology
-- [...]
-#### Results
-- [...]
-#### Discussion
-- [...]
-#### Conclusion
-- [...]
-
-### Questions for Authors (2-4 題)
-1. [需要作者回應的問題]
-...
-
-### Minor Issues
-- [文字、格式、引用等小問題清單]
-```
+每位 reviewer 的報告結構詳見 `templates/peer_review_report_template.md`。
 
 ### Devil's Advocate 報告結構（特殊格式）
 
-```markdown
-## Devil's Advocate Review
-
-### 最強反論（Strongest Counter-Argument）
-[200-300 字]
-
-### 問題清單
-#### CRITICAL
-| # | 維度 | 問題描述 | 位置 |
-#### MAJOR
-| # | 維度 | 問題描述 | 位置 |
-#### MINOR
-| # | 維度 | 問題描述 | 位置 |
-
-### 被忽略的替代解釋/路徑
-### 缺失的利害關係人觀點
-### 觀察（非缺陷）
-```
+Devil's Advocate 使用專用格式，而非一般 reviewer 模板：
+- **最強反論**（200-300 字）
+- **問題清單**（分 CRITICAL / MAJOR / MINOR，含維度和位置）
+- **被忽略的替代解釋/路徑**
+- **缺失的利害關係人觀點**
+- **觀察（非缺陷）**
 
 ---
 
 ## Editorial Decision Format
 
-Editorial Decision Letter 結構（詳見 `templates/editorial_decision_template.md`）：
-
-```markdown
-# Editorial Decision
-
-## Decision
-[Accept / Minor Revision / Major Revision / Reject]
-
-## Consensus Analysis
-- Reviewers in agreement: [列出]
-- Points of disagreement: [列出，含各方論點]
-- Devil's Advocate challenges: [特別列出 CRITICAL/MAJOR 問題]
-- Editor's resolution: [對分歧的仲裁]
-
-## Decision Rationale
-[基於 reviewer 意見的決定理由，200-300 字]
-
-## Required Revisions（必須修改，編號）
-1. [R1: 來源 reviewer + 修改要求 + 優先順序]
-2. [R2: ...]
-...
-
-## Suggested Revisions（建議修改，編號）
-1. [S1: 來源 reviewer + 建議 + 預期效果]
-2. [S2: ...]
-...
-
-## Revision Roadmap
-### Priority 1 — 結構性修改（估計工時）
-- [ ] [任務描述]
-### Priority 2 — 內容補充（估計工時）
-- [ ] [任務描述]
-### Priority 3 — 文字與格式（估計工時）
-- [ ] [任務描述]
-
-## Revision Deadline
-[建議修改期限：Minor 2-4 週 / Major 6-8 週]
-```
+Editorial Decision Letter 結構詳見 `templates/editorial_decision_template.md`。
 
 ---
 
@@ -532,9 +435,7 @@ Step 9: academic-paper (format-convert) → 最終論文
 
 ## Output Language
 
-- 預設跟隨論文語言（中文論文用中文審，英文論文用英文審）
-- 使用者可覆蓋：「用英文審查這篇中文論文」
-- 學術術語保留英文（如 p-value, effect size, validity 等）
+跟隨論文語言。學術術語保留英文。使用者可覆蓋（如「用英文審查中文論文」）。
 
 ---
 

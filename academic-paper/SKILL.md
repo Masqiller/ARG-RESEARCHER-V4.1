@@ -45,9 +45,8 @@ Write a paper on the impact of AI on higher education quality assurance
 | Scenario | Use Instead |
 |----------|-------------|
 | Deep research / fact-checking (not paper writing) | `deep-research` |
-| Taiwan university data query | `tw-hei-intelligence` |
-| Single institution analysis | `tw-hei-analysis` |
-| Multi-school comparison | `hei-agent-team` |
+| Reviewing a paper (structured review) | `academic-paper-reviewer` |
+| Full research-to-paper pipeline | `academic-pipeline` |
 
 ### Distinction from `deep-research`
 
@@ -162,7 +161,7 @@ User: "Write a paper on [topic]" / "寫一篇關於 [topic] 的論文"
            Argument Coherence (15%) | Writing Quality (15%)
          - Verdict: Accept / Minor Revision / Major Revision / Reject
          - Line-level feedback with suggested fixes
-         - Max 2 revision loops → back to Phase 4 [draft_writer_agent]
+         - Max 2 revision loops → back to Phase 4 [draft_writer_agent]（在 academic-pipeline 中限縮為 1 輪）
      |
 === Phase 7: FORMAT ===
      |
@@ -185,6 +184,8 @@ User: "Write a paper on [topic]" / "寫一篇關於 [topic] 的論文"
 ---
 
 ## Operational Modes (8 Modes)
+
+詳見 `references/mode_selection_guide.md`。
 
 | Mode | Trigger | Agents | Output |
 |------|---------|--------|--------|
@@ -211,25 +212,6 @@ User: "Write a paper on [topic]" / "寫一篇關於 [topic] 的論文"
 "一步一步寫" / "help me plan my paper"   -> plan
 ```
 
-### Mode Selection Guide
-
-詳見 `references/mode_selection_guide.md`。快速流程圖：
-
-```
-用戶輸入 →
-├── 已有完整研究？
-│   ├── Yes → 要完整論文？
-│   │   ├── Yes → full mode
-│   │   └── No → 只要大綱？ → outline-only mode
-│   └── No → 想被引導？
-│       ├── Yes → plan mode
-│       └── No → full mode（Phase 0 會訪談）
-├── 已有論文要修訂？ → revision mode
-├── 只要摘要？ → abstract-only mode
-├── 只要文獻回顧？ → lit-review mode
-├── 要轉換格式？ → format-convert mode
-└── 要檢查引用？ → citation-check mode
-```
 
 ---
 
@@ -312,21 +294,7 @@ Output: Chapter Plan + INSIGHT Collection
 
 ## Handoff Protocol: deep-research → academic-paper
 
-當偵測到來自 deep-research 的材料時：
-1. `intake_agent` 自動辨識已有材料
-2. 跳過冗餘的 Phase 0 問題（RQ、method 已確定）
-3. 自動匯入 Bibliography 到 Phase 1
-4. 自動匯入 Synthesis 到 Phase 3
-
-### 接受的材料格式
-
-| 材料 | 來源 | 匯入到 |
-|------|------|--------|
-| Research Question Brief | deep-research Phase 0 | Phase 0（自動填入 RQ） |
-| Methodology Blueprint | deep-research Phase 0 | Phase 0（自動填入 Method） |
-| Annotated Bibliography（APA 7.0） | deep-research Phase 1-2 | Phase 1（literature_strategist） |
-| Synthesis Report | deep-research Phase 3 | Phase 3（argument_builder） |
-| INSIGHT Collection | deep-research socratic mode | Plan mode Step 1（thesis crystallization） |
+`intake_agent` 自動偵測 deep-research 材料（RQ Brief / Bibliography / Synthesis / INSIGHT Collection），跳過冗餘步驟。完整 handoff 材料格式見 `deep-research/SKILL.md` Handoff Protocol。
 
 ---
 
@@ -349,70 +317,13 @@ Output: Chapter Plan + INSIGHT Collection
 
 ## Full Academic Pipeline
 
-```
-deep-research (socratic/full)
-  → academic-paper (plan/full)
-    → academic-paper-reviewer (full/guided)
-      → academic-paper (revision)
-```
-
-完整路徑說明：
-1. `deep-research`：上游研究引擎——調查、文獻搜尋、事實查核、綜合分析
-2. `academic-paper`：下游出版引擎——論文規劃、撰寫、引用、格式化
-3. `academic-paper-reviewer`：品質守門——同儕審查、修訂建議
-4. 回到 `academic-paper (revision)`：根據審查意見修訂
+完整流程見 `academic-pipeline/SKILL.md`。
 
 ---
 
 ## Phase 0: Configuration Interview
 
-When activated, `intake_agent` collects the following (showing defaults):
-
-### 1. Paper Type
-| Type | Structure | Typical Word Count |
-|------|-----------|-------------------|
-| IMRaD | Intro → Method → Results → Discussion | 5,000-8,000 |
-| Literature Review | Intro → Thematic Sections → Synthesis → Gaps | 6,000-10,000 |
-| Theoretical | Intro → Framework → Analysis → Implications | 5,000-8,000 |
-| Case Study | Intro → Context → Analysis → Discussion | 4,000-7,000 |
-| Policy Brief | Executive Summary → Background → Analysis → Recommendations | 2,000-4,000 |
-| Conference Paper | Extended Abstract or Short Paper | 2,000-5,000 |
-
-### 2. Discipline
-Education, Computer Science, Engineering, Medicine, Humanities, Social Science, Business, Law, Natural Sciences, Arts, or custom.
-
-### 3. Target Journal (Optional)
-If specified, `formatter_agent` will apply journal-specific formatting rules.
-
-### 4. Citation Format
-| Format | Default For |
-|--------|------------|
-| APA 7th (default) | Education, Psychology, Social Sciences |
-| Chicago 17th | History, Humanities |
-| MLA 9th | Literature, Languages |
-| IEEE | Engineering, Computer Science |
-| Vancouver | Medicine, Biomedical |
-
-### 5. Output Format
-LaTeX (.tex + .bib) / DOCX / PDF / Markdown / Combined (all formats)
-
-### 6. Language
-EN / zh-TW / Bilingual (section-specific, e.g., zh-TW body + EN abstract)
-
-### 7. Bilingual Abstract
-Yes (default: zh-TW + EN with 5-7 keywords each) / EN only / zh-TW only
-
-### 8. Word Count Target
-Auto-suggested based on paper type; user can override.
-
-### 9. Existing Materials
-- Research question or thesis statement
-- Literature / annotated bibliography
-- Data / results
-- Existing draft sections
-- Reviewer feedback (for revision mode)
-
-→ Produces **Paper Configuration Record** → waits for user confirmation
+Phase 0 組態訪談的完整欄位定義見 `agents/intake_agent.md`。訪談涵蓋：論文類型、學科、目標期刊、引用格式、輸出格式、語言、摘要、字數、既有材料共 9 項。產出 Paper Configuration Record，等待使用者確認。
 
 ---
 
@@ -516,7 +427,7 @@ Also references from `deep-research`:
 
 ## Output Language
 
-Default: matches user's input language. If user writes in 繁體中文, paper body defaults to 繁體中文. If in English, defaults to English. User can override via Phase 0 configuration. Bilingual abstract is always offered regardless of body language.
+跟隨使用者語言。學術術語保留英文。雙語摘要不受主文語言影響，一律提供。
 
 ---
 
@@ -530,11 +441,3 @@ academic-paper + notebooklm-slides-generator -> Presentation slides from paper
 academic-paper + academic-paper-reviewer -> Peer review → revision loop
 ```
 
-### Full Academic Pipeline (Recommended)
-
-```
-deep-research (socratic/full)
-  → academic-paper (plan/full)
-    → academic-paper-reviewer (full/guided)
-      → academic-paper (revision)
-```
