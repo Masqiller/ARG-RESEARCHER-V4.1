@@ -1,6 +1,6 @@
 # Academic Research Skills for Claude Code
 
-一套完整的學術研究 Claude Code 技能包，涵蓋從研究到論文出版的全流程。
+[繁體中文版](README.zh-TW.md)
 
 A comprehensive suite of Claude Code skills for academic research, covering the full pipeline from research to publication.
 
@@ -13,14 +13,14 @@ A comprehensive suite of Claude Code skills for academic research, covering the 
 - **Academic Paper Reviewer** — Multi-perspective peer review (EIC + 3 dynamic reviewers + Devil's Advocate)
 - **Academic Pipeline** — Full 9-stage pipeline orchestrator with integrity verification and Socratic revision coaching
 
-### Full Pipeline (v2.0)
+### Full Pipeline
 
 ```
 Research → Write → Integrity Check → Review (5-person) → Socratic Coaching
   → Revise → Re-Review → Re-Revise → Final Integrity Check → Finalize
 ```
 
-**v2.0 Key Improvements:**
+**Key Features:**
 1. Mandatory user confirmation checkpoint after every stage
 2. Pre-review integrity verification — 100% reference & data validation
 3. Two-stage review with Devil's Advocate
@@ -105,39 +105,39 @@ claude
 
 ### Method 3: Upload to claude.ai
 
-claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude Code。
+You can load these skills via claude.ai's Project feature without installing Claude Code.
 
-**步驟：**
+**Steps:**
 
-1. 從這個 repo 下載所有 `SKILL.md` 檔案（共 4 個）：
+1. Download all 4 `SKILL.md` files from this repo:
    - `deep-research/SKILL.md`
    - `academic-paper/SKILL.md`
    - `academic-paper-reviewer/SKILL.md`
    - `academic-pipeline/SKILL.md`
 
-2. 登入 [claude.ai](https://claude.ai)
+2. Sign in to [claude.ai](https://claude.ai)
 
-3. 建立新 Project：
-   - 點擊左側欄 **Projects** → **Create Project**
-   - 命名為「Academic Research」（或任意名稱）
+3. Create a new Project:
+   - Click **Projects** → **Create Project** in the sidebar
+   - Name it "Academic Research" (or any name you prefer)
 
-4. 上傳 SKILL.md 檔案：
-   - 進入 Project → 點擊 **Project Knowledge**（右側面板）
-   - 點擊 **Add Content** → **Upload Files**
-   - 上傳 4 個 `SKILL.md` 檔案
+4. Upload SKILL.md files:
+   - Open the Project → click **Project Knowledge** (right panel)
+   - Click **Add Content** → **Upload Files**
+   - Upload all 4 `SKILL.md` files
 
-5. （選用）上傳 reference 和 template 檔案以獲得更好效果：
-   - `deep-research/references/` 下的檔案（APA 指南、方法論模板等）
-   - `academic-paper/references/` 下的檔案（引用格式、寫作風格等）
-   - `academic-paper/templates/` 下的檔案（論文結構模板）
+5. (Optional) Upload reference and template files for better results:
+   - Files under `deep-research/references/` (APA guide, methodology templates, etc.)
+   - Files under `academic-paper/references/` (citation formats, writing style, etc.)
+   - Files under `academic-paper/templates/` (paper structure templates)
 
-6. 開始對話：在 Project 中開啟新對話，直接說「引導我研究 X」或「幫我寫論文」
+6. Start chatting: Open a new conversation in the Project and say "Guide my research on X" or "Help me write a paper"
 
-**claude.ai 限制：**
-- Project Knowledge 檔案大小上限為每個檔案 200KB
-- SKILL.md 的 YAML frontmatter 中 `version` 和 `last_updated` 必須在 `metadata:` 下，否則上傳會失敗
-- claude.ai 不支援多 agent 平行執行，效果不如 Claude Code 完整
-- 建議至少上傳 4 個 SKILL.md + 核心 references，以獲得最佳效果
+**claude.ai Limitations:**
+- Project Knowledge file size limit: 200KB per file
+- `version` and `last_updated` in SKILL.md YAML frontmatter must be under `metadata:`, otherwise upload will fail
+- claude.ai does not support parallel multi-agent execution; results may not be as comprehensive as Claude Code
+- Recommended: upload at least 4 SKILL.md files + core references for best results
 
 ---
 
@@ -147,19 +147,19 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 ```
 # Start a full research pipeline
-You: "我想做一篇關於 AI 對高教品保影響的研究論文"
+You: "I want to write a research paper on AI's impact on higher education QA"
 
 # Start with Socratic guidance
-You: "引導我研究 AI 在教育評鑑中的應用"
+You: "Guide my research on AI in educational evaluation"
 
 # Write a paper with guided planning
-You: "引導我寫一篇關於少子化影響的論文"
+You: "Guide me through writing a paper on demographic decline"
 
 # Review an existing paper
-You: "幫我審查這篇論文" (then provide the paper)
+You: "Review this paper" (then provide the paper)
 
 # Check pipeline status
-You: "進度" or "status"
+You: "status"
 ```
 
 ### Individual Skills
@@ -167,39 +167,39 @@ You: "進度" or "status"
 #### Deep Research
 ```
 "Research the impact of AI on higher education" → full mode
-"引導我研究 X" → socratic mode (guided)
-"幫我查核這些說法" → fact-check mode
-"幫我做文獻回顧" → lit-review mode
+"Guide my research on X" → socratic mode (guided)
+"Fact-check these claims" → fact-check mode
+"Do a literature review on X" → lit-review mode
 ```
 
 #### Academic Paper
 ```
-"幫我寫一篇論文" → full mode
-"引導我寫論文" → plan mode (guided)
-"幫我轉換格式成 LaTeX" → format-convert mode
-"檢查引用格式" → citation-check mode
+"Write a paper on X" → full mode
+"Guide me through writing a paper" → plan mode (guided)
+"Convert to LaTeX" → format-convert mode
+"Check citations" → citation-check mode
 ```
 
 #### Academic Paper Reviewer
 ```
-"審查這篇論文" → full mode (EIC + R1/R2/R3 + Devil's Advocate)
-"引導我改進這篇論文" → guided mode
-"檢查研究方法" → methodology-focus mode
-"驗收修訂" → re-review mode
+"Review this paper" → full mode (EIC + R1/R2/R3 + Devil's Advocate)
+"Guide me to improve this paper" → guided mode
+"Check the methodology" → methodology-focus mode
+"Verify the revisions" → re-review mode
 ```
 
 #### Academic Pipeline (Orchestrator)
 ```
-"我想做一篇完整的研究論文" → full pipeline from Stage 1
-"我已經有論文，幫我審查" → mid-entry at Stage 2.5 (integrity first)
-"我收到審稿意見了" → mid-entry at Stage 4
+"I want to write a complete research paper" → full pipeline from Stage 1
+"I already have a paper, review it" → mid-entry at Stage 2.5 (integrity first)
+"I received reviewer comments" → mid-entry at Stage 4
 ```
 
 ### Supported Languages
 
 - **Traditional Chinese** (繁體中文) — default when user writes in Chinese
 - **English** — default when user writes in English
-- Bilingual abstracts (中文 + English) for academic papers
+- Bilingual abstracts (Chinese + English) for academic papers
 
 ### Supported Citation Formats
 
@@ -237,7 +237,7 @@ You: "進度" or "status"
 | Editor-in-Chief | Q1 journal editorial review |
 | Devil's Advocate | Assumption challenging (3 checkpoints) |
 | Ethics Review Agent | AI disclosure, attribution integrity |
-| **Socratic Mentor** | **Guided research dialogue (new in v2.0)** |
+| Socratic Mentor | Guided research dialogue |
 
 ### Academic Paper (v2.2)
 
@@ -251,10 +251,10 @@ You: "進度" or "status"
 | Argument Builder | Thesis + claim-evidence chains |
 | Draft Writer | Section-by-section writing |
 | Citation Compliance | Multi-format citation audit |
-| Abstract Bilingual | EN + 中文 abstracts |
+| Abstract Bilingual | EN + Chinese abstracts |
 | Peer Reviewer | 5-dimension review (max 2 rounds) |
 | Formatter | LaTeX/DOCX/PDF output |
-| **Socratic Mentor** | **Chapter-by-chapter guided planning (new in v2.0)** |
+| Socratic Mentor | Chapter-by-chapter guided planning |
 
 ### Academic Paper Reviewer (v1.3)
 
@@ -267,7 +267,7 @@ You: "進度" or "status"
 | Methodology Reviewer | Research design, statistics, reproducibility |
 | Domain Reviewer | Literature coverage, theoretical framework |
 | Perspective Reviewer | Cross-disciplinary, practical impact |
-| **Devil's Advocate Reviewer** | **Core thesis challenge, logical fallacy detection, strongest counter-argument (new in v1.1)** |
+| Devil's Advocate Reviewer | Core thesis challenge, logical fallacy detection, strongest counter-argument |
 | Editorial Synthesizer | Consensus analysis, revision roadmap |
 
 **Modes:** full, re-review (verification), quick, methodology-focus, guided

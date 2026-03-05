@@ -1,0 +1,352 @@
+# Academic Research Skills for Claude Code
+
+[English](README.md)
+
+一套完整的學術研究 Claude Code 技能包，涵蓋從研究到論文出版的全流程。
+
+---
+
+## 功能特色
+
+- **Deep Research** — 10 個 Agent 組成的研究團隊，支援蘇格拉底引導模式
+- **Academic Paper** — 10 個 Agent 的論文撰寫團隊，支援逐章規劃
+- **Academic Paper Reviewer** — 多視角同儕審查（主編 + 3 位動態審查者 + 魔鬼代言人）
+- **Academic Pipeline** — 9 階段全流程調度器，含誠信驗證與蘇格拉底修訂指導
+
+### 完整 Pipeline
+
+```
+研究 → 撰寫 → 誠信審查 → 審稿（5人）→ 蘇格拉底指導
+  → 修訂 → 再審 → 再修訂 → 最終誠信審查 → 定稿
+```
+
+**核心特點：**
+1. 每個階段都需使用者確認 checkpoint
+2. 審稿前誠信驗證 — 100% 引用與數據驗證
+3. 兩階段審查，含魔鬼代言人
+4. 審稿與修訂之間的蘇格拉底修訂指導
+5. 出版前最終誠信驗證
+6. 輸出格式：MD + DOCX → 詢問 LaTeX → 確認 → PDF
+
+---
+
+## 前置需求
+
+### 安裝 Node.js
+
+Claude Code 需要 Node.js 18+。
+
+```bash
+# macOS（使用 Homebrew）
+brew install node
+
+# Windows（使用 winget）
+winget install OpenJS.NodeJS.LTS
+
+# Linux（使用 nvm）
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+nvm install --lts
+```
+
+### 安裝 Claude Code
+
+```bash
+npm install -g @anthropic-ai/claude-code
+```
+
+### 設定 API Key
+
+你需要一個 Anthropic API key，請至 https://console.anthropic.com/ 取得。
+
+```bash
+# Claude Code 首次執行時會提示輸入 API key
+claude
+```
+
+或設定環境變數：
+
+```bash
+export ANTHROPIC_API_KEY=sk-ant-xxxxx
+```
+
+---
+
+## 安裝方式
+
+### 方法一：作為專案 Skills（推薦）
+
+將此 repo clone 到專案的 `.claude/skills/` 目錄：
+
+```bash
+# 切換到你的專案根目錄
+cd /path/to/your/project
+
+# 建立 skills 目錄（若不存在）
+mkdir -p .claude/skills
+
+# Clone skills
+git clone https://github.com/Imbad0202/academic-research-skills.git .claude/skills/academic-research-skills
+```
+
+接著將 `.claude/CLAUDE.md` 的內容複製到你專案的 `.claude/CLAUDE.md`（若已有則合併）。
+
+### 方法二：作為獨立專案
+
+```bash
+# Clone repo
+git clone https://github.com/Imbad0202/academic-research-skills.git
+
+# 進入專案
+cd academic-research-skills
+
+# 啟動 Claude Code
+claude
+```
+
+### 方法三：上傳至 claude.ai
+
+claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude Code。
+
+**步驟：**
+
+1. 從這個 repo 下載所有 `SKILL.md` 檔案（共 4 個）：
+   - `deep-research/SKILL.md`
+   - `academic-paper/SKILL.md`
+   - `academic-paper-reviewer/SKILL.md`
+   - `academic-pipeline/SKILL.md`
+
+2. 登入 [claude.ai](https://claude.ai)
+
+3. 建立新 Project：
+   - 點擊左側欄 **Projects** → **Create Project**
+   - 命名為「Academic Research」（或任意名稱）
+
+4. 上傳 SKILL.md 檔案：
+   - 進入 Project → 點擊 **Project Knowledge**（右側面板）
+   - 點擊 **Add Content** → **Upload Files**
+   - 上傳 4 個 `SKILL.md` 檔案
+
+5. （選用）上傳 reference 和 template 檔案以獲得更好效果：
+   - `deep-research/references/` 下的檔案（APA 指南、方法論模板等）
+   - `academic-paper/references/` 下的檔案（引用格式、寫作風格等）
+   - `academic-paper/templates/` 下的檔案（論文結構模板）
+
+6. 開始對話：在 Project 中開啟新對話，直接說「引導我研究 X」或「幫我寫論文」
+
+**claude.ai 限制：**
+- Project Knowledge 檔案大小上限為每個檔案 200KB
+- SKILL.md 的 YAML frontmatter 中 `version` 和 `last_updated` 必須在 `metadata:` 下，否則上傳會失敗
+- claude.ai 不支援多 agent 平行執行，效果不如 Claude Code 完整
+- 建議至少上傳 4 個 SKILL.md + 核心 references，以獲得最佳效果
+
+---
+
+## 使用方式
+
+### 快速開始
+
+```
+# 啟動完整研究 pipeline
+你: "我想做一篇關於 AI 對高教品保影響的研究論文"
+
+# 蘇格拉底引導模式
+你: "引導我研究 AI 在教育評鑑中的應用"
+
+# 引導式論文撰寫
+你: "引導我寫一篇關於少子化影響的論文"
+
+# 審查現有論文
+你: "幫我審查這篇論文"（接著提供論文）
+
+# 查看 pipeline 進度
+你: "進度" 或 "status"
+```
+
+### 個別 Skill 使用
+
+#### Deep Research（深度研究）
+```
+"研究 AI 對高等教育的影響" → full mode（完整研究）
+"引導我研究 X" → socratic mode（蘇格拉底引導）
+"幫我查核這些說法" → fact-check mode（事實查核）
+"幫我做文獻回顧" → lit-review mode（文獻回顧）
+```
+
+#### Academic Paper（學術論文撰寫）
+```
+"幫我寫一篇論文" → full mode（完整撰寫）
+"引導我寫論文" → plan mode（引導規劃）
+"幫我轉換格式成 LaTeX" → format-convert mode（格式轉換）
+"檢查引用格式" → citation-check mode（引用檢查）
+```
+
+#### Academic Paper Reviewer（論文審查）
+```
+"審查這篇論文" → full mode（主編 + R1/R2/R3 + 魔鬼代言人）
+"引導我改進這篇論文" → guided mode（引導改進）
+"檢查研究方法" → methodology-focus mode（方法論聚焦）
+"驗收修訂" → re-review mode（再審驗收）
+```
+
+#### Academic Pipeline（全流程調度器）
+```
+"我想做一篇完整的研究論文" → 從 Stage 1 開始完整 pipeline
+"我已經有論文，幫我審查" → 從 Stage 2.5 進入（先做誠信審查）
+"我收到審稿意見了" → 從 Stage 4 進入
+```
+
+### 支援語言
+
+- **繁體中文** — 使用者以中文對話時預設使用
+- **English** — 使用者以英文對話時預設使用
+- 學術論文自動產出雙語摘要（中文 + English）
+
+### 支援引用格式
+
+- APA 7.0（預設，含中文引用規則）
+- Chicago（Notes & Author-Date）
+- MLA
+- IEEE
+- Vancouver
+
+### 支援論文結構
+
+- IMRaD（實證研究）
+- 主題式文獻回顧
+- 理論分析
+- 個案研究
+- 政策簡報
+- 研討會論文
+
+---
+
+## Skill 詳細資訊
+
+### Deep Research (v2.2)
+
+10 個 Agent 的嚴謹學術研究 pipeline：
+
+| Agent | 角色 |
+|-------|------|
+| Research Question Agent | FINER 評分的研究問題制定 |
+| Research Architect | 研究方法設計 |
+| Bibliography Agent | 系統性文獻搜尋 |
+| Source Verification Agent | 證據分級、掠奪性期刊偵測 |
+| Synthesis Agent | 跨來源整合 |
+| Report Compiler | APA 7.0 報告撰寫 |
+| Editor-in-Chief | Q1 期刊主編審查 |
+| Devil's Advocate | 假設挑戰（3 個檢查點） |
+| Ethics Review Agent | AI 揭露、引用誠信 |
+| Socratic Mentor | 蘇格拉底引導式研究對話 |
+
+### Academic Paper (v2.2)
+
+10 個 Agent 的學術論文撰寫 pipeline：
+
+| Agent | 角色 |
+|-------|------|
+| Intake Agent | 組態訪談 + 上游銜接偵測 |
+| Literature Strategist | 搜尋策略 + 注釋書目 |
+| Structure Architect | 論文大綱 + 字數分配 |
+| Argument Builder | 論點 + 主張-證據鏈 |
+| Draft Writer | 逐章撰寫 |
+| Citation Compliance | 多格式引用審核 |
+| Abstract Bilingual | 中英雙語摘要 |
+| Peer Reviewer | 5 維度審查（最多 2 輪） |
+| Formatter | LaTeX/DOCX/PDF 輸出 |
+| Socratic Mentor | 逐章引導規劃 |
+
+### Academic Paper Reviewer (v1.3)
+
+7 個 Agent 的多視角審查：
+
+| Agent | 角色 |
+|-------|------|
+| Field Analyst | 辨識領域、配置審查者 persona |
+| Editor-in-Chief | 期刊適配性、新穎性、重要性 |
+| Methodology Reviewer | 研究設計、統計、可重現性 |
+| Domain Reviewer | 文獻涵蓋率、理論框架 |
+| Perspective Reviewer | 跨領域觀點、實務影響 |
+| Devil's Advocate Reviewer | 核心論點挑戰、邏輯謬誤偵測、最強反論 |
+| Editorial Synthesizer | 共識分析、修訂路線圖 |
+
+**模式：** full、re-review（驗收）、quick、methodology-focus、guided
+
+### Academic Pipeline (v2.2)
+
+9 階段調度器，含誠信驗證、兩階段審查、蘇格拉底指導：
+
+| 階段 | Skill | 目的 |
+|------|-------|------|
+| 1. 研究 | deep-research | 釐清研究問題、搜尋文獻 |
+| 2. 撰寫 | academic-paper | 撰寫論文初稿 |
+| **2.5. 誠信審查** | **integrity_verification_agent** | **100% 引用與數據驗證** |
+| 3. 審稿 | academic-paper-reviewer | 5 人審查（主編 + R1/R2/R3 + 魔鬼代言人） |
+| → | *蘇格拉底修訂指導* | *引導使用者理解審稿意見* |
+| 4. 修訂 | academic-paper | 回應審稿意見 |
+| 3'. 再審 | academic-paper-reviewer | 驗收修訂內容 |
+| → | *蘇格拉底殘餘指導* | *引導處理剩餘問題（若為 Major）* |
+| 4'. 再修訂 | academic-paper | 最終修訂（若需要） |
+| **4.5. 最終誠信審查** | **integrity_verification_agent** | **100% 最終驗證（零問題要求）** |
+| 5. 定稿 | academic-paper | MD + DOCX → 詢問 LaTeX → 確認 → PDF |
+
+**Pipeline 保證：**
+- 每個階段都需使用者確認 checkpoint
+- 誠信驗證（Stage 2.5 + 4.5）不可跳過
+- 可重現 — 標準化流程，含完整稽核軌跡
+
+---
+
+## 授權條款
+
+本作品採用 [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) 授權。
+
+**你可以自由：**
+- 分享 — 複製及散布本作品
+- 改作 — 重混、轉換、以本作品為基礎進行創作
+
+**惟須遵守以下條件：**
+- **姓名標示** — 你必須給予適當的標示
+- **非商業性** — 你不得將本作品用於商業目的
+
+**標示格式：**
+```
+Based on Academic Research Skills by Cheng-I Wu (HEEACT)
+https://github.com/Imbad0202/academic-research-skills
+```
+
+---
+
+## 作者
+
+**吳政宜** (Cheng-I Wu)
+HEEACT — 高等教育評鑑中心基金會
+
+---
+
+## 更新紀錄
+
+### v2.2 / v1.3 (2025-03-05)
+- **跨 Agent 品質對齊**：統一定義（同儕審查、時效規則、CRITICAL 嚴重度、來源分級）橫跨所有 agent
+- **deep-research v2.2**：synthesis 反模式、蘇格拉底自動結束條件、DOI+WebSearch 驗證、強化倫理誠信審查、模式轉換矩陣
+- **academic-paper v2.2**：4 級論證強度評分、抄襲篩查、2 個新失敗路徑（F11 退稿復活、F12 研討會轉期刊）、Plan→Full 模式轉換
+- **academic-paper-reviewer v1.3**：DA vs R3 角色邊界、CRITICAL 判定標準、共識分類（4/3/SPLIT/DA-CRITICAL）、信心分數加權、亞洲與區域期刊參考
+- **academic-pipeline v2.2**：checkpoint 確認語意、模式切換矩陣、技能失敗降級策略、狀態所有權協議、素材版本控制
+
+### v2.0.1 (2026-03)
+- **精簡 4 個 SKILL.md**（-371 行, -16.5%）：移除跨 skill 重複、內嵌模板改為檔案引用、冗餘路由表、重複模式選擇區塊
+- 修復 academic-paper 與 academic-pipeline 之間修訂迴圈上限的矛盾
+
+### v2.0 (2026-02)
+- **academic-pipeline v2.0**：5→9 階段、強制誠信驗證、兩階段審查、蘇格拉底修訂指導、可重現性保證
+- **academic-paper-reviewer v1.1**：+魔鬼代言人審查者（第 7 agent）、+re-review 模式（驗收）、+審後蘇格拉底指導
+- 新增 agent：`integrity_verification_agent` — 100% 引用/數據驗證，含稽核軌跡
+- 新增 agent：`devils_advocate_reviewer_agent` — 8 維度論點挑戰
+- 輸出順序：MD + DOCX → 詢問 LaTeX → 確認 → PDF
+
+### v1.0 (2026-02)
+- 初版發布
+- deep-research v2.0（10 agents、6 模式含 socratic）
+- academic-paper v2.0（10 agents、8 模式含 plan）
+- academic-paper-reviewer v1.0（6 agents、4 模式含 guided）
+- academic-pipeline v1.0（調度器）
