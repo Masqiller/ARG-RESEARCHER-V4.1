@@ -1,6 +1,6 @@
 # Academic Research Skills Changelog
 
-Cross-skill fixes and update history. Synced from [hei-skills-package](https://github.com/Imbad0202/hei-skills-package).
+Cross-skill fixes and update history.
 
 ---
 
