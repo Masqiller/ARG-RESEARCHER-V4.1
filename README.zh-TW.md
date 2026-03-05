@@ -103,7 +103,36 @@ cd academic-research-skills
 claude
 ```
 
-### 方法三：上傳至 claude.ai
+### 方法三：Claude Cowork（桌面版）
+
+在 [Claude Cowork](https://claude.com/product/cowork) 中使用這些 skills — Claude Desktop 的 AI 自主工作區。
+
+**選項 A：資料夾存取（最快）**
+
+1. 將此 repo clone 到本機：
+   ```bash
+   git clone https://github.com/Imbad0202/academic-research-skills.git ~/academic-research-skills
+   ```
+2. 開啟 Claude Desktop → 點擊上方 **Cowork** 分頁
+3. 選擇 clone 下來的 `academic-research-skills` 資料夾作為工作目錄
+4. Claude 會自動從 `SKILL.md` 偵測並載入 skills
+
+**選項 B：作為專案 Skills**
+
+若你已有 Cowork 專案資料夾：
+```bash
+cd /path/to/your/project
+mkdir -p .claude/skills
+git clone https://github.com/Imbad0202/academic-research-skills.git .claude/skills/academic-research-skills
+```
+
+Skills 會在對話相關時自動載入 — 例如說「幫我寫論文」會觸發 `academic-paper`。
+
+**需求：**
+- Claude Desktop（最新版本）且已啟用 Cowork
+- 付費方案（Pro、Max、Team 或 Enterprise）
+
+### 方法四：上傳至 claude.ai
 
 claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude Code。
 

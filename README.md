@@ -103,7 +103,36 @@ cd academic-research-skills
 claude
 ```
 
-### Method 3: Upload to claude.ai
+### Method 3: Claude Cowork (Desktop)
+
+Use these skills in [Claude Cowork](https://claude.com/product/cowork) — Claude Desktop's agentic workspace for knowledge work.
+
+**Option A: Folder Access (Quickest)**
+
+1. Clone this repo to a local folder:
+   ```bash
+   git clone https://github.com/Imbad0202/academic-research-skills.git ~/academic-research-skills
+   ```
+2. Open Claude Desktop → click **Cowork** tab (top bar)
+3. Select the cloned `academic-research-skills` folder as the working directory
+4. Claude will auto-detect the skills from `SKILL.md` files and load them as needed
+
+**Option B: As Project Skills**
+
+If you already have a project folder in Cowork:
+```bash
+cd /path/to/your/project
+mkdir -p .claude/skills
+git clone https://github.com/Imbad0202/academic-research-skills.git .claude/skills/academic-research-skills
+```
+
+Skills will auto-load when relevant to your conversation — e.g., saying "help me write a paper" triggers `academic-paper`.
+
+**Requirements:**
+- Claude Desktop (latest version) with Cowork enabled
+- Paid plan (Pro, Max, Team, or Enterprise)
+
+### Method 4: Upload to claude.ai
 
 You can load these skills via claude.ai's Project feature without installing Claude Code.
 
