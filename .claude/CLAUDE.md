@@ -56,5 +56,5 @@ Materials: Editorial Decision Letter, Revision Roadmap, Per-reviewer detailed co
 ## Version Info
 - **Version**: 2.0
 - **Last Updated**: 2025-03-05
-- **Author**: Cheng-I Wu (HEEACT)
+- **Author**: Cheng-I Wu
 - **License**: CC-BY-NC 4.0

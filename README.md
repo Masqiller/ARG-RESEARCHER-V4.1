@@ -367,7 +367,7 @@ This work is licensed under [CC-BY-NC 4.0](https://creativecommons.org/licenses/
 
 **Attribution format:**
 ```
-Based on Academic Research Skills by Cheng-I Wu (HEEACT)
+Based on Academic Research Skills by Cheng-I Wu
 https://github.com/Imbad0202/academic-research-skills
 ```
 
@@ -376,7 +376,6 @@ https://github.com/Imbad0202/academic-research-skills
 ## Author
 
 **Cheng-I Wu** (吳政宜)
-HEEACT — Higher Education Evaluation and Accreditation Council of Taiwan
 
 ---
 

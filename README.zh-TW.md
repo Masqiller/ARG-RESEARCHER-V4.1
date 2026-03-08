@@ -366,7 +366,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 **標示格式：**
 ```
-Based on Academic Research Skills by Cheng-I Wu (HEEACT)
+Based on Academic Research Skills by Cheng-I Wu
 https://github.com/Imbad0202/academic-research-skills
 ```
 
@@ -375,7 +375,6 @@ https://github.com/Imbad0202/academic-research-skills
 ## 作者
 
 **吳政宜** (Cheng-I Wu)
-HEEACT — 高等教育評鑑中心基金會
 
 ---
 
