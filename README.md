@@ -46,27 +46,28 @@ Research → Write → Integrity Check → Review (5-person) → Socratic Coachi
 
 ## Prerequisites
 
-### Install Node.js
+### Install Claude Code
 
-Claude Code requires Node.js 18+.
+**Recommended: Native installer** (no Node.js required, auto-updates):
 
 ```bash
-# macOS (using Homebrew)
-brew install node
+# macOS / Linux
+curl -fsSL https://claude.ai/install.sh | bash
 
-# Windows (using winget)
-winget install OpenJS.NodeJS.LTS
-
-# Linux (using nvm)
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-nvm install --lts
+# Windows (PowerShell)
+irm https://claude.ai/install.ps1 | iex
 ```
 
-### Install Claude Code
+<details>
+<summary>Alternative: npm install (deprecated)</summary>
+
+Requires Node.js 18+.
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
+
+</details>
 
 ### Set Up API Key
 
@@ -104,6 +105,12 @@ git clone https://github.com/Imbad0202/academic-research-skills.git .claude/skil
 
 Then copy the `.claude/CLAUDE.md` content into your project's `.claude/CLAUDE.md` (merge with existing if you have one).
 
+> **Global installation:** To make skills available across all your projects, install to `~/.claude/skills/` instead:
+> ```bash
+> mkdir -p ~/.claude/skills
+> git clone https://github.com/Imbad0202/academic-research-skills.git ~/.claude/skills/academic-research-skills
+> ```
+
 ### Method 2: As a Standalone Project
 
 ```bash
@@ -116,6 +123,17 @@ cd academic-research-skills
 # Start Claude Code
 claude
 ```
+
+<details>
+<summary><strong>Don't have Git?</strong> Download as ZIP instead</summary>
+
+1. Go to https://github.com/Imbad0202/academic-research-skills
+2. Click the green **Code** button → **Download ZIP**
+3. Extract the ZIP to your desired location
+4. For Method 1: move the extracted folder to `.claude/skills/academic-research-skills` inside your project
+5. For standalone use: open a terminal in the extracted folder and run `claude`
+
+</details>
 
 ### Method 3: Claude Cowork (Desktop)
 

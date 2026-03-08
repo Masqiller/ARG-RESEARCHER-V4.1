@@ -45,27 +45,28 @@
 
 ## 前置需求
 
-### 安裝 Node.js
+### 安裝 Claude Code
 
-Claude Code 需要 Node.js 18+。
+**建議：原生安裝程式**（不需要 Node.js，自動更新）：
 
 ```bash
-# macOS（使用 Homebrew）
-brew install node
+# macOS / Linux
+curl -fsSL https://claude.ai/install.sh | bash
 
-# Windows（使用 winget）
-winget install OpenJS.NodeJS.LTS
-
-# Linux（使用 nvm）
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-nvm install --lts
+# Windows（PowerShell）
+irm https://claude.ai/install.ps1 | iex
 ```
 
-### 安裝 Claude Code
+<details>
+<summary>替代方案：npm 安裝（已棄用）</summary>
+
+需要 Node.js 18+。
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
+
+</details>
 
 ### 設定 API Key
 
@@ -103,6 +104,12 @@ git clone https://github.com/Imbad0202/academic-research-skills.git .claude/skil
 
 接著將 `.claude/CLAUDE.md` 的內容複製到你專案的 `.claude/CLAUDE.md`（若已有則合併）。
 
+> **全域安裝：** 若希望所有專案都能使用這些 skills，可安裝到 `~/.claude/skills/`：
+> ```bash
+> mkdir -p ~/.claude/skills
+> git clone https://github.com/Imbad0202/academic-research-skills.git ~/.claude/skills/academic-research-skills
+> ```
+
 ### 方法二：作為獨立專案
 
 ```bash
@@ -115,6 +122,17 @@ cd academic-research-skills
 # 啟動 Claude Code
 claude
 ```
+
+<details>
+<summary><strong>沒有安裝 Git？</strong>直接下載 ZIP</summary>
+
+1. 前往 https://github.com/Imbad0202/academic-research-skills
+2. 點擊綠色 **Code** 按鈕 → **Download ZIP**
+3. 解壓縮到你想要的位置
+4. 方法一：將解壓後的資料夾移動到你專案內的 `.claude/skills/academic-research-skills`
+5. 獨立使用：在解壓後的資料夾中開啟終端機，執行 `claude`
+
+</details>
 
 ### 方法三：Claude Cowork（桌面版）
 
