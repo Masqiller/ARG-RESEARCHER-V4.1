@@ -206,36 +206,46 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 ### 個別 Skill 使用
 
-#### Deep Research（深度研究）
+#### Deep Research（深度研究，7 種模式）
 ```
-"研究 AI 對高等教育的影響" → full mode（完整研究）
-"引導我研究 X" → socratic mode（蘇格拉底引導）
-"幫我查核這些說法" → fact-check mode（事實查核）
-"幫我做文獻回顧" → lit-review mode（文獻回顧）
-```
-
-#### Academic Paper（學術論文撰寫）
-```
-"幫我寫一篇論文" → full mode（完整撰寫）
-"引導我寫論文" → plan mode（引導規劃）
-"幫我轉換格式成 LaTeX" → format-convert mode（格式轉換）
-"檢查引用格式" → citation-check mode（引用檢查）
+"研究 AI 對高等教育的影響"                    → full mode（完整研究）
+"給我一份 X 的快速摘要"                       → quick mode（快速簡報）
+"幫我做 X 的系統性文獻回顧，含 PRISMA"        → systematic-review mode（新增）
+"引導我研究 X"                                → socratic mode（蘇格拉底引導）
+"幫我查核這些說法"                            → fact-check mode（事實查核）
+"幫我做文獻回顧"                              → lit-review mode（文獻回顧）
+"審查這篇論文的研究品質"                      → review mode（論文審查）
 ```
 
-#### Academic Paper Reviewer（論文審查）
+#### Academic Paper（學術論文撰寫，9 種模式）
 ```
-"審查這篇論文" → full mode（主編 + R1/R2/R3 + 魔鬼代言人）
-"引導我改進這篇論文" → guided mode（引導改進）
-"檢查研究方法" → methodology-focus mode（方法論聚焦）
-"驗收修訂" → re-review mode（再審驗收）
+"幫我寫一篇論文"                              → full mode（完整撰寫）
+"引導我寫論文"                                → plan mode（引導規劃）
+"我有初稿，這是審稿意見"                      → revision mode（修訂）
+"幫我整理這些審稿意見成修訂路線圖"            → revision-coach mode（新增）
+"轉換成 LaTeX" / "引用格式轉 IEEE"            → format-convert mode（格式轉換）
+"檢查引用格式"                                → citation-check mode（引用檢查）
+"寫一份中英雙語摘要"                          → bilingual-abstract mode（雙語摘要）
+"潤飾我的寫作風格"                            → writing-polish mode（寫作潤飾）
+"自動完成整篇論文"                            → full-auto mode（全自動撰寫）
+```
+
+#### Academic Paper Reviewer（論文審查，5 種模式）
+```
+"審查這篇論文"                                → full mode（主編 + R1/R2/R3 + 魔鬼代言人）
+"快速評估這篇論文"                            → quick mode（快速評估）
+"引導我改進這篇論文"                          → guided mode（引導改進）
+"檢查研究方法"                                → methodology-focus mode（方法論聚焦）
+"驗收修訂"                                    → re-review mode（再審驗收）
 ```
 
 #### Academic Pipeline（全流程調度器）
 ```
-"我想做一篇完整的研究論文" → 從 Stage 1 開始完整 pipeline
-"我已經有論文，幫我審查" → 從 Stage 2.5 進入（先做誠信審查）
-"我收到審稿意見了" → 從 Stage 4 進入
+"我想做一篇完整的研究論文"                    → 從 Stage 1 開始完整 pipeline
+"我已經有論文，幫我審查"                      → 從 Stage 2.5 進入（先做誠信審查）
+"我收到審稿意見了"                            → 從 Stage 4 進入
 ```
+> Pipeline 結束時自動產出 **Stage 6：過程紀錄** — 含論文創建過程紀錄與 6 維度協作品質評估（1–100 分）。
 
 ### 支援語言
 

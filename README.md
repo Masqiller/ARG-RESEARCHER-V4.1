@@ -207,36 +207,46 @@ You: "status"
 
 ### Individual Skills
 
-#### Deep Research
+#### Deep Research (7 modes)
 ```
-"Research the impact of AI on higher education" → full mode
-"Guide my research on X" → socratic mode (guided)
-"Fact-check these claims" → fact-check mode
-"Do a literature review on X" → lit-review mode
-```
-
-#### Academic Paper
-```
-"Write a paper on X" → full mode
-"Guide me through writing a paper" → plan mode (guided)
-"Convert to LaTeX" → format-convert mode
-"Check citations" → citation-check mode
+"Research the impact of AI on higher education"       → full mode
+"Give me a quick brief on X"                          → quick mode
+"Do a systematic review on X with PRISMA"             → systematic-review mode (new)
+"Guide my research on X"                              → socratic mode (guided)
+"Fact-check these claims"                             → fact-check mode
+"Do a literature review on X"                         → lit-review mode
+"Review this paper's research quality"                → review mode
 ```
 
-#### Academic Paper Reviewer
+#### Academic Paper (9 modes)
 ```
-"Review this paper" → full mode (EIC + R1/R2/R3 + Devil's Advocate)
-"Guide me to improve this paper" → guided mode
-"Check the methodology" → methodology-focus mode
-"Verify the revisions" → re-review mode
+"Write a paper on X"                                  → full mode
+"Guide me through writing a paper"                    → plan mode (guided)
+"I have a draft, here are reviewer comments"          → revision mode
+"Parse these reviewer comments into a roadmap"        → revision-coach mode (new)
+"Convert to LaTeX" / "Convert citations to IEEE"      → format-convert mode
+"Check citations"                                     → citation-check mode
+"Write a bilingual abstract"                          → bilingual-abstract mode
+"Polish my writing style"                             → writing-polish mode
+"Write the full paper autonomously"                   → full-auto mode
+```
+
+#### Academic Paper Reviewer (5 modes)
+```
+"Review this paper"                                   → full mode (EIC + R1/R2/R3 + Devil's Advocate)
+"Quick assessment of this paper"                      → quick mode
+"Guide me to improve this paper"                      → guided mode
+"Check the methodology"                               → methodology-focus mode
+"Verify the revisions"                                → re-review mode
 ```
 
 #### Academic Pipeline (Orchestrator)
 ```
-"I want to write a complete research paper" → full pipeline from Stage 1
-"I already have a paper, review it" → mid-entry at Stage 2.5 (integrity first)
-"I received reviewer comments" → mid-entry at Stage 4
+"I want to write a complete research paper"           → full pipeline from Stage 1
+"I already have a paper, review it"                   → mid-entry at Stage 2.5 (integrity first)
+"I received reviewer comments"                        → mid-entry at Stage 4
 ```
+> Pipeline ends with **Stage 6: Process Summary** — auto-generates a paper creation process record with 6-dimension Collaboration Quality Evaluation (1–100 scoring).
 
 ### Supported Languages
 
