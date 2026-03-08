@@ -178,6 +178,73 @@ Teaching Practice Research Program (Grant No. PBM[year][number]).
 
 ---
 
+## Step 6: International Funding Agency Formats
+
+### United States — NSF / NIH
+
+**NSF (National Science Foundation)**:
+```
+This work was supported by the National Science Foundation under Grant No. [Number]
+(e.g., NSF-EHR-2345678). Any opinions, findings, and conclusions or recommendations
+expressed in this material are those of the author(s) and do not necessarily reflect
+the views of the National Science Foundation.
+```
+
+**NIH (National Institutes of Health)**:
+```
+Research reported in this publication was supported by the [Institute Name] of the
+National Institutes of Health under Award Number [Number] (e.g., R01GM123456).
+The content is solely the responsibility of the authors and does not necessarily
+represent the official views of the National Institutes of Health.
+```
+
+### European Union — ERC / Horizon Europe
+
+**ERC (European Research Council)**:
+```
+This project has received funding from the European Research Council (ERC)
+under the European Union's Horizon 2020 research and innovation programme
+(Grant Agreement No. [Number]).
+```
+
+**Horizon Europe**:
+```
+This project has received funding from the European Union's Horizon Europe
+research and innovation programme under Grant Agreement No. [Number].
+```
+
+### United Kingdom — UKRI
+
+**UKRI (UK Research and Innovation)**:
+```
+This work was supported by the [Council Name, e.g., Economic and Social Research
+Council (ESRC)] [Grant No. ES/X012345/1].
+```
+
+### Canada — NSERC / SSHRC
+
+**SSHRC (Social Sciences and Humanities Research Council)**:
+```
+This research was supported by the Social Sciences and Humanities Research Council
+of Canada (SSHRC) [Grant No. 000-0000-0000].
+```
+
+**NSERC (Natural Sciences and Engineering Research Council)**:
+```
+This work was supported by the Natural Sciences and Engineering Research Council
+of Canada (NSERC) [Grant No. RGPIN-0000-00000].
+```
+
+### Australia — ARC / NHMRC
+
+**ARC (Australian Research Council)**:
+```
+This research was supported by the Australian Research Council
+[Grant No. DP000000 / DE000000 / FT000000].
+```
+
+---
+
 ## Combined Output Example
 
 A complete Declarations section for a Springer Nature journal:

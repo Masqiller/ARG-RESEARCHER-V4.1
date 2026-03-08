@@ -57,6 +57,27 @@ Used by `formatter_agent` and `intake_agent`.
 | Tertiary Education and Management | Medium | APA | 5,000-7,000 |
 | International Journal of Educational Development | Medium | APA | 6,000-8,000 |
 
+### Major Multidisciplinary Journals
+
+| Journal | Impact | Citation Style | Typical Length | Open Access |
+|---------|--------|---------------|---------------|-------------|
+| Nature | Very High | Nature style | 3,000-5,000 | Hybrid |
+| Science | Very High | Science style | 2,500-4,500 | Hybrid |
+| PLOS ONE | Medium | Vancouver | No limit | Full OA |
+| Frontiers (series) | Medium-High | Vancouver | 3,000-12,000 | Full OA |
+| SAGE Open | Medium | APA | No limit | Full OA |
+
+### Major Education Journals (Beyond HEI)
+
+| Journal | Impact | Citation Style | Typical Length |
+|---------|--------|---------------|---------------|
+| Review of Educational Research | Very High | APA | 15,000-20,000 |
+| Educational Researcher | High | APA | 5,000-8,000 |
+| American Educational Research Journal | High | APA | 8,000-12,000 |
+| British Educational Research Journal | High | APA | 6,000-8,000 |
+| Teaching and Teacher Education | High | APA | 6,000-8,000 |
+| Computers & Education | High | APA | 6,000-10,000 |
+
 ### Taiwan HEI Journals (TSSCI)
 
 | Journal | Romanized Chinese Name | Citation Style |

@@ -37,8 +37,7 @@ Write a paper on the impact of declining birth rates on private university manag
 
 ### Trigger Keywords
 
-**English**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper
-**Chinese**: write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, step by step, help me plan my paper
+write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion
 
 ### Does NOT Trigger
 

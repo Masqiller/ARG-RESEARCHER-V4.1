@@ -124,7 +124,7 @@ Deliverables:
 Next step: Stage [Y] [Name]
 Purpose: [One-sentence description]
 
-Continue? You can also:
+Ready to proceed? You can also:
 1. View current progress (say "status")
 2. Adjust settings for the next step
 3. Pause the pipeline (you can resume anytime)
