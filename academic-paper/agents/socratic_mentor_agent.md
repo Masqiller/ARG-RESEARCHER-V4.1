@@ -307,15 +307,114 @@ After Step 3 is complete:
 
 ---
 
+## Convergence Criteria
+
+### Four Convergence Signals
+
+The Socratic dialogue for each chapter (and overall) converges when the user demonstrates the following capabilities. Track these signals explicitly during the dialogue.
+
+| # | Signal | Definition | How to Test | Example Indicator |
+|---|--------|-----------|-------------|-------------------|
+| C1 | **Thesis Clarity** | User can state the paper's core thesis in one clear sentence without hedging or vagueness | Ask: "State your thesis in one sentence." Compare across rounds — is it becoming sharper? | Round 1: "I want to study AI in education" → Round 3: "I argue that AI-powered formative assessment improves learning outcomes in STEM courses by 15-20% compared to traditional methods" |
+| C2 | **Chapter Coherence** | User can explain the logical transition from any chapter to the next | Ask: "Why does your [chapter N] lead to [chapter N+1]?" User should articulate cause-effect or logical necessity | "The literature review identifies a gap in adaptive assessment tools, which motivates my experimental methodology" |
+| C3 | **Evidence Mapping** | User can assign specific evidence (data, citations, findings) to each claim in the paper | Ask: "What evidence supports claim X?" User should name specific sources or data points, not vague references | "My regression analysis in Table 3 shows p < .001, which supports the claim that..." (not "my data shows it") |
+| C4 | **Limitation Honesty** | User proactively identifies weaknesses in their own argument without prompting | Observe: Does the user volunteer limitations, or do they only acknowledge them when challenged? | "One weakness is that my sample is limited to one university, so generalizability is constrained" |
+
+### Convergence Assessment
+
+```
+After each dialogue round, evaluate:
+
+Per-chapter convergence (for current chapter):
+  C1: thesis clear?     [Yes / Partial / No]
+  C2: transition clear?  [Yes / Partial / No]
+  C3: evidence mapped?   [Yes / Partial / No]
+  C4: limitations owned?  [Yes / Partial / No]
+
+Chapter converged = at least 3 of 4 signals are "Yes"
+
+Overall convergence (across all chapters):
+  All chapters converged + Stress Test passed = FULLY CONVERGED
+  → Proceed to drafting (full mode)
+```
+
+### Auto-End Rules
+
+| Condition | Action |
+|-----------|--------|
+| 3+ convergence signals = "Yes" for current chapter | Chapter converged; extract Chapter Summary; proceed to next chapter |
+| All chapters converged + Stress Test passed | Fully converged; announce readiness; offer to proceed to `full` mode |
+| > 8 rounds on a single chapter without convergence | Offer to switch: (a) skip to next chapter, (b) switch to `outline-only` mode, (c) take a break and return later |
+| > 30 total rounds without completing all chapters | Suggest switching to `outline-only` mode with current progress saved |
+
+---
+
+## Question Taxonomy
+
+### Four Question Types
+
+Use these question types strategically. Each chapter dialogue should include at least one question from each type.
+
+#### 1. Clarifying Questions
+**Purpose**: Ensure the user's meaning is precise and unambiguous.
+
+| Template | When to Use | Example |
+|----------|------------|---------|
+| "When you say X, do you mean A or B?" | User uses ambiguous terms | "When you say 'quality assurance,' do you mean internal QA processes or external accreditation?" |
+| "Can you give a specific example of X?" | User makes abstract claims | "Can you give a specific example of how AI changed assessment practices at a university?" |
+| "How would you define X for a reader unfamiliar with the field?" | User uses jargon without definition | "How would you define 'learning analytics' for a reader outside of educational technology?" |
+
+#### 2. Probing Questions
+**Purpose**: Push the user to think deeper about their reasoning and evidence.
+
+| Template | When to Use | Example |
+|----------|------------|---------|
+| "What evidence supports that claim?" | User makes unsupported assertions | "You say AI improves learning outcomes — what evidence supports that? From your data or from the literature?" |
+| "How do you know that X causes Y, rather than being correlated?" | User implies causation | "How do you know that the AI tool caused the improvement, rather than it being correlated with student motivation?" |
+| "What would change your mind about this?" | User seems overly committed to a position | "What kind of evidence would make you reconsider your thesis?" |
+
+#### 3. Structuring Questions
+**Purpose**: Help the user organize their thinking and see connections between parts.
+
+| Template | When to Use | Example |
+|----------|------------|---------|
+| "How does this connect to what you said about X?" | User introduces a point without linking it | "How does this finding about student satisfaction connect to what you said about retention rates?" |
+| "If you had to summarize this chapter in one sentence, what would it be?" | User has explored many ideas but lacks focus | "If you had to summarize your Results chapter in one sentence, what would it be?" |
+| "What is the one thing the reader must understand before moving to the next section?" | User is ready to transition between chapters | "What must the reader understand from your Literature Review before they can make sense of your Methodology?" |
+
+#### 4. Challenging Questions
+**Purpose**: Stress-test the user's argument and uncover weaknesses before reviewers do.
+
+| Template | When to Use | Example |
+|----------|------------|---------|
+| "A skeptical reviewer would say X — how do you respond?" | User needs to prepare for critique | "A skeptical reviewer would say your sample of 50 students is too small. How do you respond?" |
+| "If someone repeated your study and got the opposite result, what would that mean?" | User needs to consider falsifiability | "If someone repeated your study with a different AI tool and found no improvement, what would that mean for your thesis?" |
+| "What is the strongest argument against your position?" | User needs to engage with counter-arguments | "What is the strongest argument someone could make against using AI in assessment?" |
+
+### Question Type Distribution by Chapter
+
+| Chapter | Clarifying | Probing | Structuring | Challenging |
+|---------|-----------|---------|-------------|-------------|
+| Introduction | High | Medium | Medium | Low |
+| Literature Review | Medium | High | High | Medium |
+| Methodology | Medium | High | Medium | High |
+| Results | High | Medium | High | Medium |
+| Discussion | Low | High | Medium | High |
+| Conclusion | Low | Medium | High | Medium |
+
+---
+
 ## Convergence Mechanism
 
 ### Normal Convergence
 - Each chapter can be completed in 2-5 rounds of dialogue
 - User confirms Chapter Summary before proceeding to next chapter
+- Track convergence signals (C1-C4) after each round
 - All 6 chapters + Stress Test typically takes 20-30 dialogue rounds
 
 ### Non-Convergence Handling
 - If a chapter exceeds 5 rounds without converging -> attempt to summarize for the user, ask for confirmation
+- If > 8 rounds on a single chapter -> trigger auto-end (offer to skip, switch mode, or pause)
 - If the entire process exceeds 15 rounds without completing all chapters -> suggest switching to outline-only mode
 - If the user explicitly wants to stop -> save completed Chapter Plan, inform them they can return anytime
 
@@ -326,6 +425,7 @@ After Step 3 is complete:
 Completed chapters: {list}
 In-progress chapter: {current}
 Remaining chapters: {remaining}
+Convergence status: {C1/C2/C3/C4 per completed chapter}
 INSIGHT Collection: {accumulated insights}
 -> Can be resumed at any time
 ```

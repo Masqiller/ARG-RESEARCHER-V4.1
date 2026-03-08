@@ -163,6 +163,66 @@ Prerequisite: User provides author name(s)
 - MINOR: Excessive use of generic academic boilerplate; AI writing characteristic alerts (informational only)
 ```
 
+### Phase E: Claim Verification
+
+See `references/claim_verification_protocol.md` for the complete protocol definition. Below is an executive summary.
+
+**Purpose**: Verifies that quantitative and factual claims in the paper are accurately supported by their cited sources. Phases A-D verify that references exist and are original; Phase E verifies that claims derived from those references are truthful.
+
+#### E1. Claim Extraction
+```
+Scan the paper for all quantitative/factual claims:
+1. Identify all numerical claims (percentages, counts, effect sizes, p-values)
+2. Identify all categorical assertions ("X is the largest...", "Y was the first to...")
+3. Identify all trend claims ("increasing", "declining", "stable")
+4. Identify all causal claims ("X causes Y", "X leads to Y")
+5. For each claim, record: claim text, cited source(s), paper section, page/line
+
+Output: Claim Registry table
+```
+
+#### E2. Source Tracing
+```
+For each claim in the registry:
+1. Locate the specific passage in the cited source that supports the claim
+2. Use WebSearch + DOI lookup to find the original source text
+3. If source is behind paywall, note as UNVERIFIABLE_ACCESS
+
+Priority:
+- DOI resolution / publisher official website
+- Google Scholar / ERIC / PubMed / Scopus
+- Institutional repositories
+```
+
+#### E3. Cross-Referencing
+```
+Compare claim text vs source text:
+- Exact numbers match?
+- Date ranges accurate?
+- Population descriptions faithful?
+- Methodology descriptions correct?
+- Trend direction and magnitude faithful?
+
+Flag any discrepancies with verdict.
+```
+
+#### Claim Verdict Taxonomy
+```
+| Verdict              | Severity | Definition                                               |
+|----------------------|----------|----------------------------------------------------------|
+| VERIFIED             | None     | Claim matches source exactly or within rounding tolerance |
+| MINOR_DISTORTION     | MINOR    | Claim paraphrases source but meaning is preserved        |
+| MAJOR_DISTORTION     | SERIOUS  | Claim oversimplifies, exaggerates, or misrepresents      |
+| UNVERIFIABLE         | SERIOUS  | Source doesn't contain the claimed information            |
+| UNVERIFIABLE_ACCESS  | MEDIUM   | Source exists but full text not accessible                |
+```
+
+#### Sampling Strategy
+```
+- Mode 1 (pre-review): 30% random sample of claims (minimum 10 claims)
+- Mode 2 (final-check): 100% of claims
+```
+
 ---
 
 ## Two Operating Modes
@@ -170,17 +230,19 @@ Prerequisite: User provides author name(s)
 ### Mode 1: Initial Verification (Stage 2.5 — Pre-Review Integrity)
 
 **Goal**: Catch all integrity issues before submission for review
-- Execute Phase A (all) + Phase B (30%+ spot-check) + Phase C (all) + **Phase D (30%+ spot-check)**
+- Execute Phase A (all) + Phase B (30%+ spot-check) + Phase C (all) + **Phase D (30%+ spot-check)** + **Phase E (30% claim spot-check)**
 - Phase D executes D1 (paragraph-level originality check, sampling rate >= 30%) + D2 (self-plagiarism check, if author name provided)
+- Phase E executes E1 (claim extraction) + E2 (source tracing) + E3 (cross-referencing) on a 30% random sample of claims (minimum 10 claims)
 - Issues found -> produce correction list -> fix -> re-verify corrected items
 - **Must PASS to proceed to Stage 3 (REVIEW)**
 
 ### Mode 2: Final Verification (Stage 4.5 — Post-Revision Final Check)
 
 **Goal**: Confirm the revised paper is 100% correct
-- Execute Phase A (all) + Phase B (100% full check) + Phase C (all) + **Phase D (50%+ spot-check)**
+- Execute Phase A (all) + Phase B (100% full check) + Phase C (all) + **Phase D (50%+ spot-check)** + **Phase E (100% claim verification)**
 - Phase D sampling rate increased to >= 50%, and all paragraphs newly added or substantially modified during revision are checked 100%
-- Special focus: Citations and data added or modified during the revision process
+- Phase E verifies 100% of all quantitative/factual claims against their cited sources; zero MAJOR_DISTORTION and zero UNVERIFIABLE required
+- Special focus: Citations, data, and claims added or modified during the revision process
 - Compare with Stage 2.5 verification results to confirm all previous issues are resolved
 - **Must PASS with zero issues to proceed to Stage 5 (FINALIZE)**
 
@@ -190,9 +252,9 @@ Prerequisite: User provides author name(s)
 
 | Verdict | Condition | Follow-up Action |
 |---------|-----------|-----------------|
-| **PASS** | Zero SERIOUS issues + zero MEDIUM issues | Release to next stage |
-| **PASS WITH NOTES** | Zero SERIOUS + zero MEDIUM + has MINOR | Release, with MINOR issues list attached |
-| **FAIL** | Any SERIOUS or MEDIUM issues | Block; produce correction list; re-verify after corrections |
+| **PASS** | Zero SERIOUS issues + zero MEDIUM issues + zero MAJOR_DISTORTION + zero UNVERIFIABLE | Release to next stage |
+| **PASS WITH NOTES** | Zero SERIOUS + zero MEDIUM + zero MAJOR_DISTORTION + zero UNVERIFIABLE + has MINOR or MINOR_DISTORTION or UNVERIFIABLE_ACCESS | Release, with MINOR issues and notes list attached |
+| **FAIL** | Any SERIOUS or MEDIUM issues, or any MAJOR_DISTORTION, or any UNVERIFIABLE | Block; produce correction list; re-verify after corrections |
 
 ### Correction Process on FAIL
 
@@ -230,6 +292,7 @@ Prerequisite: User provides author name(s)
 | Internal Consistency | -- | Pass/Fail | X inconsistencies |
 | Originality Check (D1) | X (spot-check Z%) | X | X (CLOSE_MATCH / VERBATIM) |
 | Self-Plagiarism (D2) | X | X | X |
+| Claim Verification (E) | X (spot-check Z%) | X | X (MAJOR_DISTORTION / UNVERIFIABLE) |
 
 ## Phase D: Originality Verification Results
 
@@ -240,6 +303,16 @@ Prerequisite: User provides author name(s)
 | PARAPHRASE | X | X% |
 | CLOSE_MATCH | X | X% |
 | VERBATIM | X | X% |
+
+## Phase E: Claim Verification Results
+
+| Verdict | Claim Count | Proportion |
+|---------|------------|-----------|
+| VERIFIED | X | X% |
+| MINOR_DISTORTION | X | X% |
+| MAJOR_DISTORTION | X | X% |
+| UNVERIFIABLE | X | X% |
+| UNVERIFIABLE_ACCESS | X | X% |
 
 ## Issue List (Sorted by Severity)
 
@@ -291,7 +364,7 @@ To ensure the verification process is reproducible:
 
 | Dimension | Requirement |
 |-----------|------------|
-| Coverage | References 100%, statistical data 100%, citation context >= 30% (initial) / 100% (final), originality >= 30% (initial) / >= 50% (final) |
+| Coverage | References 100%, statistical data 100%, citation context >= 30% (initial) / 100% (final), originality >= 30% (initial) / >= 50% (final), claim verification >= 30% (initial) / 100% (final) |
 | Accuracy | Every determination must be supported by WebSearch evidence |
 | Transparency | Audit Trail fully documented, available for third-party review |
 | Efficiency | Do existence batch checks first, then deep investigation on UNCERTAIN items |

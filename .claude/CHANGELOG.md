@@ -6,6 +6,43 @@ Cross-skill fixes and update history.
 
 ## 2026-03-08
 
+### Academic Skills Suite v4.0 — 15 Improvements Across 4 Skills
+
+**Files changed**: 30 files (17 new, 13 modified) across `deep-research/`, `academic-paper/`, `academic-paper-reviewer/`, `academic-pipeline/`, `shared/`
+
+**deep-research v2.3** (+7 new files, 3 modified):
+- New systematic-review / PRISMA mode (7th mode) with 3 new agents: `risk_of_bias_agent` (RoB 2 + ROBINS-I), `meta_analysis_agent` (effect sizes, heterogeneity, GRADE), `monitoring_agent` (post-pipeline literature alerts)
+- New references: `systematic_review_toolkit.md`, `literature_monitoring_strategies.md`
+- New templates: `prisma_protocol_template.md`, `prisma_report_template.md`
+- Enhanced `socratic_mentor_agent`: 4 convergence signals, question taxonomy, auto-end triggers
+- Quick Mode Selection Guide added to SKILL.md
+
+**academic-paper v2.3** (+4 new files, 3 modified):
+- New agents: `visualization_agent` (11th, 9 chart types, APA 7.0 standards), `revision_coach_agent` (12th, parses unstructured reviewer comments)
+- New reference: `statistical_visualization_standards.md` (chart decision tree, accessible palettes)
+- New template: `revision_tracking_template.md` (4 status types: RESOLVED, DELIBERATE_LIMITATION, UNRESOLVABLE, REVIEWER_DISAGREE)
+- New example: `revision_recovery_example.md` (Major Revision → revision tracking → Accept)
+- Enhanced `formatter_agent`: citation format conversion (APA↔Chicago↔MLA↔IEEE↔Vancouver)
+- Enhanced `socratic_mentor_agent`: 4 convergence criteria, question taxonomy
+- Quick Mode Selection Guide added to SKILL.md
+
+**academic-paper-reviewer v1.4** (+1 new file, 2 modified):
+- New reference: `quality_rubrics.md` (5 dimensions scored 0-100 with behavioral indicators)
+- Decision mapping: ≥80 Accept, 65-79 Minor, 50-64 Major, <50 Reject
+- Updated `peer_review_report_template.md` to use 0-100 scoring referencing rubrics
+- Quick Mode Selection Guide added to SKILL.md
+
+**academic-pipeline v2.6** (+3 new files, 4 modified):
+- Adaptive checkpoint system: FULL (first use/critical), SLIM (returning user), MANDATORY (integrity gates)
+- Phase E Claim Verification protocol in integrity checks (E1 claim extraction, E2 source cross-reference, E3 verdict)
+- Material Passport for mid-entry provenance tracking (stage-skip eligibility, freshness rules)
+- New references: `mode_advisor.md` (14 scenarios, user archetypes, anti-patterns), `team_collaboration_protocol.md` (5 roles, handoff procedures, conflict resolution), `claim_verification_protocol.md` (Phase E protocol with 5 verdict types)
+- New example: `integrity_failure_recovery.md` (Stage 2.5 FAIL → corrections → PASS)
+- Enhanced `shared/handoff_schemas.md`: 9 comprehensive schemas with validation rules
+- Enhanced orchestrator and state tracker agents for schema validation and adaptive checkpoints
+
+---
+
 ### Full English Translation — All Skills Translated to English
 
 **Files changed**: All `.md` files across `academic-pipeline/`, `academic-paper/`, `academic-paper-reviewer/`, `deep-research/`

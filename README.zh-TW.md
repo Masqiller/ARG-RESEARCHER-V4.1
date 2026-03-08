@@ -8,10 +8,10 @@
 
 ## 功能特色
 
-- **Deep Research** — 10 個 Agent 組成的研究團隊，支援蘇格拉底引導模式
-- **Academic Paper** — 10 個 Agent 的論文撰寫團隊，支援逐章規劃
-- **Academic Paper Reviewer** — 多視角同儕審查（主編 + 3 位動態審查者 + 魔鬼代言人）
-- **Academic Pipeline** — 9 階段全流程調度器，含誠信驗證與蘇格拉底修訂指導
+- **Deep Research** — 13 個 Agent 組成的研究團隊，支援蘇格拉底引導 + 系統性文獻回顧 / PRISMA
+- **Academic Paper** — 12 個 Agent 的論文撰寫團隊，含視覺化、修訂教練、引用格式轉換
+- **Academic Paper Reviewer** — 多視角同儕審查，0-100 品質量表（主編 + 3 位動態審查者 + 魔鬼代言人）
+- **Academic Pipeline** — 10 階段全流程調度器，含自適應 checkpoint、宣稱驗證、素材護照
 
 ### 完整 Pipeline
 
@@ -21,12 +21,15 @@
 ```
 
 **核心特點：**
-1. 每個階段都需使用者確認 checkpoint
-2. 審稿前誠信驗證 — 100% 引用與數據驗證
-3. 兩階段審查，含魔鬼代言人
+1. 自適應 checkpoint（FULL / SLIM / MANDATORY）
+2. 審稿前誠信驗證 — 100% 引用、數據、宣稱驗證（Phase A-E）
+3. 兩階段審查，含魔鬼代言人 + 0-100 品質量表
 4. 審稿與修訂之間的蘇格拉底修訂指導
 5. 出版前最終誠信驗證
 6. 輸出格式：MD + DOCX + LaTeX（APA 7.0 `apa7` class / IEEE / Chicago）→ tectonic 編譯 PDF
+7. Pipeline 完成後自動產出協作品質評估（6 維度 1-100 分）
+8. 素材護照（Material Passport）支援中途進入流程的來源追蹤
+9. 跨 skill 模式顧問（14 種情境 + 使用者典型）
 
 ---
 
@@ -261,9 +264,9 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 ## Skill 詳細資訊
 
-### Deep Research (v2.2)
+### Deep Research (v2.3)
 
-10 個 Agent 的嚴謹學術研究 pipeline：
+13 個 Agent 的嚴謹學術研究 pipeline：
 
 | Agent | 角色 |
 |-------|------|
@@ -276,11 +279,16 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Editor-in-Chief | Q1 期刊主編審查 |
 | Devil's Advocate | 假設挑戰（3 個檢查點） |
 | Ethics Review Agent | AI 揭露、引用誠信 |
-| Socratic Mentor | 蘇格拉底引導式研究對話 |
+| Socratic Mentor | 蘇格拉底引導式研究對話，含收斂準則 |
+| Risk of Bias Agent | RoB 2 + ROBINS-I 偏誤風險評估 |
+| Meta-Analysis Agent | 效果量、異質性、森林圖、GRADE |
+| Monitoring Agent | Pipeline 完成後的文獻監測警報 |
 
-### Academic Paper (v2.2)
+**模式：** full、quick、paper-review、lit-review、fact-check、socratic、**systematic-review**（新增）
 
-10 個 Agent 的學術論文撰寫 pipeline：
+### Academic Paper (v2.3)
+
+12 個 Agent 的學術論文撰寫 pipeline：
 
 | Agent | 角色 |
 |-------|------|
@@ -289,15 +297,19 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Structure Architect | 論文大綱 + 字數分配 |
 | Argument Builder | 論點 + 主張-證據鏈 |
 | Draft Writer | 逐章撰寫 |
-| Citation Compliance | 多格式引用審核 |
+| Citation Compliance | 多格式引用審核 + APA↔Chicago↔MLA↔IEEE↔Vancouver 轉換 |
 | Abstract Bilingual | 中英雙語摘要 |
 | Peer Reviewer | 5 維度審查（最多 2 輪） |
 | Formatter | LaTeX/DOCX/PDF 輸出 |
-| Socratic Mentor | 逐章引導規劃 |
+| Socratic Mentor | 逐章引導規劃，含收斂準則 |
+| Visualization Agent | 9 種圖表類型、matplotlib/ggplot2、APA 7.0 標準 |
+| Revision Coach Agent | 解析非結構化審稿意見 → 修訂路線圖 |
 
-### Academic Paper Reviewer (v1.3)
+**模式：** full、plan、revision、citation-check、format-convert、bilingual-abstract、writing-polish、full-auto、**revision-coach**（新增）
 
-7 個 Agent 的多視角審查：
+### Academic Paper Reviewer (v1.4)
+
+7 個 Agent 的多視角審查，搭配 **0-100 品質量表**：
 
 | Agent | 角色 |
 |-------|------|
@@ -307,11 +319,13 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Domain Reviewer | 文獻涵蓋率、理論框架 |
 | Perspective Reviewer | 跨領域觀點、實務影響 |
 | Devil's Advocate Reviewer | 核心論點挑戰、邏輯謬誤偵測、最強反論 |
-| Editorial Synthesizer | 共識分析、修訂路線圖 |
+| Editorial Synthesizer | 共識分析、修訂路線圖、**量表評分** |
 
 **模式：** full、re-review（驗收）、quick、methodology-focus、guided
 
-### Academic Pipeline (v2.4)
+**決策對照：** ≥80 接受、65-79 小修、50-64 大修、<50 退稿
+
+### Academic Pipeline (v2.6)
 
 10 階段調度器，含誠信驗證、兩階段審查、蘇格拉底指導、協作品質評估：
 
@@ -366,6 +380,12 @@ HEEACT — 高等教育評鑑中心基金會
 ---
 
 ## 更新紀錄
+
+### v2.6 / v2.3 / v1.4 (2026-03-08) — 15 項改進
+- **deep-research v2.3**：新增系統性文獻回顧 / PRISMA 模式（第 7 模式）；3 個新 agent（risk_of_bias、meta_analysis、monitoring）；PRISMA 協議/報告模板；蘇格拉底收斂準則（4 訊號 + 自動結束）；快速模式選擇指南
+- **academic-paper v2.3**：2 個新 agent（visualization、revision_coach）；修訂追蹤模板含 4 種狀態；引用格式轉換（APA↔Chicago↔MLA↔IEEE↔Vancouver）；統計視覺化標準；蘇格拉底收斂準則；修訂復原範例
+- **academic-paper-reviewer v1.4**：0-100 品質量表含行為指標；決策對照（≥80 接受、65-79 小修、50-64 大修、<50 退稿）；快速模式選擇指南
+- **academic-pipeline v2.6**：自適應 checkpoint（FULL/SLIM/MANDATORY）；Phase E 宣稱驗證；素材護照（Material Passport）支援中途進入；跨 skill 模式顧問（14 情境）；團隊協作協議；強化銜接 schema（9 個含驗證規則）；誠信審查失敗復原範例
 
 ### v2.4 / v1.3 (2026-03-08)
 - **academic-pipeline v2.4**：新增 Stage 6 過程紀錄 — 自動生成結構化論文創建過程紀錄（MD → LaTeX → PDF，中英雙語）；必含最後一章：**協作品質評估**，6 個維度各計 1–100 分（方向設定、智識貢獻、品質把關、迭代紀律、委派效率、後設學習），含誠實回饋與改進建議；pipeline 從 9 階段擴展為 10 階段

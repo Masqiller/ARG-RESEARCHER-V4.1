@@ -2,7 +2,7 @@
 
 ## Overview
 
-deep-research provides 6 modes suited to different research stages and needs. This guide helps users select the most appropriate mode.
+deep-research provides 7 modes suited to different research stages and needs. This guide helps users select the most appropriate mode.
 
 ---
 
@@ -14,11 +14,13 @@ User Input
     ├── Have a clear research question?
     │   ├── Yes ──→ Have a text to review?
     │   │            ├── Yes ──→ review mode
-    │   │            └── No ───→ Need a complete report?
-    │   │                         ├── Yes ──→ full mode
-    │   │                         └── No ───→ Only need literature?
-    │   │                                     ├── Yes ──→ lit-review mode
-    │   │                                     └── No ───→ quick mode
+    │   │            └── No ───→ Need PRISMA-compliant systematic review / meta-analysis?
+    │   │                         ├── Yes ──→ systematic-review mode
+    │   │                         └── No ───→ Need a complete report?
+    │   │                                     ├── Yes ──→ full mode
+    │   │                                     └── No ───→ Only need literature?
+    │   │                                                 ├── Yes ──→ lit-review mode
+    │   │                                                 └── No ───→ quick mode
     │   │
     │   └── No ──→ Want guided thinking?
     │              ├── Yes ──→ socratic mode
@@ -162,6 +164,28 @@ User Input
 
 ---
 
+### systematic-review mode (Systematic Review / Meta-Analysis)
+
+| Item | Description |
+|------|------|
+| **Applicable Scenario** | Need a PRISMA-compliant systematic review, potentially with meta-analysis; evidence synthesis for policy or clinical decisions |
+| **Not Applicable** | Exploratory research without a focused PICOS question; narrative literature review; quick overview of a topic |
+| **Typical Users** | Researchers conducting Cochrane-style reviews, doctoral students writing systematic review chapters, policy teams synthesizing evidence for guidelines |
+| **Expected Output** | PRISMA 2020 report: protocol, flow diagram, risk of bias assessment, forest plot data (if meta-analysis), GRADE evidence table, full reference list |
+| **Expected Dialogue Rounds** | 3-6 rounds (protocol review + screening decisions + synthesis decisions) |
+| **Agents Activated** | 8-10 (RQ + Architect + Biblio + Verification + RoB + Meta-Analysis/Synthesis + Report + Editor + Ethics) |
+| **Time Required** | Longest; systematic reviews are inherently comprehensive |
+
+**Trigger Examples**:
+```
+"Systematic review of AI-assisted assessment in higher education"
+"Meta-analysis of the effect of active learning on STEM outcomes"
+"PRISMA review of quality assurance frameworks in Asian universities"
+"Evidence synthesis on the impact of accreditation on institutional improvement"
+```
+
+---
+
 ## Common Misselection Scenarios
 
 | What the User Says | What They Probably Need | Recommended Mode | Reason |
@@ -172,6 +196,9 @@ User Input
 | "Help me fix this paper" | Paper revision guidance | `review`, not `full` | Already has text, needs review not research from scratch |
 | "I need APA-formatted references" | Reference formatting | `lit-review`, not `full` | If only a reference list and formatting is needed, no complete research required |
 | "Help me think of a research topic" | Research direction exploration | `socratic` | Best suited for users without a clear direction |
+| "Systematic review of X" | PRISMA-compliant review | `systematic-review`, not `lit-review` | lit-review is a narrative survey; systematic-review follows PRISMA protocol with risk of bias and optional meta-analysis |
+| "I need a meta-analysis" | Quantitative evidence synthesis | `systematic-review` | Meta-analysis is a component of systematic review, not a standalone mode |
+| "Literature review for my thesis chapter" | Narrative literature review | `lit-review`, not `systematic-review` | Thesis lit review chapters are typically narrative, not PRISMA-compliant |
 
 ---
 
@@ -180,12 +207,14 @@ User Input
 ### Common Transition Paths
 
 ```
-socratic → full        Continue with complete research after Socratic completion
-socratic → academic-paper (plan)   Write paper directly after Socratic completion
-lit-review → full      Want complete analysis after literature review
-fact-check → full      Need deeper research after fact-checking
-quick → full           Worth going deeper after quick research
-review → full          Need to re-research after review
+socratic → full              Continue with complete research after Socratic completion
+socratic → academic-paper    Write paper directly after Socratic completion
+lit-review → full            Want complete analysis after literature review
+lit-review → systematic-review  Need formal PRISMA compliance after initial lit survey
+fact-check → full            Need deeper research after fact-checking
+quick → full                 Worth going deeper after quick research
+review → full                Need to re-research after review
+systematic-review → academic-paper  Write up systematic review as a paper
 ```
 
 ### deep-research to academic-paper Mode Mapping
@@ -198,6 +227,7 @@ review → full          Need to re-research after review
 | `quick` | Research brief | `plan` (needs expansion) | Preliminary exploration complete, plan full paper |
 | `review` | Review report | Does not map | Review concluded, revise original paper |
 | `fact-check` | Verification report | Does not map | Fact-checking concluded |
+| `systematic-review` | PRISMA report + forest plots + GRADE table | `full` (systematic review paper) | Systematic review complete, write as a journal article |
 
 ### deep-research vs academic-paper-reviewer Mode Mapping
 
@@ -254,6 +284,18 @@ Rules for switching between modes mid-research. Not all transitions are safe.
 - **Reusable**: Verified/debunked claims, source verification results
 - **Must Redo**: RQ formulation (reframe from verification to inquiry), full bibliography, synthesis
 - **Quality Delta**: Fact-check is binary (true/false/mixed); full mode produces nuanced analysis
+
+### Transition: lit-review → systematic-review
+- **When**: Literature review reveals the topic warrants formal PRISMA compliance (e.g., for publication in a journal that requires it)
+- **Reusable**: Initial keyword strategy, some identified sources (need re-screening)
+- **Must Redo**: Protocol registration, formal inclusion/exclusion criteria, dual screening, risk of bias assessment, meta-analysis feasibility assessment
+- **Quality Delta**: systematic-review requires protocol, RoB assessment, GRADE; lit-review has none of these
+
+### Transition: systematic-review → academic-paper
+- **When**: Systematic review is complete and user wants to write it up as a journal article
+- **Reusable**: Everything — PRISMA report is essentially the paper draft
+- **Must Redo**: Formatting to target journal requirements, abstract restructuring
+- **Quality Delta**: Minimal — systematic review output is already structured per PRISMA 2020
 
 ### Prohibited Transitions
 - **full → quick**: Cannot downgrade a full research to quick brief (loss of rigor)

@@ -122,6 +122,111 @@ reviewed by the author(s). The authors take full responsibility for the
 accuracy and integrity of this work.
 ```
 
+## Citation Format Conversion
+
+### Overview
+
+The formatter agent can convert citations between any two supported formats at any point during the pipeline. This capability is triggered by "Convert citations to [format]" and can operate on a complete paper draft or a standalone reference list.
+
+**Trigger**: "Convert citations to [format]" at any point during writing or formatting.
+
+### Supported Conversions
+
+| From \ To | APA 7 | Chicago | MLA 9 | IEEE | Vancouver |
+|-----------|-------|---------|-------|------|-----------|
+| **APA 7** | — | Yes | Yes | Yes | Yes |
+| **Chicago** | Yes | — | Yes | Yes | Yes |
+| **MLA 9** | Yes | Yes | — | Yes | Yes |
+| **IEEE** | Yes | Yes | Yes | — | Yes |
+| **Vancouver** | Yes | Yes | Yes | Yes | — |
+
+### Conversion Pipeline
+
+```
+Step 1: Parse Existing Citations
+  - Identify all in-text citations in the draft
+  - Identify all entries in the reference list
+  - Extract bibliographic elements from each entry:
+    * Author(s) — last name, first name/initials, number of authors
+    * Year of publication
+    * Title (article/chapter title)
+    * Source title (journal, book, proceedings)
+    * Volume, issue, pages
+    * DOI / URL
+    * Publisher (for books)
+    * Edition (if applicable)
+    * Editors (for edited volumes)
+    * Access date (for online sources)
+
+Step 2: Normalize to Intermediate Format
+  - Store all elements in a structured intermediate representation
+  - Resolve ambiguities (e.g., "et al." -> expand to full author list if available)
+
+Step 3: Regenerate in Target Format
+  - Apply target format rules (see format-specific features below)
+  - Generate both in-text citations AND reference list entries
+
+Step 4: Verification
+  - Count check: input citation count == output citation count
+  - Element check: all bibliographic elements survived conversion
+  - Cross-reference check: every in-text citation has a reference list entry
+  - Format compliance check: output matches target format rules
+```
+
+### Format-Specific Features
+
+| Feature | APA 7 | Chicago (Author-Date) | Chicago (Notes-Bib) | MLA 9 | IEEE | Vancouver |
+|---------|-------|----------------------|---------------------|-------|------|-----------|
+| In-text style | (Author, Year) | (Author Year) | Footnote superscript | (Author Page) | [Number] | (Number) |
+| Reference list name | References | References | Bibliography | Works Cited | References | References |
+| Author format | Last, F. M. | Last, First | Last, First | Last, First | F. M. Last | Last FM |
+| Year position | After author | After author | After author (bib) | End of entry | After author | After author |
+| Title case | Sentence case | Headline case | Headline case | Headline case | Sentence case | Sentence case |
+| Journal title | Italic | Italic | Italic | Italic | Italic | Abbreviated |
+| DOI format | https://doi.org/... | https://doi.org/... | https://doi.org/... | doi:... | doi:... | doi:... |
+| Ordering | Alphabetical | Alphabetical | Alphabetical | Alphabetical | Order of appearance | Order of appearance |
+
+### Handling Footnotes (Chicago Notes-Bibliography)
+
+When converting **to** Chicago Notes-Bibliography:
+- Convert all parenthetical citations to footnote citations
+- Generate both footnotes (for in-text) and bibliography (for reference list)
+- First mention: full citation in footnote; subsequent: shortened form
+
+When converting **from** Chicago Notes-Bibliography:
+- Extract bibliographic data from footnotes and bibliography
+- Convert to parenthetical or numbered citations as required by target format
+- Remove footnote markers; insert appropriate in-text citations
+
+### Handling Numbered References (IEEE / Vancouver)
+
+When converting **to** numbered formats:
+- Assign numbers based on order of first appearance in the text
+- Replace all author-year citations with bracketed numbers
+- Reorder the reference list numerically
+
+When converting **from** numbered formats:
+- Look up each numbered reference in the reference list
+- Convert to author-year or author-page format as required
+- Reorder the reference list alphabetically (if target format requires it)
+
+### Verification Checklist
+
+After conversion, verify all of the following:
+
+- [ ] Total citation count matches (in-text: input count == output count)
+- [ ] Total reference count matches (reference list: input count == output count)
+- [ ] All author names preserved (no names lost or misspelled)
+- [ ] All years preserved
+- [ ] All titles preserved (case may change per target format rules)
+- [ ] All DOIs preserved
+- [ ] All volume/issue/page numbers preserved
+- [ ] In-text citation style matches target format
+- [ ] Reference list ordering matches target format (alphabetical vs. numerical)
+- [ ] No orphan citations (in-text without reference list entry, or vice versa)
+
+---
+
 ## Final Quality Checklist
 
 Before delivering the output, verify:

@@ -208,18 +208,20 @@ List minor issues that don't affect academic quality but need correction.
 
 ---
 
-## Dimension Scores (Optional, for synthesizer reference)
+## Dimension Scores *
 
-| Dimension | Score (1-5) | Notes |
-|-----------|------------|-------|
-| Originality | | |
-| Methodological Rigor | | |
-| Evidence Sufficiency | | |
-| Argument Coherence | | |
-| Writing Quality | | |
-| Literature Integration | | |
-| Significance & Impact | | |
-| **Weighted Average** | | |
+Score each dimension 0-100 using the rubrics in `references/quality_rubrics.md`. Report the range descriptor that best matches.
+
+| Dimension | Score (0-100) | Descriptor | Notes |
+|-----------|--------------|------------|-------|
+| Originality (20%) | | [Exceptional/Strong/Adequate/Weak/Insufficient] | |
+| Methodological Rigor (25%) | | [Exceptional/Strong/Adequate/Weak/Insufficient] | |
+| Evidence Sufficiency (25%) | | [Exceptional/Strong/Adequate/Weak/Insufficient] | |
+| Argument Coherence (15%) | | [Exceptional/Strong/Adequate/Weak/Insufficient] | |
+| Writing Quality (15%) | | [Exceptional/Strong/Adequate/Weak/Insufficient] | |
+| Literature Integration (optional) | | [See rubrics] | R2 focus |
+| Significance & Impact (optional) | | [See rubrics] | R3 focus |
+| **Weighted Average** | | **[Accept/Minor/Major/Reject]** | |
 ```
 
 ---

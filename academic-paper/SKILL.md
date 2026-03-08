@@ -1,14 +1,14 @@
 ---
 name: academic-paper
-description: "Academic paper writing skill with 10-agent pipeline. v2.0: NEW plan mode (Socratic guided chapter-by-chapter planning), deep-research handoff protocol, Chinese APA 7.0 citation guide, failure path handling. Supports IMRaD, literature review, theoretical, case study, policy brief, and conference paper structures. APA 7.0 (default), Chicago, MLA, IEEE, Vancouver citation formats. Bilingual abstracts (zh-TW + EN). Multi-format output (LaTeX, DOCX, PDF, Markdown). Triggers on: write paper, academic paper, paper outline, write abstract, revise paper, check citations, convert to LaTeX, guide my paper."
+description: "Academic paper writing skill with 12-agent pipeline. v2.3: NEW visualization_agent (publication-quality figures), revision_coach_agent (standalone reviewer comment parser), Socratic convergence criteria + question taxonomy, revision tracking template, citation format conversion, Quick Mode Selection Guide. Supports IMRaD, literature review, theoretical, case study, policy brief, and conference paper structures. APA 7.0 (default), Chicago, MLA, IEEE, Vancouver citation formats. Bilingual abstracts (zh-TW + EN). Multi-format output (LaTeX, DOCX, PDF, Markdown). Triggers on: write paper, academic paper, paper outline, write abstract, revise paper, check citations, convert to LaTeX, guide my paper, parse reviews, revision roadmap."
 metadata:
-  version: "2.2"
-  last_updated: "2025-03-05"
+  version: "2.3"
+  last_updated: "2026-03-08"
 ---
 
 # Academic Paper — Academic Paper Writing Agent Team
 
-A general-purpose academic paper writing tool — 10-agent pipeline covering all disciplines, with higher education domain as the default reference. v2.0 adds Plan mode (Socratic chapter-by-chapter guided planning), deep-research Handoff, Chinese APA citation, and failure path handling.
+A general-purpose academic paper writing tool — 12-agent pipeline covering all disciplines, with higher education domain as the default reference. v2.3 adds visualization agent (publication-quality figures), revision coach agent (standalone reviewer comment parser), Socratic convergence criteria, revision tracking template, citation format conversion, and Quick Mode Selection Guide.
 
 ## Quick Start
 
@@ -37,7 +37,7 @@ Write a paper on the impact of declining birth rates on private university manag
 
 ### Trigger Keywords
 
-write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion
+write paper, academic paper, paper outline, write abstract, revise paper, literature review paper, check citations, convert to LaTeX, convert format, format paper, conference paper, journal article, thesis chapter, research paper, guide my paper, help me plan my paper, step by step paper, draft manuscript, write methodology, write discussion, parse reviews, revision roadmap, help me with my revision, I got reviewer comments, convert citations
 
 ### Does NOT Trigger
 
@@ -61,7 +61,7 @@ write paper, academic paper, paper outline, write abstract, revise paper, litera
 
 ---
 
-## Agent Team (10 Agents)
+## Agent Team (12 Agents)
 
 | # | Agent | Role | Phase |
 |---|-------|------|-------|
@@ -73,8 +73,23 @@ write paper, academic paper, paper outline, write abstract, revise paper, litera
 | 6 | `citation_compliance_agent` | Citation format verification, reference list completeness, DOI checking | Phase 5a |
 | 7 | `abstract_bilingual_agent` | Bilingual abstract (zh-TW + EN), 5-7 keywords each | Phase 5b |
 | 8 | `peer_reviewer_agent` | Simulated double-blind review, five-dimension scoring, revision suggestions (max 2 rounds) | Phase 6 |
-| 9 | `formatter_agent` | Convert to LaTeX/DOCX/PDF/Markdown, journal formatting, cover letter | Phase 7 |
-| 10 | `socratic_mentor_agent` | Plan mode Socratic mentor: chapter-by-chapter guidance, 5 mandatory questions, INSIGHT extraction | Plan Step 0-3 |
+| 9 | `formatter_agent` | Convert to LaTeX/DOCX/PDF/Markdown, journal formatting, cover letter, citation format conversion (APA 7 / Chicago / MLA / IEEE / Vancouver) | Phase 7 |
+| 10 | `socratic_mentor_agent` | Plan mode Socratic mentor: chapter-by-chapter guidance, convergence criteria (4 signals), question taxonomy (4 types), INSIGHT extraction | Plan Step 0-3 |
+| 11 | `visualization_agent` | Parse paper data and generate publication-quality figure code (Python matplotlib / R ggplot2) with APA 7.0 formatting, colorblind-safe palettes, and LaTeX integration | Phase 4 / Phase 7 |
+| 12 | `revision_coach_agent` | Parse unstructured reviewer comments into structured Revision Roadmap; classify, map, and prioritize comments; works standalone without prior pipeline execution | Revision-Coach mode |
+
+---
+
+## Output Formats
+
+### Text Formats
+LaTeX (.tex + .bib), DOCX (via Pandoc), PDF (via LaTeX or Pandoc), Markdown.
+
+### Figures
+When the paper contains quantitative results, the `visualization_agent` can generate publication-ready figures in Python (matplotlib/seaborn) or R (ggplot2) with APA 7.0 formatting and colorblind-safe palettes. Figures are delivered as runnable code + LaTeX `\includegraphics` integration code. See `references/statistical_visualization_standards.md` for chart type decision trees and code templates.
+
+### Citation Formats
+APA 7.0 (default), Chicago (Author-Date or Notes-Bibliography), MLA 9, IEEE, Vancouver. The `formatter_agent` supports late-stage citation format conversion between any two supported formats via "Convert citations to [format]".
 
 ---
 
@@ -182,20 +197,37 @@ User: "Write a paper on [topic]"
 
 ---
 
-## Operational Modes (8 Modes)
+## Operational Modes (9 Modes)
 
 See `references/mode_selection_guide.md` for details.
 
 | Mode | Trigger | Agents | Output |
 |------|---------|--------|--------|
-| `full` | "Write a paper" | All 9 | Complete paper draft |
+| `full` | "Write a paper" | All 9 (+ 11 if quantitative) | Complete paper draft (with figures if applicable) |
 | `outline-only` | "Paper outline" | 1->2->3 | Detailed outline + evidence map |
-| `revision` | "Revise paper" | 8->5->6 | Revised draft with tracked changes |
+| `revision` | "Revise paper" | 8->5->6 | Revised draft with tracked changes (uses `templates/revision_tracking_template.md`) |
 | `abstract-only` | "Write abstract" | 1->7 | Bilingual abstract + keywords |
 | `lit-review` | "Literature review" | 1->2 | Annotated bibliography + synthesis |
-| `format-convert` | "Convert to LaTeX" | 9 only | Formatted document |
+| `format-convert` | "Convert to LaTeX" / "Convert citations to [format]" | 9 only | Formatted document; includes citation format conversion (APA 7 / Chicago / MLA / IEEE / Vancouver) |
 | `citation-check` | "Check citations" | 6 only | Citation error report |
 | `plan` | "guide my paper" / "help me plan my paper" | 1->10->3->4 | Chapter Plan + INSIGHT Collection |
+| `revision-coach` | "parse reviews" / "revision roadmap" / "I got reviewer comments" | 12 only | Revision Roadmap + optional Tracking Template + Response Letter Skeleton |
+
+### Quick Mode Selection Guide
+
+| Your Situation | Recommended Mode |
+|----------------|-----------------|
+| Starting from scratch with a clear RQ | `full` |
+| Need help planning before writing | `plan` |
+| Just need an outline | `outline-only` |
+| Have a draft, received review feedback | `revision` |
+| Have unstructured reviewer comments | `revision-coach` |
+| Just need an abstract | `abstract-only` |
+| Need to check/fix citations | `citation-check` |
+| Need to convert format (LaTeX, DOCX) or citation style | `format-convert` |
+| Want a systematic literature review paper | `lit-review` |
+
+Not sure? Start with `plan` — it will guide you step by step.
 
 ### Mode Selection Logic
 
@@ -206,9 +238,13 @@ See `references/mode_selection_guide.md` for details.
 "Write an abstract for this paper"       -> abstract-only
 "Do a literature review on..."           -> lit-review
 "Convert this paper to LaTeX"            -> format-convert
+"Convert citations to IEEE"              -> format-convert
 "Check the citations in this paper"      -> citation-check
 "guide my paper"                         -> plan
 "help me plan my paper"                  -> plan
+"I got reviewer comments"               -> revision-coach
+"parse these reviews"                    -> revision-coach
+"help me with my revision"              -> revision-coach
 ```
 
 
@@ -340,6 +376,8 @@ See `agents/intake_agent.md` for the complete field definitions of the Phase 0 c
 | peer_reviewer_agent | `agents/peer_reviewer_agent.md` |
 | formatter_agent | `agents/formatter_agent.md` |
 | socratic_mentor_agent | `agents/socratic_mentor_agent.md` |
+| visualization_agent | `agents/visualization_agent.md` |
+| revision_coach_agent | `agents/revision_coach_agent.md` |
 
 ---
 
@@ -360,6 +398,7 @@ See `agents/intake_agent.md` for the complete field definitions of the Phase 0 c
 | `references/mode_selection_guide.md` | 8 mode selection guide + transition paths | intake |
 | `references/credit_authorship_guide.md` | CRediT 14 roles + ICMJE + AI policy + contribution matrix | intake, formatter, draft_writer |
 | `references/funding_statement_guide.md` | Taiwan/international funding formats + statement templates | intake, formatter, draft_writer |
+| `references/statistical_visualization_standards.md` | APA 7.0 figure guidelines, accessible color palettes, chart type decision tree, matplotlib/ggplot2 code templates | visualization |
 
 Also references from `deep-research`:
 - `deep-research/references/apa7_style_guide.md` — base APA 7 reference (this skill extends, not duplicates)
@@ -380,6 +419,7 @@ Also references from `deep-research`:
 | `templates/bilingual_abstract_template.md` | Bilingual abstract template |
 | `templates/credit_statement_template.md` | Author x Role contribution matrix + CRediT statement output |
 | `templates/funding_statement_template.md` | Funding source registration + statement output |
+| `templates/revision_tracking_template.md` | Systematic tracker for reviewer comments and resolutions during revision (4 status types: RESOLVED, DELIBERATE_LIMITATION, UNRESOLVABLE, REVIEWER_DISAGREE) |
 
 ---
 
@@ -450,6 +490,7 @@ academic-paper + academic-paper-reviewer -> Peer review -> revision loop
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.3 | 2026-03-08 | NEW visualization_agent (11th: publication-quality figures with matplotlib/ggplot2, APA 7.0, colorblind-safe); NEW revision_coach_agent (12th: standalone reviewer comment parser → Revision Roadmap); Socratic convergence criteria (4 signals: thesis clarity, chapter coherence, evidence mapping, limitation honesty) + question taxonomy (clarifying, probing, structuring, challenging); revision tracking template (4 status types); citation format conversion in formatter_agent (APA 7 ↔ Chicago ↔ MLA ↔ IEEE ↔ Vancouver); Quick Mode Selection Guide; 9th mode: revision-coach |
 | 2.2 | 2025-03-05 | 4-level argument strength scoring with quantified thresholds; plagiarism & retraction screening protocol; F11 Desk-Reject Recovery + F12 Conference-to-Journal Conversion failure paths; Plan -> Full mode conversion protocol; cross-skill reference to `shared/handoff_schemas.md` |
 | 2.1 | 2026-03 | Added CRediT authorship guide, funding statement guide, 2 new templates (credit_statement_template, funding_statement_template); enhanced intake_agent with co-author + funding questions (Step 9-10); enhanced formatter_agent with CRediT + funding quality checks |
 | 2.0 | 2026-02 | NEW plan mode (Socratic guided chapter-by-chapter planning), deep-research handoff protocol, Chinese APA 7.0 citation guide, failure path handling, mode selection guide |

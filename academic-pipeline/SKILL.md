@@ -2,12 +2,12 @@
 name: academic-pipeline
 description: "Orchestrator for the full academic research pipeline: research -> write -> integrity check -> review -> revise -> re-review -> re-revise -> final integrity check -> finalize. Coordinates deep-research, academic-paper, and academic-paper-reviewer into a seamless 9-stage workflow with mandatory integrity verification, two-stage peer review, and reproducible quality gates. Triggers on: academic pipeline, research to paper, full paper workflow, paper pipeline, end-to-end paper, research-to-publication, complete paper workflow."
 metadata:
-  version: "2.5"
+  version: "2.6"
   last_updated: "2026-03-08"
   depends_on: "deep-research, academic-paper, academic-paper-reviewer"
 ---
 
-# Academic Pipeline v2.5 — Full Academic Research Workflow Orchestrator
+# Academic Pipeline v2.6 — Full Academic Research Workflow Orchestrator
 
 A lightweight orchestrator that manages the complete academic pipeline from research exploration to final manuscript. It does not perform substantive work — it only detects stages, recommends modes, dispatches skills, manages transitions, and tracks state.
 
@@ -106,37 +106,58 @@ See `references/pipeline_state_machine.md` for complete state transition definit
 
 ---
 
-## Mandatory User Confirmation Checkpoints
+## Adaptive Checkpoint System
 
-**v2.0 core rule: After each stage completion, the system must proactively prompt the user and wait for confirmation.**
+**Core rule: After each stage completion, the system must proactively prompt the user and wait for confirmation. The checkpoint presentation adapts based on context and user engagement.**
 
-### Checkpoint Notification Template
+### Checkpoint Types
+
+| Type | When Used | Content |
+|------|-----------|---------|
+| FULL | First checkpoint; after integrity boundaries; before finalization | Full deliverables list + decision dashboard + all options |
+| SLIM | After 2+ consecutive "continue" responses on non-critical stages | One-line status + auto-continue in 5 seconds |
+| MANDATORY | Integrity FAIL; Review decision; Stage 5 | Cannot be skipped; requires explicit user input |
+
+### Decision Dashboard (shown at FULL checkpoints)
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage [X] [Name] Complete
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━ Stage [X] [Name] Complete ━━━
+
+Metrics:
+- Word count: [N] (target: [T] +/-10%)    [OK/OVER/UNDER]
+- References: [N] (min: [M])              [OK/LOW]
+- Coverage: [N]/[T] sections drafted       [COMPLETE/PARTIAL]
+- Quality indicators: [score if available]
 
 Deliverables:
 - [Material 1]
 - [Material 2]
 
-Next step: Stage [Y] [Name]
-Purpose: [One-sentence description]
+Flagged: [any issues detected, or "None"]
 
-Ready to proceed? You can also:
-1. View current progress (say "status")
-2. Adjust settings for the next step
-3. Pause the pipeline (you can resume anytime)
+Ready to proceed to Stage [Y]? You can also:
+1. View progress (say "status")
+2. Adjust settings
+3. Pause pipeline
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
+### Adaptive Rules
+
+1. **First checkpoint**: always FULL
+2. **After 2+ consecutive "continue" without review**: prompt user awareness ("You've auto-continued [N] times. Want to review progress?")
+3. **Integrity boundaries (Stage 2.5, 4.5)**: always MANDATORY
+4. **Review decisions (Stage 3, 3')**: always MANDATORY
+5. **Before finalization (Stage 5)**: always MANDATORY
+6. **All other stages**: start FULL, downgrade to SLIM if user says "just continue"
+
 ### Checkpoint Rules
 
-1. **Cannot auto-skip**: Even if the previous stage result is perfect, user confirmation is required
-2. **User can adjust**: At checkpoints, users can modify the mode or settings for the next step
+1. **Cannot auto-skip MANDATORY checkpoints**: Even if the previous stage result is perfect, explicit user input is required at MANDATORY checkpoints
+2. **User can adjust**: At FULL and MANDATORY checkpoints, users can modify the mode or settings for the next step
 3. **Pause-friendly**: Users can pause at any checkpoint and resume later
-4. **Simplified prompt**: If the user says "just continue" or "fully automatic," subsequent checkpoints switch to a simplified version (one-line status + auto-continue), but notifications are still sent
+4. **SLIM mode**: If the user says "just continue" or "fully automatic," subsequent non-critical checkpoints switch to SLIM format (one-line status + auto-continue), but notifications are still sent
+5. **Awareness guard**: After 4+ consecutive auto-continues, the system inserts a FULL checkpoint regardless of stage type to ensure user remains engaged
 
 ---
 
@@ -236,6 +257,8 @@ Execution steps:
    - Phase A: 100% reference existence + bibliographic accuracy + ghost citations
    - Phase B: >= 30% citation context spot-check
    - Phase C: 100% statistical data verification
+   - Phase D: >= 30% originality spot-check + self-plagiarism check
+   - Phase E: 30% claim verification spot-check (minimum 10 claims)
 3. Result handling:
    - PASS -> checkpoint -> Stage 3
    - FAIL -> produce correction list -> fix item by item -> re-verify corrected items
@@ -255,6 +278,8 @@ Execution steps:
    - Phase A: 100% reference verification (including those added during revision)
    - Phase B: 100% citation context verification (not spot-check, full check)
    - Phase C: 100% statistical data verification
+   - Phase D: >= 50% originality spot-check (100% for newly added/modified paragraphs)
+   - Phase E: 100% claim verification (zero MAJOR_DISTORTION + zero UNVERIFIABLE required)
 3. Special check: Compare with Stage 2.5 results to confirm all previous issues are resolved
 4. Result handling:
    - PASS (zero issues) -> checkpoint -> Stage 5
@@ -502,7 +527,7 @@ v2.0 design ensures consistent quality assurance with each execution:
 | Integrity check every time | Stage 2.5 + Stage 4.5 are **mandatory** stages, cannot be skipped |
 | Consistent review angles | EIC + R1/R2/R3 + Devil's Advocate — five fixed perspectives |
 | Consistent verification methods | integrity_verification_agent uses standardized search templates |
-| Consistent quality thresholds | Integrity check PASS/FAIL criteria are explicit (zero SERIOUS + zero MEDIUM) |
+| Consistent quality thresholds | Integrity check PASS/FAIL criteria are explicit (zero SERIOUS + zero MEDIUM + zero MAJOR_DISTORTION + zero UNVERIFIABLE) |
 | Traceable workflow | Every stage's deliverables are recorded, enabling retrospective audit |
 
 ### Audit Trail
@@ -704,6 +729,10 @@ The final chapter of the process record is a "Collaboration Quality Evaluation" 
 |-----------|---------|
 | `references/pipeline_state_machine.md` | Complete state machine definition: all legal transitions, preconditions, actions |
 | `references/plagiarism_detection_protocol.md` | Phase D originality verification protocol + self-plagiarism + AI text characteristics |
+| `references/mode_advisor.md` | Unified cross-skill decision tree: maps user intent to optimal skill + mode |
+| `references/claim_verification_protocol.md` | Phase E claim verification protocol: claim extraction, source tracing, cross-referencing, verdict taxonomy |
+| `references/team_collaboration_protocol.md` | Multi-person team coordination: role definitions, handoff protocol, version control, conflict resolution |
+| `shared/handoff_schemas.md` | Cross-skill data contracts: 9 schemas for all inter-stage handoff artifacts |
 
 ---
 
@@ -779,7 +808,7 @@ Stage 5: academic-paper (format-convert mode)
 
 | Item | Content |
 |------|---------|
-| Skill Version | 2.5 |
+| Skill Version | 2.6 |
 | Last Updated | 2026-03-08 |
 | Maintainer | HEEACT |
 | Dependent Skills | deep-research v2.0+, academic-paper v2.0+, academic-paper-reviewer v1.1+ |
@@ -791,6 +820,7 @@ Stage 5: academic-paper (format-convert mode)
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.6 | 2026-03-08 | **Handoff Data Schema**: Enhanced `shared/handoff_schemas.md` with 9 comprehensive schemas (RQ Brief, Bibliography, Synthesis, Paper Draft, Integrity Report, Review Report, Revision Roadmap, Response to Reviewers, Material Passport) with full field definitions, type constraints, and validation rules; orchestrator validates output against schemas before each transition. **Adaptive Checkpoint System**: Replaced static checkpoint template with 3-tier system (FULL/SLIM/MANDATORY) based on stage criticality and user engagement; FULL checkpoints include decision dashboard with metrics; SLIM auto-continues for experienced users; MANDATORY cannot be bypassed at integrity/review/finalization boundaries; awareness guard after 4+ auto-continues. **Mode Advisor**: New `references/mode_advisor.md` with unified cross-skill decision tree, common misconceptions table, user archetype recommendations, decision flowchart, and anti-patterns guide. **Team Collaboration Protocol**: New `references/team_collaboration_protocol.md` with 5 role definitions, per-transition handoff procedures, git branching/tagging strategy, conflict resolution matrix, and communication templates; state tracker extended with `assigned_to`, `approval_gate`, `team_notes` per stage and `schema_validation_log`. **Phase E Claim Verification**: New `references/claim_verification_protocol.md` with E1 claim extraction, E2 source tracing, E3 cross-referencing; verdict taxonomy (VERIFIED / MINOR_DISTORTION / MAJOR_DISTORTION / UNVERIFIABLE / UNVERIFIABLE_ACCESS); severity mapping (MAJOR_DISTORTION -> SERIOUS, UNVERIFIABLE -> SERIOUS, MINOR_DISTORTION -> MINOR, UNVERIFIABLE_ACCESS -> MEDIUM); integrated into integrity_verification_agent Mode 1 (30% spot-check) and Mode 2 (100%); pass/fail criteria updated to include Phase E verdicts. **Mid-Entry Material Passport Check**: Pipeline orchestrator now validates Material Passport on mid-entry; decision tree checks verification_status, freshness (< 24 hours), and content modification (version_label comparison); offers skip/spot-check/full re-verify options for Stage 2.5 when passport is valid; passport freshness validation rules added to `shared/handoff_schemas.md` |
 | 2.5 | 2026-03-08 | External Review Protocol: structured intake of real journal reviewer feedback (text/PDF/DOCX); 4-step workflow (parse -> strategic coaching -> revise + Response to Reviewers -> completeness check); differentiated behavior from internal simulated review (no default "accept all", risk assessment per comment, user confirmation of parsed items); explicit capability boundaries (AI verification ≠ reviewer satisfaction) |
 | 2.4 | 2026-03-08 | Stage 6 PROCESS SUMMARY: post-pipeline paper creation process record; asks user preferred language (zh/en/both); generates structured MD summarizing full human-AI collaboration history with user quotes, key decisions, iteration details, and lessons learned; mandatory final chapter: **Collaboration Quality Evaluation** (6 dimensions scored 1-100, bar chart visualization, What Worked Well / Missed Opportunities / Recommendations / Human vs AI Value-Add / Claude's Self-Reflection); compiles to PDF via LaTeX + tectonic; outputs `paper_creation_process_zh.pdf` + `paper_creation_process_en.pdf` |
 | 2.3 | 2026-03-08 | Stage 5 FINALIZE: mandatory formatting style prompt (APA 7.0 / Chicago / IEEE); PDF must compile from LaTeX via tectonic (no HTML-to-PDF); APA 7.0 uses `apa7` document class (`man` mode) with XeCJK for bilingual support; font stack: Times New Roman + Source Han Serif TC VF + Courier New |

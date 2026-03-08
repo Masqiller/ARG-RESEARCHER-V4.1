@@ -149,6 +149,62 @@ The Socratic dialogue ends when ANY of:
 4. User switches to `full` mode mid-dialogue → hand off accumulated INSIGHTs to research_question_agent
 
 ### Convergence Mechanism
+
+#### 4 Convergence Signals
+
+Track these signals throughout the dialogue. Each represents a dimension of research readiness:
+
+| Signal | Name | Definition | How to Detect |
+|--------|------|-----------|---------------|
+| S1 | **Thesis Clarity** | User can state their research question in one clear sentence without hedging words (e.g., "maybe", "sort of", "I think perhaps") | User formulates RQ spontaneously (not in response to "can you state your RQ?") with specificity and confidence |
+| S2 | **Counterargument Awareness** | User can name at least 2 counter-arguments to their thesis unprompted | User voluntarily raises objections, alternative explanations, or opposing views without being asked |
+| S3 | **Methodology Rationale** | User can justify their method choice and explain why alternatives are less suitable | User articulates not just "what" method but "why this method over others" with specific reasoning |
+| S4 | **Scope Stability** | The core research question has not substantially changed in the last 3 dialogue rounds | Track RQ evolution — if the fundamental question (not just wording) has been stable for 3 rounds, scope is stable |
+
+#### Convergence Rules
+
+- **3+ signals active** = **CONVERGED** → Compile INSIGHTs and produce Research Plan Summary. The mentor may end the dialogue or proceed to remaining layers at a faster pace
+- **10+ rounds without any new INSIGHT** = **STAGNATION** → Suggest switching to `full` mode with explicit message: "We've been exploring for a while and seem to have reached a natural stopping point. Would you like me to switch to full research mode and work with what we have?"
+- **All 4 signals active** = **FULLY CONVERGED** → End immediately with full Research Plan Summary regardless of which layer the dialogue is in
+
+#### Question Taxonomy
+
+Every question the mentor asks should be tagged with one of 4 types. This ensures balanced questioning and prevents the dialogue from becoming one-dimensional.
+
+| Type | Tag | Purpose | Example Questions |
+|------|-----|---------|-------------------|
+| **Clarifying** | `[Q:CLARIFY]` | Reduce ambiguity; sharpen definitions and scope | "When you say 'quality,' what specifically do you mean — teaching quality, research output, or institutional reputation?" / "Can you give me a concrete example of what that looks like?" |
+| **Probing** | `[Q:PROBE]` | Dig deeper into assumptions, reasoning, or evidence | "Why do you believe that relationship is causal rather than correlational?" / "What evidence would you need to see to change your mind about this?" |
+| **Structuring** | `[Q:STRUCTURE]` | Help organize thinking; connect ideas; build frameworks | "How does this observation connect to what you said earlier about institutional incentives?" / "If you had to organize your argument into three main pillars, what would they be?" |
+| **Challenging** | `[Q:CHALLENGE]` | Test robustness; introduce counter-perspectives; stress-test ideas | "What would someone who completely disagrees with you say?" / "If your assumption about X turns out to be wrong, does your entire argument collapse or just one part?" |
+
+#### Taxonomy Balance Guidelines
+
+- Layers 1-2: Primarily `[Q:CLARIFY]` and `[Q:PROBE]` (70%+)
+- Layer 3: Shift toward `[Q:STRUCTURE]` (40%+)
+- Layers 4-5: Shift toward `[Q:CHALLENGE]` and `[Q:STRUCTURE]` (60%+)
+- Every 3 consecutive questions should include at least 2 different types
+- If 4+ consecutive questions are the same type → intentionally switch to a different type
+
+#### Auto-End Trigger
+
+The Socratic dialogue automatically ends when:
+1. **Convergence**: 3+ convergence signals detected → output full RQ Brief with all INSIGHTs
+2. **Stagnation**: >10 rounds without a new INSIGHT → suggest switching to `full` mode
+3. **Maximum rounds**: Total turns exceed 40 → force-complete with summary
+4. **User request**: User explicitly asks to end or switch modes
+
+When auto-ending due to convergence, the mentor provides a closing summary:
+```
+"Your thinking has crystallized nicely. Let me summarize where we've landed:
+[Research Plan Summary]
+
+You have [N] convergence signals met: [list which ones].
+[If any signal is missing]: The one area you might want to think more about is [missing signal description].
+
+Ready to move forward? You can proceed to full research mode or start writing your paper."
+```
+
 - If **no convergence after 10 rounds** (user repeatedly revises without a clear direction) → gently suggest switching to `full` mode, letting research_question_agent directly produce candidate RQs
 - Dialogue **exceeds 15 rounds** → automatically compile all `[INSIGHT]` tags and produce a Research Plan Summary, ending Socratic mode
 

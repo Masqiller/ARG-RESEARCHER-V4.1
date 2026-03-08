@@ -8,10 +8,10 @@ A comprehensive suite of Claude Code skills for academic research, covering the 
 
 ## Features
 
-- **Deep Research** — 10-agent research team with Socratic guided mode
-- **Academic Paper** — 10-agent paper writing with chapter-by-chapter planning
-- **Academic Paper Reviewer** — Multi-perspective peer review (EIC + 3 dynamic reviewers + Devil's Advocate)
-- **Academic Pipeline** — Full 10-stage pipeline orchestrator with integrity verification, Socratic revision coaching, and collaboration quality evaluation
+- **Deep Research** — 13-agent research team with Socratic guided mode + systematic review / PRISMA
+- **Academic Paper** — 12-agent paper writing with visualization, revision coaching, and citation conversion
+- **Academic Paper Reviewer** — Multi-perspective peer review with 0-100 quality rubrics (EIC + 3 dynamic reviewers + Devil's Advocate)
+- **Academic Pipeline** — Full 10-stage pipeline orchestrator with adaptive checkpoints, claim verification, and material passport
 
 ### Full Pipeline
 
@@ -22,13 +22,15 @@ Research → Write → Integrity Check → Review (5-person) → Socratic Coachi
 ```
 
 **Key Features:**
-1. Mandatory user confirmation checkpoint after every stage
-2. Pre-review integrity verification — 100% reference & data validation
-3. Two-stage review with Devil's Advocate
+1. Adaptive checkpoints (FULL / SLIM / MANDATORY) after every stage
+2. Pre-review integrity verification — 100% reference, data, and claim validation (Phase A-E)
+3. Two-stage review with Devil's Advocate + 0-100 quality rubrics
 4. Socratic revision coaching between review and revision stages
 5. Final integrity verification before publication
 6. Output: MD + DOCX + LaTeX (APA 7.0 `apa7` class / IEEE / Chicago) → PDF via tectonic
 7. Post-pipeline process summary with 6-dimension collaboration quality scoring (1–100)
+8. Material passport for mid-entry provenance tracking
+9. Cross-skill mode advisor (14 scenarios + user archetypes)
 
 ---
 
@@ -263,9 +265,9 @@ You: "status"
 
 ## Skill Details
 
-### Deep Research (v2.2)
+### Deep Research (v2.3)
 
-10-agent pipeline for rigorous academic research:
+13-agent pipeline for rigorous academic research:
 
 | Agent | Role |
 |-------|------|
@@ -278,11 +280,16 @@ You: "status"
 | Editor-in-Chief | Q1 journal editorial review |
 | Devil's Advocate | Assumption challenging (3 checkpoints) |
 | Ethics Review Agent | AI disclosure, attribution integrity |
-| Socratic Mentor | Guided research dialogue |
+| Socratic Mentor | Guided research dialogue with convergence criteria |
+| Risk of Bias Agent | RoB 2 + ROBINS-I assessment, traffic-light output |
+| Meta-Analysis Agent | Effect sizes, heterogeneity, forest plot data, GRADE |
+| Monitoring Agent | Post-pipeline literature monitoring alerts |
 
-### Academic Paper (v2.2)
+**Modes:** full, quick, paper-review, lit-review, fact-check, socratic, **systematic-review** (new)
 
-10-agent pipeline for academic paper writing:
+### Academic Paper (v2.3)
+
+12-agent pipeline for academic paper writing:
 
 | Agent | Role |
 |-------|------|
@@ -291,15 +298,19 @@ You: "status"
 | Structure Architect | Paper outline + word allocation |
 | Argument Builder | Thesis + claim-evidence chains |
 | Draft Writer | Section-by-section writing |
-| Citation Compliance | Multi-format citation audit |
+| Citation Compliance | Multi-format citation audit + APA↔Chicago↔MLA↔IEEE↔Vancouver conversion |
 | Abstract Bilingual | EN + Chinese abstracts |
 | Peer Reviewer | 5-dimension review (max 2 rounds) |
 | Formatter | LaTeX/DOCX/PDF output |
-| Socratic Mentor | Chapter-by-chapter guided planning |
+| Socratic Mentor | Chapter-by-chapter guided planning with convergence criteria |
+| Visualization Agent | 9 chart types, matplotlib/ggplot2, APA 7.0 standards |
+| Revision Coach Agent | Parses unstructured reviewer comments → Revision Roadmap |
 
-### Academic Paper Reviewer (v1.3)
+**Modes:** full, plan, revision, citation-check, format-convert, bilingual-abstract, writing-polish, full-auto, **revision-coach** (new)
 
-7-agent multi-perspective review:
+### Academic Paper Reviewer (v1.4)
+
+7-agent multi-perspective review with **0-100 quality rubrics**:
 
 | Agent | Role |
 |-------|------|
@@ -309,11 +320,13 @@ You: "status"
 | Domain Reviewer | Literature coverage, theoretical framework |
 | Perspective Reviewer | Cross-disciplinary, practical impact |
 | Devil's Advocate Reviewer | Core thesis challenge, logical fallacy detection, strongest counter-argument |
-| Editorial Synthesizer | Consensus analysis, revision roadmap |
+| Editorial Synthesizer | Consensus analysis, revision roadmap, **rubric-based scoring** |
 
 **Modes:** full, re-review (verification), quick, methodology-focus, guided
 
-### Academic Pipeline (v2.4)
+**Decision mapping:** ≥80 Accept, 65-79 Minor Revision, 50-64 Major Revision, <50 Reject
+
+### Academic Pipeline (v2.6)
 
 10-stage orchestrator with integrity verification, two-stage review, Socratic coaching, and collaboration evaluation:
 
@@ -368,6 +381,12 @@ HEEACT — Higher Education Evaluation and Accreditation Council of Taiwan
 ---
 
 ## Changelog
+
+### v2.6 / v2.3 / v1.4 (2026-03-08) — 15 Improvements
+- **deep-research v2.3**: New systematic-review / PRISMA mode (7th); 3 new agents (risk_of_bias, meta_analysis, monitoring); PRISMA protocol/report templates; Socratic convergence criteria (4 signals + auto-end); Quick Mode Selection Guide
+- **academic-paper v2.3**: 2 new agents (visualization, revision_coach); revision tracking template with 4 status types; citation format conversion (APA↔Chicago↔MLA↔IEEE↔Vancouver); statistical visualization standards; Socratic convergence criteria; revision recovery example
+- **academic-paper-reviewer v1.4**: Quality rubrics with 0-100 scoring and behavioral indicators; decision mapping (≥80 Accept, 65-79 Minor, 50-64 Major, <50 Reject); Quick Mode Selection Guide
+- **academic-pipeline v2.6**: Adaptive checkpoint system (FULL/SLIM/MANDATORY); Phase E Claim Verification in integrity checks; Material Passport for mid-entry provenance; cross-skill mode advisor (14 scenarios); team collaboration protocol; enhanced handoff schemas (9 schemas); integrity failure recovery example
 
 ### v2.4 / v1.3 (2026-03-08)
 - **academic-pipeline v2.4**: New Stage 6 PROCESS SUMMARY — auto-generates structured paper creation process record (MD → LaTeX → PDF, bilingual); mandatory final chapter: **Collaboration Quality Evaluation** with 6 dimensions scored 1–100 (Direction Setting, Intellectual Contribution, Quality Gatekeeping, Iteration Discipline, Delegation Efficiency, Meta-Learning), honest feedback, and improvement recommendations; pipeline expanded from 9 to 10 stages

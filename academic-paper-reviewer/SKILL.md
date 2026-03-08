@@ -2,11 +2,11 @@
 name: academic-paper-reviewer
 description: "Multi-perspective academic paper review with dynamic reviewer personas. Simulates 5 independent reviewers (EIC + 3 peer reviewers + Devil's Advocate) with field-specific expertise. Supports full review, re-review (verification), quick assessment, methodology focus, and Socratic guided modes. Triggers on: review paper, peer review, manuscript review, referee report, review my paper, critique paper, simulate review, editorial review."
 metadata:
-  version: "1.3"
-  last_updated: "2025-03-05"
+  version: "1.4"
+  last_updated: "2026-03-08"
 ---
 
-# Academic Paper Reviewer v1.3 — Multi-Perspective Academic Paper Review Agent Team
+# Academic Paper Reviewer v1.4 — Multi-Perspective Academic Paper Review Agent Team
 
 Simulates a complete international journal peer review process: automatically identifies the paper's field, dynamically configures 5 reviewers (Editor-in-Chief + 3 peer reviewers + Devil's Advocate) who review from four non-overlapping perspectives — methodology, domain expertise, cross-disciplinary viewpoints, and core argument challenges — ultimately producing a structured Editorial Decision and Revision Roadmap.
 
@@ -49,6 +49,18 @@ Review this paper: [paste paper or provide file]
 | Need to write a paper (not review) | `academic-paper` |
 | Need in-depth investigation of a research topic | `deep-research` |
 | Need to revise a paper (already have review comments) | `academic-paper` (revision mode) |
+
+### Quick Mode Selection Guide
+
+| Your Situation | Recommended Mode |
+|----------------|-----------------|
+| Need comprehensive review (first submission) | full |
+| Checking if revisions addressed comments | re-review |
+| Quick quality assessment (15 min) | quick |
+| Focus only on methods/statistics | methodology-focus |
+| Want to learn by doing (guided review) | guided |
+
+Not sure? Use `full` for pre-submission review, `re-review` for post-revision verification.
 
 ---
 
@@ -395,6 +407,7 @@ Step 9: academic-paper (format-convert) -> Final paper
 | `references/top_journals_by_field.md` | Top journal lists for major academic fields (EIC role calibration) | field_analyst, eic |
 | `references/editorial_decision_standards.md` | Accept/Minor/Major/Reject criteria and decision matrix | eic, editorial_synthesizer |
 | `references/statistical_reporting_standards.md` | Statistical reporting standards + APA 7.0 format quick reference + red flag list | methodology_reviewer |
+| `references/quality_rubrics.md` | Calibrated 0-100 scoring rubrics for 7 review dimensions with decision mapping | all reviewers |
 
 ---
 
@@ -454,8 +467,8 @@ Follows the paper's language. Academic terms remain in English. User can overrid
 
 | Item | Content |
 |------|---------|
-| Skill Version | 1.3 |
-| Last Updated | 2025-03-05 |
+| Skill Version | 1.4 |
+| Last Updated | 2026-03-08 |
 | Maintainer | HEEACT |
 | Dependent Skills | academic-paper v1.0+ (upstream/downstream integration) |
 | Role | Multi-perspective academic paper review simulator |
@@ -466,6 +479,7 @@ Follows the paper's language. Academic terms remain in English. User can overrid
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 1.4 | 2026-03-08 | Quality rubrics reference (0-100 scoring with 5 descriptors per dimension, weighted aggregation formula, decision mapping); Quick Mode Selection Guide; Dimension Scores upgraded from optional 1-5 to required 0-100 with rubric descriptors |
 | 1.3 | 2025-03-05 | DA vs R3 role boundaries with explicit responsibility tables; CRITICAL finding criteria with concrete examples; Consensus classification (CONSENSUS-4/3/SPLIT/DA-CRITICAL); Confidence Score weighting rules; Asian & Regional Journals reference (TSSCI + Asia-Pacific + OA options) |
 | 1.2 | 2026-03 | Added statistical reporting standards reference; enhanced methodology_reviewer_agent with statistical reporting adequacy sub-step |
 | 1.1 | 2026-02 | Added Devil's Advocate Reviewer (7th agent), added re-review mode, expanded review team from 4 to 5 |

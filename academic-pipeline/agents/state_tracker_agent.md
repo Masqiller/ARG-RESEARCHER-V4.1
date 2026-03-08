@@ -29,15 +29,16 @@ The State Tracker is the **single source of truth** for pipeline state. No other
 
 ### Material Version Control
 
-Every material artifact produced by the pipeline carries a version label:
+Every material artifact produced by the pipeline carries a version label. These labels correspond to the `version_label` field in the Material Passport (Schema 9 in `shared/handoff_schemas.md`).
 
-| Material | Version Format | Example |
-|----------|---------------|---------|
-| Research output | `research_v{N}` | `research_v1` (initial), `research_v2` (after keyword expansion) |
-| Paper draft | `paper_draft_v{N}` | `paper_draft_v1` (initial), `paper_draft_v2` (post-review revision) |
-| Integrity report | `integrity_{mid|final}_v{N}` | `integrity_mid_v1`, `integrity_final_v1` |
-| Review report | `review_v{N}` | `review_v1` (initial review), `review_v2` (re-review after revision) |
-| Revision | `revision_v{N}` | `revision_v1` (first revision round) |
+| Material | Version Format | Example | Schema Reference |
+|----------|---------------|---------|-----------------|
+| Research output | `research_v{N}` | `research_v1` (initial), `research_v2` (after keyword expansion) | Schema 1-3 |
+| Paper draft | `paper_draft_v{N}` | `paper_draft_v1` (initial), `paper_draft_v2` (post-review revision) | Schema 4 |
+| Integrity report | `integrity_{mid|final}_v{N}` | `integrity_mid_v1`, `integrity_final_v1` | Schema 5 |
+| Review report | `review_v{N}` | `review_v1` (initial review), `review_v2` (re-review after revision) | Schema 6 |
+| Revision roadmap | `roadmap_v{N}` | `roadmap_v1` (first review), `roadmap_v2` (re-review) | Schema 7 |
+| Revision | `revision_v{N}` | `revision_v1` (first revision round) | Schema 8 |
 
 **Rules**:
 - Version numbers are monotonically increasing (never reused)
@@ -45,6 +46,7 @@ Every material artifact produced by the pipeline carries a version label:
 - All versions are preserved (no overwriting) — enables rollback and audit trail
 - The `current_version` pointer indicates which version is active
 - Cross-references between materials use explicit version labels (e.g., "review_v1 references paper_draft_v1")
+- Version labels in state tracker must match the Material Passport `version_label` field
 
 ---
 
@@ -54,10 +56,11 @@ Every material artifact produced by the pipeline carries a version label:
 {
   "topic": "Paper topic (determined by Stage 1 or user input)",
   "language": "en",
-  "pipeline_version": "2.0",
+  "pipeline_version": "2.6",
   "entry_point": 1,
   "current_stage": "2.5",
   "pipeline_state": "awaiting_confirmation",
+  "consecutive_continue_count": 0,
   "stages": {
     "1": {
       "name": "RESEARCH",
@@ -67,7 +70,12 @@ Every material artifact produced by the pipeline carries a version label:
       "outputs": ["RQ Brief", "Methodology Blueprint", "Bibliography (22 sources)", "Synthesis Report"],
       "started_at": "conversation turn #3",
       "completed_at": "conversation turn #15",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "FULL",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": false,
+      "team_notes": null
     },
     "2": {
       "name": "WRITE",
@@ -77,7 +85,12 @@ Every material artifact produced by the pipeline carries a version label:
       "outputs": ["Paper Draft (5,200 words, IMRaD)"],
       "started_at": "conversation turn #16",
       "completed_at": "conversation turn #28",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "FULL",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": false,
+      "team_notes": null
     },
     "2.5": {
       "name": "INTEGRITY",
@@ -91,7 +104,12 @@ Every material artifact produced by the pipeline carries a version label:
       "issues_fixed": 0,
       "started_at": "conversation turn #29",
       "completed_at": "conversation turn #31",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "MANDATORY",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": true,
+      "team_notes": null
     },
     "3": {
       "name": "REVIEW",
@@ -102,7 +120,12 @@ Every material artifact produced by the pipeline carries a version label:
       "decision": "major_revision",
       "started_at": "conversation turn #32",
       "completed_at": "conversation turn #36",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "MANDATORY",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": true,
+      "team_notes": null
     },
     "4": {
       "name": "REVISE",
@@ -115,7 +138,12 @@ Every material artifact produced by the pipeline carries a version label:
       "outputs": ["Revised Draft", "Response to Reviewers"],
       "started_at": "conversation turn #37",
       "completed_at": "conversation turn #42",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "FULL",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": false,
+      "team_notes": null
     },
     "3p": {
       "name": "RE-REVIEW",
@@ -126,7 +154,12 @@ Every material artifact produced by the pipeline carries a version label:
       "decision": "accept",
       "started_at": "conversation turn #43",
       "completed_at": "conversation turn #45",
-      "checkpoint_confirmed": true
+      "checkpoint_confirmed": true,
+      "checkpoint_type": "MANDATORY",
+      "schema_validated": true,
+      "assigned_to": null,
+      "approval_gate": true,
+      "team_notes": null
     },
     "4p": {
       "name": "RE-REVISE",
@@ -137,7 +170,12 @@ Every material artifact produced by the pipeline carries a version label:
       "outputs": [],
       "started_at": null,
       "completed_at": null,
-      "checkpoint_confirmed": null
+      "checkpoint_confirmed": null,
+      "checkpoint_type": null,
+      "schema_validated": null,
+      "assigned_to": null,
+      "approval_gate": false,
+      "team_notes": null
     },
     "4.5": {
       "name": "FINAL INTEGRITY",
@@ -151,7 +189,12 @@ Every material artifact produced by the pipeline carries a version label:
       "issues_fixed": null,
       "started_at": "conversation turn #46",
       "completed_at": null,
-      "checkpoint_confirmed": false
+      "checkpoint_confirmed": false,
+      "checkpoint_type": "MANDATORY",
+      "schema_validated": false,
+      "assigned_to": null,
+      "approval_gate": true,
+      "team_notes": null
     },
     "5": {
       "name": "FINALIZE",
@@ -161,7 +204,12 @@ Every material artifact produced by the pipeline carries a version label:
       "outputs": [],
       "started_at": null,
       "completed_at": null,
-      "checkpoint_confirmed": false
+      "checkpoint_confirmed": false,
+      "checkpoint_type": null,
+      "schema_validated": false,
+      "assigned_to": null,
+      "approval_gate": true,
+      "team_notes": null
     }
   },
   "revision_history": [
@@ -186,6 +234,22 @@ Every material artifact produced by the pipeline carries a version label:
       "retry_count": 0
     }
   ],
+  "schema_validation_log": [
+    {
+      "transition": "1 -> 2",
+      "schemas_checked": ["Schema 1 (RQ Brief)", "Schema 2 (Bibliography)", "Schema 3 (Synthesis)"],
+      "result": "PASS",
+      "missing_fields": [],
+      "timestamp": "conversation turn #15"
+    },
+    {
+      "transition": "2 -> 2.5",
+      "schemas_checked": ["Schema 4 (Paper Draft)"],
+      "result": "PASS",
+      "missing_fields": [],
+      "timestamp": "conversation turn #28"
+    }
+  ],
   "materials": {
     "rq_brief": true,
     "methodology_blueprint": true,
@@ -203,6 +267,13 @@ Every material artifact produced by the pipeline carries a version label:
     "re_revised_draft": false,
     "integrity_report_final": false,
     "final_paper": false
+  },
+  "team": {
+    "research_lead": null,
+    "lead_author": null,
+    "methods_specialist": null,
+    "review_coordinator": null,
+    "integration_lead": null
   },
   "loop_count": 0
 }

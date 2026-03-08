@@ -32,6 +32,7 @@ Determine the entry point from the user's first message. Use the following keywo
 **Important: mid-entry routing rules**
 - User brings a paper and requests "review" -> go to Stage 2.5 (INTEGRITY) first, then Stage 3 (REVIEW) after passing
 - Cannot jump directly to Stage 3 (unless user can provide a previous integrity verification report)
+- When user enters mid-pipeline, check for Material Passport — see "Mid-Entry Material Passport Check" below
 
 ### 2. Mode Recommendation
 
@@ -62,45 +63,107 @@ Integrity checks (Stage 2.5 & 4.5) are mandatory and cannot be skipped.
 You can adjust any stage's mode at any time. Ready to begin?
 ```
 
-### 3. Checkpoint Management (Added in v2.0)
+### 3. Checkpoint Management (Adaptive Checkpoint System)
 
-**After each stage completion, the checkpoint process must be executed:**
+**After each stage completion, the checkpoint process must be executed. The checkpoint type is determined adaptively.**
+
+#### Checkpoint Type Determination
+
+| Type | When Used | Content |
+|------|-----------|---------|
+| FULL | First checkpoint; after integrity boundaries; before finalization | Full deliverables list + decision dashboard + all options |
+| SLIM | After 2+ consecutive "continue" responses on non-critical stages | One-line status + auto-continue in 5 seconds |
+| MANDATORY | Integrity FAIL; Review decision; Stage 5 | Cannot be skipped; requires explicit user input |
+
+#### Checkpoint Type Rules
+
+1. First checkpoint in the pipeline: always FULL
+2. After 2+ consecutive "continue" without reviewing deliverables: switch to SLIM and prompt user awareness ("You've auto-continued 3 times. Want to review progress?")
+3. Integrity boundaries (Stage 2.5, 4.5): always MANDATORY
+4. Review decisions (Stage 3, 3'): always MANDATORY
+5. Before finalization (Stage 5): always MANDATORY
+6. All other stages: start FULL, downgrade to SLIM if user says "just continue"
+
+#### User Engagement Tracking
+
+The orchestrator tracks consecutive "continue" responses to determine checkpoint type:
 
 ```
-Steps:
-1. Update state_tracker
-2. Display checkpoint notification (see template below)
-3. Wait for user response
-4. Based on user response, decide:
-   - "continue" "yes" -> proceed to next stage
-   - "pause" "stop here" -> pause pipeline
-   - "adjust" "change settings" -> let user adjust settings
-   - "view progress" -> display Dashboard
+consecutive_continue_count: integer (reset to 0 when user chooses any action other than "continue")
 ```
 
-**Checkpoint notification template:**
+- `consecutive_continue_count < 2` -> FULL checkpoint (unless rules above override)
+- `consecutive_continue_count >= 2` -> SLIM checkpoint (unless rules above override to MANDATORY)
+- `consecutive_continue_count >= 4` -> SLIM + awareness prompt ("You've auto-continued [N] times...")
+
+#### Steps
 
 ```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage [X] [Name] Complete
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Determine checkpoint_type (FULL / SLIM / MANDATORY) using rules above
+2. Update state_tracker (including checkpoint_type)
+3. Display checkpoint notification matching the type
+4. Wait for user response
+5. Based on user response, decide:
+   - "continue" "yes" -> increment consecutive_continue_count; proceed to next stage
+   - "pause" "stop here" -> reset count; pause pipeline
+   - "adjust" "change settings" -> reset count; let user adjust settings
+   - "view progress" -> reset count; display Dashboard
+   - "redo" "roll back" -> reset count; return to previous stage
+   - "skip" -> validate skip safety; proceed if allowed
+   - "abort" "terminate" -> reset count; terminate pipeline
+```
+
+#### FULL Checkpoint Template (with Decision Dashboard)
+
+```
+━━━ Stage [X] [Name] Complete ━━━
+
+Metrics:
+- Word count: [N] (target: [T] +/-10%)    [OK/OVER/UNDER]
+- References: [N] (min: [M])              [OK/LOW]
+- Coverage: [N]/[T] sections drafted       [COMPLETE/PARTIAL]
+- Quality indicators: [score if available]
 
 Deliverables:
 - [Material 1]
 - [Material 2]
 
+Flagged: [any issues detected, or "None"]
+
 Next step: Stage [Y] [Name]
 Purpose: [One-sentence description]
 
-Continue?
+Ready to proceed to Stage [Y]? You can also:
+1. View progress (say "status")
+2. Adjust settings
+3. Pause pipeline
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-**Special checkpoint (integrity check results):**
+#### Decision Dashboard Data Requirements
+
+For FULL checkpoints, the orchestrator must collect from state_tracker:
+
+| Data Point | Source | Required For |
+|-----------|--------|-------------|
+| Word count (current vs target) | Paper draft metadata | Stages 2, 4, 4' |
+| Reference count (current vs minimum) | Bibliography / reference list | Stages 1, 2, 4 |
+| Section coverage | Paper draft sections | Stage 2 |
+| Integrity scores | Integrity report | Stages 2.5, 4.5 |
+| Review decision + item counts | Review report | Stages 3, 3' |
+| Revision completion ratio | Response to Reviewers | Stages 4, 4' |
+
+#### SLIM Checkpoint Template
+
+```
+━━━ [OK] Stage [X] [Name] -> Stage [Y] [Name] (auto-continuing...) ━━━
+```
+
+#### MANDATORY Checkpoint Template (Integrity)
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 2.5 Academic Integrity Check Complete
+[MANDATORY] Stage [X] [Name] Complete
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Verification result: [PASS / PASS WITH NOTES / FAIL]
@@ -108,12 +171,16 @@ Verification result: [PASS / PASS WITH NOTES / FAIL]
 - Reference verification: [X/X] passed
 - Citation context check: [X/X] passed
 - Data verification: [X/X] passed
+- Originality check: [PASS/ISSUES]
+- Claim verification: [X/X] verified [PASS/ISSUES]
 
-[If FAIL: list correction items]
+[If FAIL: list correction items with severity]
 
-Next step: Stage 3 (REVIEW) — submit for peer review
-Review team: EIC + methodology expert + domain expert + interdisciplinary expert + Devil's Advocate
+Flagged: [issues requiring attention]
 
+Next step: Stage [Y] [Name]
+
+This checkpoint requires your explicit confirmation.
 Continue?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
@@ -169,18 +236,31 @@ When a sub-skill stage fails or produces unacceptable output:
 
 ### 4. Transition Management
 
+**Before each transition, verify the output artifact conforms to its schema in `shared/handoff_schemas.md`.** If schema validation fails, request the producing agent to re-generate the artifact before proceeding.
+
+**Schema validation step:**
+```
+1. Identify which schema(s) apply to the transition's output artifacts
+2. Validate all required fields are present and correctly typed
+3. Verify Material Passport (Schema 9) is attached with current version label
+4. If validation fails -> return HANDOFF_INCOMPLETE with missing fields list
+5. If validation passes -> proceed with transition
+```
+
 **Handoff material transfer rules:**
 
-| Transition | Transferred Materials | Transfer Method |
-|-----------|----------------------|----------------|
-| Stage 1 -> 2 | RQ Brief, Methodology Blueprint, Annotated Bibliography, Synthesis Report | deep-research handoff protocol |
-| Stage 2 -> 2.5 | Complete Paper Draft | Pass to integrity_verification_agent |
-| Stage 2.5 -> 3 | Verified Paper Draft + Integrity Report | Pass to reviewer (with verification report attached) |
-| Stage 3 -> **coaching** -> 4 | Editorial Decision, Revision Roadmap, 5 Review Reports | **First Socratic dialogue to guide user understanding of review comments** -> academic-paper revision mode input |
-| Stage 4 -> 3' | Revised Draft, Response to Reviewers | Pass to reviewer (marked as verification round) |
-| Stage 3' -> **coaching** -> 4' | New Revision Roadmap (if Major) | **First Socratic dialogue to guide user understanding of residual issues** -> academic-paper revision mode input |
-| Stage 4/4' -> 4.5 | Revised/Re-Revised Draft | Pass to integrity_verification_agent (final verification) |
-| Stage 4.5 -> 5 | Final Verified Draft + Final Integrity Report | Auto-produce MD + DOCX -> ask about LaTeX -> confirm correctness -> PDF |
+| Transition | Transferred Materials | Schema Reference | Transfer Method |
+|-----------|----------------------|-----------------|----------------|
+| Stage 1 -> 2 | RQ Brief, Annotated Bibliography, Synthesis Report | Schema 1 (RQ Brief), Schema 2 (Bibliography), Schema 3 (Synthesis) | deep-research handoff protocol |
+| Stage 2 -> 2.5 | Complete Paper Draft | Schema 4 (Paper Draft) | Pass to integrity_verification_agent |
+| Stage 2.5 -> 3 | Verified Paper Draft + Integrity Report | Schema 4 + Schema 5 (Integrity Report) | Pass to reviewer (with verification report attached) |
+| Stage 3 -> **coaching** -> 4 | Editorial Decision, Revision Roadmap, 5 Review Reports | Schema 6 (Review Report), Schema 7 (Revision Roadmap) | **First Socratic dialogue** -> academic-paper revision mode input |
+| Stage 4 -> 3' | Revised Draft, Response to Reviewers | Schema 4 (revised) + Schema 8 (Response to Reviewers) | Pass to reviewer (marked as verification round) |
+| Stage 3' -> **coaching** -> 4' | New Revision Roadmap (if Major) | Schema 7 (Revision Roadmap) | **First Socratic dialogue** -> academic-paper revision mode input |
+| Stage 4/4' -> 4.5 | Revised/Re-Revised Draft | Schema 4 (revised) | Pass to integrity_verification_agent (final verification) |
+| Stage 4.5 -> 5 | Final Verified Draft + Final Integrity Report | Schema 4 + Schema 5 (Integrity Report) | Auto-produce MD + DOCX -> ask about LaTeX -> confirm -> PDF |
+
+**All artifacts must carry a Material Passport (Schema 9)** with `origin_skill`, `origin_mode`, `origin_date`, `verification_status`, and `version_label`.
 
 ### 5. Exception Handling
 
@@ -277,6 +357,54 @@ Request state_tracker_agent to produce the Progress Dashboard when needed.
 | Integrity check FAIL | Fix paper based on correction list, invoke verification again |
 | After Stage 4/4' completion | Invoke integrity_verification_agent (Mode 2: final-check) |
 | Final verification FAIL | Fix and re-verify (max 3 rounds) |
+
+---
+
+## Mid-Entry Material Passport Check
+
+When a user enters the pipeline mid-way (e.g., bringing an existing paper), the orchestrator MUST check for a Material Passport before deciding whether to require full Stage 2.5 verification.
+
+### Decision Tree
+
+```
+Mid-Entry Material Passport Check:
+
+1. Does the material have a Material Passport (Schema 9)?
+   NO  -> Require full verification from appropriate stage
+         (paper draft -> Stage 2.5; revised draft -> Stage 4.5)
+   YES -> Continue to step 2
+
+2. Is verification_status = "VERIFIED"?
+   NO  -> Require full verification
+         (UNVERIFIED or STALE both require re-verification)
+   YES -> Continue to step 3
+
+3. Is integrity_pass_date within current session or < 24 hours?
+   NO  -> Mark passport as STALE, require re-verification
+         "Your integrity verification from [date] is more than 24 hours old.
+          Re-verification is required."
+   YES -> Continue to step 4
+
+4. Has content been modified since verification? (compare version_label)
+   YES -> Require re-verification
+         "The paper has been modified since the last integrity check
+          (version [old] -> [new]). Re-verification is required."
+   NO  -> Offer to skip Stage 2.5:
+         "Your paper passed integrity check on [date] (version [label]).
+          No content changes detected. How would you like to proceed?
+          [1] SKIP — Trust previous verification and proceed to Stage 3
+          [2] SPOT-CHECK 10% — Quick re-verification of key claims and references
+          [3] FULL RE-VERIFY — Complete Stage 2.5 from scratch"
+```
+
+### Rules
+
+- **Stage 2.5 skip requires explicit user confirmation** — the orchestrator MUST NOT auto-skip even if the passport is valid
+- **Stage 4.5 can NEVER be skipped** via Material Passport, regardless of passport status. Final integrity check always requires full Mode 2 verification
+- **SPOT-CHECK option**: If user selects spot-check, run integrity_verification_agent with a reduced scope: Phase A (10% random sample), Phase B (10% random sample), Phase C (10% random sample), Phase D (10% random sample), Phase E (10% random sample). Any issue found -> escalate to full re-verification
+- **Passport freshness threshold**: 24 hours. Sessions that span multiple days should trigger re-verification
+- **Content hash comparison**: If `content_hash` is available in the passport, use it for reliable change detection. If not available, fall back to `version_label` comparison
+- **Audit trail**: Log the passport check decision (skip/spot-check/full) in state_tracker for the pipeline audit trail
 
 ---
 
