@@ -290,14 +290,9 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 - **English** — 使用者以英文對話時預設使用
 - 學術論文自動產出雙語摘要（中文 + English）
 
-> **使用其他語言？** 觸發關鍵字和蘇格拉底 / Plan 模式的啟動詞目前針對**英文**和**繁體中文**最佳化。如果你主要使用其他語言（如日文、韓文、簡體中文、西班牙文等），建議將 `SKILL.md` 中的觸發關鍵字替換為你的語言，以獲得更準確的模式路由。
+> **使用其他語言？** 蘇格拉底模式（deep-research）和 Plan 模式（academic-paper）採用**意圖匹配**啟動 — 偵測你的請求含義，而非比對特定關鍵字。這代表它們**支援任何語言**，無需額外設定。
 >
-> 在每個 `SKILL.md` 中找到以下區塊：
-> - `### Trigger Keywords` — 一般 skill 啟動
-> - `### Socratic Mode Trigger Keywords`（在 `deep-research/SKILL.md`）
-> - `### Plan Mode Trigger Keywords`（在 `academic-paper/SKILL.md`）
->
-> 依照現有的英文 / 中文格式，加入你的語言的對應關鍵字即可。
+> 不過，一般的 `Trigger Keywords` 區塊（決定 skill 是否被啟動）仍以英文和繁體中文為主。如果你發現 skill 在你的語言下觸發不穩定，可以在各 `SKILL.md` 的 `### Trigger Keywords` 區塊中加入你的語言的關鍵字，提高匹配信心。
 
 ### 支援引用格式
 
@@ -436,11 +431,16 @@ https://github.com/Imbad0202/academic-research-skills
 
 ## 更新紀錄
 
+### v2.6.2 (2026-03-09) — 意圖匹配模式啟動
+- **deep-research**：蘇格拉底模式改為**意圖匹配**啟動，取代關鍵字比對。支援任何語言 — 偵測含義（如「使用者想要引導式思考」）而非比對特定字串。
+- **academic-paper**：Plan 模式改為**意圖匹配**啟動。偵測意圖信號如「使用者不確定如何開始」「使用者想要逐步引導」，不限語言。
+- 兩個模式新增**預設規則**：當意圖模糊時，偏好 `socratic`/`plan` 而非 `full` — 先引導比較安全。
+- 一般觸發關鍵字維持雙語（EN + zh-TW），用於 skill 層級的匹配信心。
+
 ### v2.6.1 (2026-03-09) — 雙語觸發關鍵字
-- **deep-research**：新增繁體中文觸發關鍵字，涵蓋一般啟動和蘇格拉底模式。中文使用者現在可以說「引導我的研究」「幫我釐清」「研究方向」正確進入 socratic 模式。
-- **academic-paper**：新增繁體中文觸發關鍵字，以及**全新的 Plan Mode 觸發關鍵字區塊**。中文使用者現在可以說「帶我寫論文」「逐章規劃」「第一次寫論文」正確進入 plan 模式。
+- **deep-research**：新增繁體中文觸發關鍵字，涵蓋一般啟動和蘇格拉底模式。
+- **academic-paper**：新增繁體中文觸發關鍵字及 Plan Mode 觸發區塊。
 - 兩份 mode selection guide 加入雙語範例及中文專屬誤選情境。
-- **在地化提醒**：如果你使用英文或繁體中文以外的語言，建議將 `SKILL.md` 中的觸發關鍵字替換成你的語言，效果更好。詳見[支援語言](#支援語言)。
 
 ### v2.6 / v2.4 / v1.4 (2026-03-08) — 15+ 項改進
 - **deep-research v2.3**：新增系統性文獻回顧 / PRISMA 模式（第 7 模式）；3 個新 agent（risk_of_bias、meta_analysis、monitoring）；PRISMA 協議/報告模板；蘇格拉底收斂準則（4 訊號 + 自動結束）；快速模式選擇指南

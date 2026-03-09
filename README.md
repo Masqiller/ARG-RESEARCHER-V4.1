@@ -291,14 +291,9 @@ You: "status"
 - **English** — default when user writes in English
 - Bilingual abstracts (Chinese + English) for academic papers
 
-> **Using a different language?** The trigger keywords and Socratic/Plan mode activators are currently optimized for **English** and **Traditional Chinese**. If you primarily use another language (e.g., Japanese, Korean, Simplified Chinese, Spanish, etc.), we recommend replacing the trigger keywords in the `SKILL.md` files with your own language equivalents for better mode routing results.
+> **Using a different language?** Socratic mode (deep-research) and Plan mode (academic-paper) use **intent-based activation** — they detect the meaning of your request, not specific keywords. This means they work in **any language** without modification.
 >
-> Look for these sections in each `SKILL.md`:
-> - `### Trigger Keywords` — general skill activation
-> - `### Socratic Mode Trigger Keywords` (in `deep-research/SKILL.md`)
-> - `### Plan Mode Trigger Keywords` (in `academic-paper/SKILL.md`)
->
-> Add your language's keywords following the same pattern as the existing English/Chinese entries.
+> However, the general `Trigger Keywords` section (which determines whether the skill is activated at all) still lists English and Traditional Chinese keywords. If you find the skill isn't activating reliably in your language, you can add your language's keywords to the `### Trigger Keywords` section in each `SKILL.md` file to improve matching confidence.
 
 ### Supported Citation Formats
 
@@ -437,11 +432,16 @@ https://github.com/Imbad0202/academic-research-skills
 
 ## Changelog
 
+### v2.6.2 (2026-03-09) — Intent-Based Mode Activation
+- **deep-research**: Socratic mode now uses **intent-based activation** instead of keyword matching. Works in any language — detects meaning (e.g., "user wants guided thinking") rather than matching specific strings.
+- **academic-paper**: Plan mode now uses **intent-based activation**. Detects intent signals like "user is uncertain how to start" or "user wants step-by-step guidance" in any language.
+- Both modes now have a **default rule**: when intent is ambiguous, prefer `socratic`/`plan` over `full` — safer to guide first.
+- General trigger keywords remain bilingual (EN + zh-TW) for skill-level matching confidence.
+
 ### v2.6.1 (2026-03-09) — Bilingual Trigger Keywords
-- **deep-research**: Added Traditional Chinese trigger keywords for general activation and Socratic mode. Chinese users can now say 「引導我的研究」「幫我釐清」「研究方向」 to correctly enter socratic mode.
-- **academic-paper**: Added Traditional Chinese trigger keywords and **new Plan Mode Trigger Keywords section**. Chinese users can now say 「帶我寫論文」「逐章規劃」「第一次寫論文」 to correctly enter plan mode.
+- **deep-research**: Added Traditional Chinese trigger keywords for general activation and Socratic mode.
+- **academic-paper**: Added Traditional Chinese trigger keywords and Plan Mode trigger section.
 - Both mode selection guides now include bilingual examples and Chinese-specific misselection scenarios.
-- **Localization note**: If you use a language other than English or Traditional Chinese, replace the trigger keywords in `SKILL.md` files with your own language for better results. See [Supported Languages](#supported-languages) for details.
 
 ### v2.6 / v2.4 / v1.4 (2026-03-08) — 15+ Improvements
 - **deep-research v2.3**: New systematic-review / PRISMA mode (7th); 3 new agents (risk_of_bias, meta_analysis, monitoring); PRISMA protocol/report templates; Socratic convergence criteria (4 signals + auto-end); Quick Mode Selection Guide

@@ -41,25 +41,24 @@ Write a paper on the impact of declining birth rates on private university manag
 
 **繁體中文**: 寫論文, 學術論文, 論文大綱, 寫摘要, 修改論文, 文獻回顧論文, 檢查引用, 轉 LaTeX, 轉換格式, 研討會論文, 期刊文章, 學位論文, 研究論文, 引導我寫論文, 幫我規劃論文, 逐步寫論文, 寫方法論, 寫討論, 審查意見, 修訂路線圖, 幫我修改, 我收到審查意見, 轉換引用格式
 
-### Plan Mode Trigger Keywords
+### Plan Mode Activation
 
-The following keywords directly activate `plan` mode (Socratic chapter-by-chapter guidance, instead of the default `full` mode):
+Activate `plan` mode (Socratic chapter-by-chapter guidance) when the user's **intent** matches any of the following patterns, **regardless of language**. Detect meaning, not exact keywords.
 
-**English**:
-- "guide my paper"
-- "help me plan my paper"
-- "step by step paper"
-- "I don't know how to start my paper"
-- "help me think through my paper"
+**Intent signals** (any one is sufficient):
+1. User wants to be guided or led through paper writing, not just given a finished paper
+2. User asks for step-by-step or chapter-by-chapter planning
+3. User expresses uncertainty about how to start or structure a paper
+4. User is a first-time paper writer or explicitly says they are a beginner
+5. User has research results but doesn't know how to turn them into a paper
+6. User wants to think through each section before writing
 
-**繁體中文**:
-- 「引導我寫論文」/「帶我寫論文」
-- 「幫我規劃論文」/「幫我規劃架構」
-- 「逐章規劃」/「逐步規劃論文」
-- 「不知道怎麼開始寫論文」/「論文不知道怎麼寫」
-- 「幫我想想論文怎麼寫」/「幫我釐清論文方向」
-- 「我有研究結果但不知道怎麼寫成論文」
-- 「第一次寫論文」/「論文新手」
+**Default rule**: When intent is ambiguous between `plan` and `full`, **prefer `plan`** — it is safer to guide a user who needs help than to produce a paper they can't use. The user can always switch to `full` later.
+
+**Example triggers** (illustrative, not exhaustive):
+- EN: "guide my paper", "help me plan my paper", "step by step paper", "I don't know how to start", "help me think through my paper"
+- 繁中: 「引導我寫論文」「帶我寫論文」「幫我規劃論文」「逐章規劃」「不知道怎麼開始寫論文」「第一次寫論文」
+- Other languages: equivalent expressions matching the intent signals above will also activate this mode
 
 ### Does NOT Trigger
 

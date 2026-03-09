@@ -6,7 +6,32 @@ Cross-skill fixes and update history.
 
 ## 2026-03-09
 
-### Bilingual Trigger Keywords for Socratic & Plan Mode
+### Intent-Based Mode Activation (v2.6.2)
+
+**Files changed**: 6 files across `deep-research/`, `academic-paper/`, root
+
+**deep-research/SKILL.md**:
+- `### Socratic Mode Trigger Keywords` → `### Socratic Mode Activation`
+- Replaced keyword-matching logic with intent-based activation: 5 intent signals that work in any language
+- Added default rule: ambiguous intent → prefer `socratic` over `full`
+- Keywords retained as illustrative examples (EN + 繁中), not as matching rules
+
+**academic-paper/SKILL.md**:
+- `### Plan Mode Trigger Keywords` → `### Plan Mode Activation`
+- Replaced keyword-matching logic with intent-based activation: 6 intent signals
+- Added default rule: ambiguous intent → prefer `plan` over `full`
+- Keywords retained as illustrative examples
+
+**README.md / README.zh-TW.md**:
+- Updated Supported Languages section: removed "replace keywords" advice, replaced with explanation that mode activation is now intent-based and language-agnostic
+- Added v2.6.2 changelog entry
+- Clarified that general Trigger Keywords (Layer 1) still benefit from bilingual entries
+
+**Motivation**: Intent-based activation is fundamentally more robust than keyword lists — it handles any language without enumeration, and correctly routes users who express the same need in different words.
+
+---
+
+### Bilingual Trigger Keywords for Socratic & Plan Mode (v2.6.1)
 
 **Files changed**: 4 files across `deep-research/`, `academic-paper/`
 

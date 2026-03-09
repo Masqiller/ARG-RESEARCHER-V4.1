@@ -42,23 +42,23 @@ Guide my research on the impact of declining birth rates on private universities
 
 **繁體中文**: 研究, 深度研究, 文獻回顧, 文獻探討, 系統性回顧, 後設分析, 證據綜整, 事實查核, 研究方法, 學術分析, 政策分析, 引導我的研究, 幫我釐清, 監測這個主題, 設定追蹤
 
-### Socratic Mode Trigger Keywords
+### Socratic Mode Activation
 
-The following keywords directly activate `socratic` mode (instead of the default `full` mode):
+Activate `socratic` mode when the user's **intent** matches any of the following patterns, **regardless of language**. Detect meaning, not exact keywords.
 
-**English**:
-- "guide my research"
-- "help me think through"
-- "help me figure out"
-- "I'm not sure what to research"
+**Intent signals** (any one is sufficient):
+1. User has no clear research question and wants guided thinking
+2. User asks to be "led", "guided", or "mentored" through research
+3. User expresses uncertainty about what to research or where to start
+4. User wants to brainstorm, explore, or clarify a research direction
+5. User describes a vague interest without a specific, answerable question
 
-**繁體中文**:
-- 「引導我的研究」/「引導研究」
-- 「幫我釐清」/「幫我想想」/「幫我思考」
-- 「我不確定要研究什麼」/「不知道要研究什麼」
-- 「研究方向」/「想找研究題目」/「找題目」
-- 「帶我做研究」/「指導我研究」
-- 「我有個模糊的想法」/「有個想法但不太確定」
+**Default rule**: When intent is ambiguous between `socratic` and `full`, **prefer `socratic`** — it is safer to guide first than to produce an unwanted report. The user can always switch to `full` later.
+
+**Example triggers** (illustrative, not exhaustive):
+- EN: "guide my research", "help me think through", "help me figure out", "I'm not sure what to research"
+- 繁中: 「引導我的研究」「幫我釐清」「幫我想想」「研究方向」「帶我做研究」「我有個模糊的想法」
+- Other languages: equivalent expressions matching the intent signals above will also activate this mode
 
 ### Does NOT Trigger
 
