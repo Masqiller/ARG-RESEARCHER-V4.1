@@ -60,6 +60,18 @@
 >
 > 單獨使用個別 skill（如只用 `deep-research` 或 `academic-paper-reviewer`）的消耗明顯較少。
 
+### 建議設定
+
+為獲得最佳使用體驗，建議啟用以下 Claude Code 功能：
+
+| 設定 | 功能說明 | 啟用方式 | 官方文件 |
+|------|---------|---------|---------|
+| **Agent Team** | 產生子代理（subagent）平行執行研究、撰寫、審查 — 多 Agent pipeline 的核心機制 | 設定 `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`（研究預覽） | [Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents) · [CLI Reference](https://docs.anthropic.com/en/docs/claude-code/cli-reference) |
+| **Ralph Loop** | 在長時間 pipeline 階段保持 session 持續運作，讓 Claude 能自主執行而不會逾時中斷 | 使用 `/ralph-loop` 啟動 | [Plugin README](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) |
+| **Skip Permissions** | 跳過每次工具使用的確認提示，實現全 pipeline 不中斷的自主執行 | 啟動時加上 `claude --dangerously-skip-permissions` | [Permissions](https://docs.anthropic.com/en/docs/claude-code/cli-reference) · [Advanced Usage](https://docs.anthropic.com/en/docs/claude-code/advanced) |
+
+> **⚠️ Skip Permissions 注意事項**：此旗標會停用所有工具使用的確認對話框。請自行斟酌使用 — 在可信任的長時間 pipeline 中非常方便，但會移除手動審核的安全機制。僅在你確定接受 Claude 自動執行檔案讀寫、shell 指令等操作時才啟用。
+
 ---
 
 ## 前置需求

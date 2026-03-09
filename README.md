@@ -57,9 +57,21 @@ See the complete artifacts from a real 10-stage pipeline run — including **pee
 
 > **Recommended model: Claude Opus 4.6** with **Max plan** (or equivalent extended-thinking configuration).
 >
-> The full academic pipeline (10 stages) consumes a **large amount of tokens** — a single end-to-end run can exceed 200K input + 100K output tokens depending on paper length and revision rounds. Use at your discretion and budget accordingly.
+> The full academic pipeline (10 stages) consumes a **large amount of tokens** — a single end-to-end run can exceed 200K input + 100K output tokens depending on paper length and revision rounds. Budget accordingly.
 >
 > Individual skills (e.g., `deep-research` alone, or `academic-paper-reviewer` alone) consume significantly less.
+
+### Recommended Settings
+
+For the best experience with these skills, enable the following Claude Code features:
+
+| Setting | What it does | How to enable | Docs |
+|---------|-------------|---------------|------|
+| **Agent Team** | Spawns subagents for parallel research, writing, and review — critical for multi-agent pipelines | Set `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (research preview) | [Subagents](https://docs.anthropic.com/en/docs/claude-code/sub-agents) · [CLI Reference](https://docs.anthropic.com/en/docs/claude-code/cli-reference) |
+| **Ralph Loop** | Keeps the session alive during long-running pipeline stages so Claude can work autonomously without timing out | Use `/ralph-loop` to activate | [Plugin README](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/ralph-loop) |
+| **Skip Permissions** | Bypasses per-tool confirmation prompts, enabling uninterrupted autonomous execution across all pipeline stages | Launch with `claude --dangerously-skip-permissions` | [Permissions](https://docs.anthropic.com/en/docs/claude-code/cli-reference) · [Advanced Usage](https://docs.anthropic.com/en/docs/claude-code/advanced) |
+
+> **⚠️ Skip Permissions**: This flag disables all tool-use confirmation dialogs. Use at your own discretion — it is convenient for trusted, long-running pipelines but removes the safety net of manual approval. Only enable this in environments where you are comfortable with Claude executing file reads, writes, and shell commands without asking first.
 
 ---
 
