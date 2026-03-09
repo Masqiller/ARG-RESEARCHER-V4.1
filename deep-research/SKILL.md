@@ -56,9 +56,7 @@ Activate `socratic` mode when the user's **intent** matches any of the following
 **Default rule**: When intent is ambiguous between `socratic` and `full`, **prefer `socratic`** — it is safer to guide first than to produce an unwanted report. The user can always switch to `full` later.
 
 **Example triggers** (illustrative, not exhaustive):
-- EN: "guide my research", "help me think through", "help me figure out", "I'm not sure what to research"
-- 繁中: 「引導我的研究」「幫我釐清」「幫我想想」「研究方向」「帶我做研究」「我有個模糊的想法」
-- Other languages: equivalent expressions matching the intent signals above will also activate this mode
+"guide my research", "help me think through", 「引導我的研究」「幫我釐清」, or equivalent in any language
 
 ### Does NOT Trigger
 
