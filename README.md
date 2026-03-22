@@ -29,7 +29,7 @@ Research → Write → Integrity Check → Review (5-person) → Socratic Coachi
 1. Adaptive checkpoints (FULL / SLIM / MANDATORY) after every stage
 2. Pre-review integrity verification — 100% reference, data, and claim validation (Phase A-E)
 3. Two-stage review with Devil's Advocate + 0-100 quality rubrics
-4. Socratic revision coaching with SCR Loop (State-Challenge-Reflect) between review and revision stages
+4. Socratic revision coaching with SCR Loop (State-Challenge-Reflect, user-togglable) between review and revision stages
 5. Final integrity verification before publication
 6. Output: MD + DOCX + LaTeX (APA 7.0 `apa7` class / IEEE / Chicago) → PDF via tectonic
 7. Post-pipeline process summary with 6-dimension collaboration quality scoring (1–100)
@@ -348,7 +348,7 @@ You: "status"
 | Editor-in-Chief | Q1 journal editorial review |
 | Devil's Advocate | Assumption challenging (3 checkpoints) |
 | Ethics Review Agent | AI disclosure, attribution integrity |
-| Socratic Mentor | Guided research dialogue with convergence criteria |
+| Socratic Mentor | Guided research dialogue with convergence criteria + SCR reflection (togglable) |
 | Risk of Bias Agent | RoB 2 + ROBINS-I assessment, traffic-light output |
 | Meta-Analysis Agent | Effect sizes, heterogeneity, forest plot data, GRADE |
 | Monitoring Agent | Post-pipeline literature monitoring alerts |
@@ -370,7 +370,7 @@ You: "status"
 | Abstract Bilingual | EN + Chinese abstracts |
 | Peer Reviewer | 5-dimension review (max 2 rounds) |
 | Formatter | LaTeX/DOCX/PDF output — mandatory `apa7` class, XeCJK bilingual, `ragged2e` justification fix, tectonic compilation |
-| Socratic Mentor | Chapter-by-chapter guided planning with convergence criteria |
+| Socratic Mentor | Chapter-by-chapter guided planning with convergence criteria + SCR reflection (togglable) |
 | Visualization Agent | 9 chart types, matplotlib/ggplot2, APA 7.0 standards |
 | Revision Coach Agent | Parses unstructured reviewer comments → Revision Roadmap |
 
@@ -455,6 +455,7 @@ https://github.com/Imbad0202/academic-research-skills
   - **Certainty-Triggered Contradiction**: Detect high-confidence language ("obviously", "clearly") and introduce counterpoints
   - **Adaptive Intensity**: Track commitment accuracy, dynamically adjust challenge frequency
   - **Self-Calibration Signal (S5)**: New convergence signal tracking user's self-calibration growth across dialogue
+  - **SCR Switch**: Users can say "skip the predictions" to disable or "turn predictions back on" to re-enable mid-dialogue; Socratic questioning continues normally
 - `deep-research/references/socratic_questioning_framework.md`: SCR Overlay Protocol mapping SCR phases to Socratic functions
 - Added `CHANGELOG.md`
 

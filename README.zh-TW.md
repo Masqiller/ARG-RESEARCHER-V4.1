@@ -12,7 +12,7 @@
 
 ## 功能特色
 
-- **Deep Research** — 13 個 Agent 組成的研究團隊，支援蘇格拉底引導 + 系統性文獻回顧 / PRISMA
+- **Deep Research** — 13 個 Agent 組成的研究團隊，支援蘇格拉底引導（含 SCR 反思機制）+ 系統性文獻回顧 / PRISMA
 - **Academic Paper** — 12 個 Agent 的論文撰寫團隊，含 LaTeX 輸出強化、視覺化、修訂教練、引用格式轉換
 - **Academic Paper Reviewer** — 多視角同儕審查，0-100 品質量表（主編 + 3 位動態審查者 + 魔鬼代言人）
 - **Academic Pipeline** — 10 階段全流程調度器，含自適應 checkpoint、宣稱驗證、素材護照
@@ -28,7 +28,7 @@
 1. 自適應 checkpoint（FULL / SLIM / MANDATORY）
 2. 審稿前誠信驗證 — 100% 引用、數據、宣稱驗證（Phase A-E）
 3. 兩階段審查，含魔鬼代言人 + 0-100 品質量表
-4. 審稿與修訂之間的蘇格拉底修訂指導
+4. 審稿與修訂之間的蘇格拉底修訂指導（含 SCR 表態-挑戰-反思機制，可隨時開關）
 5. 出版前最終誠信驗證
 6. 輸出格式：MD + DOCX + LaTeX（APA 7.0 `apa7` class / IEEE / Chicago）→ tectonic 編譯 PDF
 7. Pipeline 完成後自動產出協作品質評估（6 維度 1-100 分）
@@ -347,7 +347,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Editor-in-Chief | Q1 期刊主編審查 |
 | Devil's Advocate | 假設挑戰（3 個檢查點） |
 | Ethics Review Agent | AI 揭露、引用誠信 |
-| Socratic Mentor | 蘇格拉底引導式研究對話，含收斂準則 |
+| Socratic Mentor | 蘇格拉底引導式研究對話，含收斂準則 + SCR 反思機制（可開關） |
 | Risk of Bias Agent | RoB 2 + ROBINS-I 偏誤風險評估 |
 | Meta-Analysis Agent | 效果量、異質性、森林圖、GRADE |
 | Monitoring Agent | Pipeline 完成後的文獻監測警報 |
@@ -369,7 +369,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Abstract Bilingual | 中英雙語摘要 |
 | Peer Reviewer | 5 維度審查（最多 2 輪） |
 | Formatter | LaTeX/DOCX/PDF 輸出 — 強制 `apa7` class、XeCJK 雙語、`ragged2e` 對齊修正、tectonic 編譯 |
-| Socratic Mentor | 逐章引導規劃，含收斂準則 |
+| Socratic Mentor | 逐章引導規劃，含收斂準則 + SCR 反思機制（可開關） |
 | Visualization Agent | 9 種圖表類型、matplotlib/ggplot2、APA 7.0 標準 |
 | Revision Coach Agent | 解析非結構化審稿意見 → 修訂路線圖 |
 
@@ -454,6 +454,7 @@ https://github.com/Imbad0202/academic-research-skills
   - **Certainty-Triggered Contradiction**：偵測高信心語句（「顯然」「毫無疑問」），自動引入反面觀點
   - **Adaptive Intensity**：追蹤 commitment 準確率，動態調整挑戰頻率
   - **Self-Calibration Signal (S5)**：新收斂訊號，追蹤使用者在對話中是否展現自我校準能力
+  - **SCR Switch**：使用者可隨時說「跳過預測」關閉 SCR，或「恢復預測」重新開啟，蘇格拉底式提問不受影響
 - `deep-research/references/socratic_questioning_framework.md`：新增 SCR Overlay Protocol，對映 SCR 三階段到蘇格拉底功能
 - 新增 `CHANGELOG.md`
 
