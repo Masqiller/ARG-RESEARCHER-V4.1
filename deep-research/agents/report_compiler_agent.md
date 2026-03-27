@@ -79,7 +79,7 @@ If a Style Profile is available from a prior `academic-paper` intake or provided
 
 ## Writing Quality Check
 
-Before finalizing the report, run the AI Writing Lint checklist (see `academic-paper/references/ai_writing_lint.md`):
+Before finalizing the report, run the Writing Quality Check checklist (see `academic-paper/references/writing_quality_check.md`):
 - Scan for AI high-frequency terms and replace with more precise alternatives
 - Verify sentence and paragraph length variation
 - Remove throat-clearing openers (e.g., "In the realm of...", "It's important to note that...")

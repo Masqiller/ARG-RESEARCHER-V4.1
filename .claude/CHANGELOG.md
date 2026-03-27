@@ -6,17 +6,17 @@ Cross-skill fixes and update history.
 
 ## 2026-03-27
 
-### Style Calibration + AI Writing Lint (v2.9)
+### Style Calibration + Writing Quality Check (v2.9)
 
 **Files changed**: 10 files across `academic-paper/`, `deep-research/`, `academic-pipeline/`, `shared/`, root
 
 **New files**:
 - `shared/style_calibration_protocol.md`: Full calibration flow (6 dimensions: sentence length, paragraph length, vocabulary preferences, citation integration, modifier style, register shifts). Priority system: discipline norms (hard) > journal conventions (strong) > personal style (soft). Conflict resolution with user notification.
-- `academic-paper/references/ai_writing_lint.md`: Writing quality checklist (5 categories: 25-term AI high-frequency word warnings, punctuation pattern control, throat-clearing detection, structural pattern warnings, burstiness checks). Not a humanizer — good writing rules applicable regardless of author.
+- `academic-paper/references/writing_quality_check.md`: Writing quality checklist (5 categories: 25-term AI high-frequency word warnings, punctuation pattern control, throat-clearing detection, structural pattern warnings, burstiness checks). Not a humanizer — good writing rules applicable regardless of author.
 
 **Modified agents**:
 - `academic-paper/agents/intake_agent.md`: New Step 10 (Style Calibration, optional). Renumbered Funding Sources to Step 11. Added `style_profile` field to Paper Configuration Record.
-- `academic-paper/agents/draft_writer_agent.md`: Step 1 pre-writing checklist gains Style Profile + AI Writing Lint items. Step 2 self-review gains Step 7 (style & lint check).
+- `academic-paper/agents/draft_writer_agent.md`: Step 1 pre-writing checklist gains Style Profile + Writing Quality Check items. Step 2 self-review gains Step 7 (style & lint check).
 - `deep-research/agents/report_compiler_agent.md`: New sections for optional Style Calibration and Writing Quality Check before Writing Style Guidelines.
 - `academic-pipeline/agents/pipeline_orchestrator_agent.md`: Style Profile carry-through in Material Passport.
 
@@ -30,7 +30,7 @@ Cross-skill fixes and update history.
 
 **README updates**: EN + zh-TW both updated with v2.9 badge, new features in Features list, and changelog entry.
 
-**Design rationale**: The original proposal included 4 features (Argue-First Gate, Skeleton Drafting, Weighting, Style Calibration) under a "Jarvis Framework". Analysis showed Argue-First Gate, Skeleton Drafting, and Weighting overlapped 60-90% with existing Socratic convergence signals, Plan Mode Chapter Summary, and Integrity Verification respectively. Only Style Calibration was genuinely new. AI Writing Lint was adopted from Type A humanizer research (term/pattern replacement) as a writing quality improvement, explicitly not for AI detection evasion.
+**Design rationale**: The original proposal included 4 features (Argue-First Gate, Skeleton Drafting, Weighting, Style Calibration) under a "Jarvis Framework". Analysis showed Argue-First Gate, Skeleton Drafting, and Weighting overlapped 60-90% with existing Socratic convergence signals, Plan Mode Chapter Summary, and Integrity Verification respectively. Only Style Calibration was genuinely new. Writing Quality Check was adopted from Type A humanizer research (term/pattern replacement) as a writing quality improvement, explicitly not for AI detection evasion.
 
 ---
 

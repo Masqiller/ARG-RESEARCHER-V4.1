@@ -10,7 +10,7 @@ A comprehensive suite of Claude Code skills for academic research, covering the 
 
 > **AI is your copilot, not the pilot.** This tool won't write your paper for you. It handles the grunt work — hunting down references, formatting citations, verifying data, checking logical consistency — so you can focus on the parts that actually require your brain: defining the question, choosing the method, interpreting what the data means, and writing the sentence after "I argue that."
 >
-> Unlike a humanizer, this tool doesn't help you hide the fact that you used AI. It helps you write better. Style Calibration learns your voice from past work. AI Writing Lint catches the patterns that make prose feel machine-generated. The goal is quality, not cheating.
+> Unlike a humanizer, this tool doesn't help you hide the fact that you used AI. It helps you write better. Style Calibration learns your voice from past work. Writing Quality Check catches the patterns that make prose feel machine-generated. The goal is quality, not cheating.
 
 ---
 
@@ -24,7 +24,7 @@ A comprehensive suite of Claude Code skills for academic research, covering the 
 ## Features
 
 - **Deep Research** — 13-agent research team with Socratic guided mode + systematic review / PRISMA + SCR Loop
-- **Academic Paper** — 12-agent paper writing with Style Calibration, AI Writing Lint, LaTeX output hardening, visualization, revision coaching, and citation conversion
+- **Academic Paper** — 12-agent paper writing with Style Calibration, Writing Quality Check, LaTeX output hardening, visualization, revision coaching, and citation conversion
 - **Academic Paper Reviewer** — Multi-perspective peer review with 0-100 quality rubrics (EIC + 3 dynamic reviewers + Devil's Advocate)
 - **Academic Pipeline** — Full 10-stage pipeline orchestrator with adaptive checkpoints, claim verification, and material passport
 
@@ -47,7 +47,7 @@ Research → Write → Integrity Check → Review (5-person) → Socratic Coachi
 8. Material passport for mid-entry provenance tracking
 9. Cross-skill mode advisor (14 scenarios + user archetypes)
 10. Style Calibration — learn the author's writing voice from past papers (optional, intake Step 10)
-11. AI Writing Lint — writing quality checklist catching overused AI-typical patterns
+11. Writing Quality Check — writing quality checklist catching overused AI-typical patterns
 
 ---
 
@@ -357,7 +357,7 @@ You: "status"
 | Bibliography Agent | Systematic literature search |
 | Source Verification Agent | Evidence grading, predatory journal detection |
 | Synthesis Agent | Cross-source integration |
-| Report Compiler | APA 7.0 report drafting + optional Style Profile + AI Writing Lint |
+| Report Compiler | APA 7.0 report drafting + optional Style Profile + Writing Quality Check |
 | Editor-in-Chief | Q1 journal editorial review |
 | Devil's Advocate | Assumption challenging (3 checkpoints) |
 | Ethics Review Agent | AI disclosure, attribution integrity |
@@ -378,7 +378,7 @@ You: "status"
 | Literature Strategist | Search strategy + annotated bibliography |
 | Structure Architect | Paper outline + word allocation |
 | Argument Builder | Thesis + claim-evidence chains |
-| Draft Writer | Section-by-section writing + AI Writing Lint sweep + Style Profile application |
+| Draft Writer | Section-by-section writing + Writing Quality Check sweep + Style Profile application |
 | Citation Compliance | Multi-format citation audit + APA↔Chicago↔MLA↔IEEE↔Vancouver conversion |
 | Abstract Bilingual | EN + Chinese abstracts |
 | Peer Reviewer | 5-dimension review (max 2 rounds) |
@@ -462,9 +462,9 @@ https://github.com/Imbad0202/academic-research-skills
 
 ## Changelog
 
-### v2.9 (2026-03-27) — Style Calibration + AI Writing Lint
+### v2.9 (2026-03-27) — Style Calibration + Writing Quality Check
 - **Style Calibration** (academic-paper intake Step 10, optional): Provide 3+ past papers and the pipeline learns your writing voice — sentence rhythm, vocabulary preferences, citation integration style. Applied as a soft guide during drafting; discipline conventions always take priority. Priority system: discipline norms (hard) > journal conventions (strong) > personal style (soft). See `shared/style_calibration_protocol.md`
-- **AI Writing Lint** (`academic-paper/references/ai_writing_lint.md`): Writing quality checklist applied during draft self-review. 5 categories: AI high-frequency term warnings (25 terms), punctuation pattern control (em dash ≤3), throat-clearing opener detection, structural pattern warnings (Rule of Three, uniform paragraphs, synonym cycling), and burstiness checks (sentence length variation). These are good writing rules — not detection evasion
+- **Writing Quality Check** (`academic-paper/references/writing_quality_check.md`): Writing quality checklist applied during draft self-review. 5 categories: AI high-frequency term warnings (25 terms), punctuation pattern control (em dash ≤3), throat-clearing opener detection, structural pattern warnings (Rule of Three, uniform paragraphs, synonym cycling), and burstiness checks (sentence length variation). These are good writing rules — not detection evasion
 - **Style Profile** carried through academic-pipeline Material Passport (Schema 10 in `shared/handoff_schemas.md`)
 - **deep-research** report compiler also consumes both features optionally
 - Versions: academic-paper v2.5, deep-research v2.4, academic-pipeline v2.7

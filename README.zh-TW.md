@@ -10,7 +10,7 @@
 
 > **AI 是你的副駕駛，不是機長。** 這工具不會幫你寫論文。它處理苦工 — 搜文獻、排格式、驗數據、查邏輯一致性 — 讓你專注在真正需要你腦子的事：定義問題、選方法、詮釋數據的意義、寫出「我認為」後面那句話。
 >
-> 跟 humanizer 不同，這工具不是幫你隱藏用 AI 協作的事實，而是幫你把關文章品質。風格校準從你過去的文章學習你的聲音，AI 寫作品質檢查抓出讓文字讀起來像機器產的模式。目標是品質，不是遮掩。
+> 跟 humanizer 不同，這工具不是幫你隱藏用 AI 協作的事實，而是幫你把關文章品質。風格校準從你過去的文章學習你的聲音，寫作品質檢查抓出讓文字讀起來像機器產的模式。目標是品質，不是遮掩。
 
 ---
 
@@ -24,7 +24,7 @@
 ## 功能特色
 
 - **Deep Research** — 13 個 Agent 組成的研究團隊，支援蘇格拉底引導（含 SCR 反思機制）+ 系統性文獻回顧 / PRISMA
-- **Academic Paper** — 12 個 Agent 的論文撰寫團隊，含風格校準、AI 寫作品質檢查、LaTeX 輸出強化、視覺化、修訂教練、引用格式轉換
+- **Academic Paper** — 12 個 Agent 的論文撰寫團隊，含風格校準、寫作品質檢查、LaTeX 輸出強化、視覺化、修訂教練、引用格式轉換
 - **Academic Paper Reviewer** — 多視角同儕審查，0-100 品質量表（主編 + 3 位動態審查者 + 魔鬼代言人）
 - **Academic Pipeline** — 10 階段全流程調度器，含自適應 checkpoint、宣稱驗證、素材護照
 
@@ -46,7 +46,7 @@
 8. 素材護照（Material Passport）支援中途進入流程的來源追蹤
 9. 跨 skill 模式顧問（14 種情境 + 使用者典型）
 10. 風格校準 — 從過去的論文學習作者寫作風格（可選，intake Step 10）
-11. AI 寫作品質檢查 — 偵測 AI 文字常見的高頻詞彙、標點模式、結構問題
+11. 寫作品質檢查 — 偵測 AI 文字常見的高頻詞彙、標點模式、結構問題
 
 ---
 
@@ -356,7 +356,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Bibliography Agent | 系統性文獻搜尋 |
 | Source Verification Agent | 證據分級、掠奪性期刊偵測 |
 | Synthesis Agent | 跨來源整合 |
-| Report Compiler | APA 7.0 報告撰寫 + 風格校準 + AI 寫作品質檢查（可選）|
+| Report Compiler | APA 7.0 報告撰寫 + 風格校準 + 寫作品質檢查（可選）|
 | Editor-in-Chief | Q1 期刊主編審查 |
 | Devil's Advocate | 假設挑戰（3 個檢查點） |
 | Ethics Review Agent | AI 揭露、引用誠信 |
@@ -377,7 +377,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Literature Strategist | 搜尋策略 + 注釋書目 |
 | Structure Architect | 論文大綱 + 字數分配 |
 | Argument Builder | 論點 + 主張-證據鏈 |
-| Draft Writer | 逐章撰寫 + AI 寫作品質檢查 + 風格校準套用 |
+| Draft Writer | 逐章撰寫 + 寫作品質檢查 + 風格校準套用 |
 | Citation Compliance | 多格式引用審核 + APA↔Chicago↔MLA↔IEEE↔Vancouver 轉換 |
 | Abstract Bilingual | 中英雙語摘要 |
 | Peer Reviewer | 5 維度審查（最多 2 輪） |
@@ -461,9 +461,9 @@ https://github.com/Imbad0202/academic-research-skills
 
 ## 更新紀錄
 
-### v2.9 (2026-03-27) — 風格校準 + AI 寫作品質檢查
+### v2.9 (2026-03-27) — 風格校準 + 寫作品質檢查
 - **風格校準**（academic-paper intake Step 10，可選）：提供 3+ 篇過去論文，pipeline 會學習你的寫作風格 — 句子節奏、詞彙偏好、引用整合方式。寫作時作為軟性指引；學科規範永遠優先。優先級系統：學科規範（硬性）> 期刊慣例（強）> 個人風格（軟性）。見 `shared/style_calibration_protocol.md`
-- **AI 寫作品質檢查**（`academic-paper/references/ai_writing_lint.md`）：寫作品質 checklist，於初稿自我審查時套用。5 大類：AI 高頻詞彙警告（25 個詞）、標點模式控制（em dash ≤3）、開頭廢話偵測、結構模式警告（三項列舉強迫症、均勻段落、同義詞循環）、句子長度變化檢查。這是好寫作規則 — 不是逃避偵測
+- **寫作品質檢查**（`academic-paper/references/writing_quality_check.md`）：寫作品質 checklist，於初稿自我審查時套用。5 大類：AI 高頻詞彙警告（25 個詞）、標點模式控制（em dash ≤3）、開頭廢話偵測、結構模式警告（三項列舉強迫症、均勻段落、同義詞循環）、句子長度變化檢查。這是好寫作規則 — 不是逃避偵測
 - **Style Profile** 透過 academic-pipeline Material Passport 攜帶（`shared/handoff_schemas.md` Schema 10）
 - **deep-research** report compiler 也可選地消費這兩個功能
 - 版本：academic-paper v2.5、deep-research v2.4、academic-pipeline v2.7

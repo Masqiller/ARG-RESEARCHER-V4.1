@@ -1,4 +1,4 @@
-# AI Writing Lint — Writing Quality Checklist
+# Writing Quality Check
 
 ## Purpose
 
