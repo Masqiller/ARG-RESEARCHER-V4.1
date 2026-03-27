@@ -342,7 +342,7 @@ You: "status"
 
 ## Skill Details
 
-### Deep Research (v2.3)
+### Deep Research (v2.4)
 
 13-agent pipeline for rigorous academic research:
 
@@ -353,7 +353,7 @@ You: "status"
 | Bibliography Agent | Systematic literature search |
 | Source Verification Agent | Evidence grading, predatory journal detection |
 | Synthesis Agent | Cross-source integration |
-| Report Compiler | APA 7.0 report drafting |
+| Report Compiler | APA 7.0 report drafting + optional Style Profile + AI Writing Lint |
 | Editor-in-Chief | Q1 journal editorial review |
 | Devil's Advocate | Assumption challenging (3 checkpoints) |
 | Ethics Review Agent | AI disclosure, attribution integrity |
@@ -364,17 +364,17 @@ You: "status"
 
 **Modes:** full, quick, paper-review, lit-review, fact-check, socratic, **systematic-review** (new)
 
-### Academic Paper (v2.4)
+### Academic Paper (v2.5)
 
 12-agent pipeline for academic paper writing:
 
 | Agent | Role |
 |-------|------|
-| Intake Agent | Configuration interview + handoff detection |
+| Intake Agent | Configuration interview + handoff detection + Style Calibration (optional) |
 | Literature Strategist | Search strategy + annotated bibliography |
 | Structure Architect | Paper outline + word allocation |
 | Argument Builder | Thesis + claim-evidence chains |
-| Draft Writer | Section-by-section writing |
+| Draft Writer | Section-by-section writing + AI Writing Lint sweep + Style Profile application |
 | Citation Compliance | Multi-format citation audit + APA↔Chicago↔MLA↔IEEE↔Vancouver conversion |
 | Abstract Bilingual | EN + Chinese abstracts |
 | Peer Reviewer | 5-dimension review (max 2 rounds) |
@@ -403,7 +403,7 @@ You: "status"
 
 **Decision mapping:** ≥80 Accept, 65-79 Minor Revision, 50-64 Major Revision, <50 Reject
 
-### Academic Pipeline (v2.6)
+### Academic Pipeline (v2.7)
 
 10-stage orchestrator with integrity verification, two-stage review, Socratic coaching, and collaboration evaluation:
 

@@ -341,7 +341,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 ## Skill 詳細資訊
 
-### Deep Research (v2.3)
+### Deep Research (v2.4)
 
 13 個 Agent 的嚴謹學術研究 pipeline：
 
@@ -352,7 +352,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 | Bibliography Agent | 系統性文獻搜尋 |
 | Source Verification Agent | 證據分級、掠奪性期刊偵測 |
 | Synthesis Agent | 跨來源整合 |
-| Report Compiler | APA 7.0 報告撰寫 |
+| Report Compiler | APA 7.0 報告撰寫 + 風格校準 + AI 寫作品質檢查（可選）|
 | Editor-in-Chief | Q1 期刊主編審查 |
 | Devil's Advocate | 假設挑戰（3 個檢查點） |
 | Ethics Review Agent | AI 揭露、引用誠信 |
@@ -363,17 +363,17 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 **模式：** full、quick、paper-review、lit-review、fact-check、socratic、**systematic-review**（新增）
 
-### Academic Paper (v2.4)
+### Academic Paper (v2.5)
 
 12 個 Agent 的學術論文撰寫 pipeline：
 
 | Agent | 角色 |
 |-------|------|
-| Intake Agent | 組態訪談 + 上游銜接偵測 |
+| Intake Agent | 組態訪談 + 上游銜接偵測 + 風格校準（可選）|
 | Literature Strategist | 搜尋策略 + 注釋書目 |
 | Structure Architect | 論文大綱 + 字數分配 |
 | Argument Builder | 論點 + 主張-證據鏈 |
-| Draft Writer | 逐章撰寫 |
+| Draft Writer | 逐章撰寫 + AI 寫作品質檢查 + 風格校準套用 |
 | Citation Compliance | 多格式引用審核 + APA↔Chicago↔MLA↔IEEE↔Vancouver 轉換 |
 | Abstract Bilingual | 中英雙語摘要 |
 | Peer Reviewer | 5 維度審查（最多 2 輪） |
@@ -402,7 +402,7 @@ claude.ai 的 Project 功能可以載入這些 skills，不需要安裝 Claude C
 
 **決策對照：** ≥80 接受、65-79 小修、50-64 大修、<50 退稿
 
-### Academic Pipeline (v2.6)
+### Academic Pipeline (v2.7)
 
 10 階段調度器，含誠信驗證、兩階段審查、蘇格拉底指導、協作品質評估：
 
