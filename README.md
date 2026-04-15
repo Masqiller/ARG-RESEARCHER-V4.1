@@ -1,6 +1,6 @@
 # Academic Research Skills for Claude Code
 
-[![Version](https://img.shields.io/badge/version-v3.3.1-blue)](https://github.com/Imbad0202/academic-research-skills/releases/tag/v3.3.1)
+[![Version](https://img.shields.io/badge/version-v3.3.2-blue)](https://github.com/Imbad0202/academic-research-skills/releases/tag/v3.3.2)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![Sponsor](https://img.shields.io/badge/sponsor-Buy%20Me%20a%20Coffee-orange?logo=buy-me-a-coffee)](https://buymeacoffee.com/crucify020v)
 
@@ -46,6 +46,12 @@ v3.3 was inspired by [**PaperOrchestra**](https://arxiv.org/abs/2604.05018) (Son
 - **Academic Paper** — 12-agent paper writing with Style Calibration, Writing Quality Check, LaTeX output hardening, visualization, revision coaching, citation conversion, **writing judgment framework**, **anti-leakage protocol**, and **VLM figure verification**
 - **Academic Paper Reviewer** — Multi-perspective peer review with 0-100 quality rubrics (EIC + 3 dynamic reviewers + Devil's Advocate with **concession threshold protocol** + **attack intensity preservation** + **optional cross-model DA critique / calibration**) + **R&R traceability matrix** + **read-only constraint** + **review quality thinking framework**
 - **Academic Pipeline** — Full 10-stage pipeline orchestrator with adaptive checkpoints, claim verification, material passport, **optional cross-model integrity verification**, **mid-conversation reinforcement**, **self-check questions**, and **score trajectory tracking**
+- **Data Access Level Metadata** (v3.3.2+) — Every skill declares a `data_access_level` (`raw`, `redacted`, or `verified_only`) so pipelines and CI can reason about isolation boundaries. Enforced by `scripts/check_data_access_level.py`. Pattern adapted from Anthropic's automated-w2s-researcher (2026).
+- **Task Type Annotation** (v3.3.2+) — Every skill declares a `task_type` (`open-ended` or `outcome-gradable`). All current ARS skills are `open-ended`: a truth-in-advertising signal that ARS targets domain-judgment work, not benchmark tasks. Enforced by `scripts/check_task_type.py`.
+
+### Skill posture (v3.3.2+)
+
+Each SKILL.md declares `data_access_level` and `task_type` in its frontmatter. See [`shared/handoff_schemas.md`](shared/handoff_schemas.md) for the vocabulary and [`shared/ground_truth_isolation_pattern.md`](shared/ground_truth_isolation_pattern.md) for the rationale.
 
 ### Full Pipeline
 
