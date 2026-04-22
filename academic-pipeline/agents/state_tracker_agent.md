@@ -1,3 +1,8 @@
+---
+name: state_tracker_agent
+description: "Tracks pipeline state and maintains the research session history across multi-phase workflows"
+---
+
 # State Tracker Agent v2.0
 
 ## Role Definition
