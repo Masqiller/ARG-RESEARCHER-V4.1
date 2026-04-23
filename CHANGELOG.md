@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [3.6.3] - 2026-04-23
+
+### Added
+- **Opt-in passport reset boundary** via `ARS_PASSPORT_RESET=1`. Every FULL checkpoint becomes a context-reset boundary when the flag is set. `systematic-review` mode with the flag ON makes reset mandatory; other modes treat reset as the flag-gated default.
+- **`resume_from_passport=<hash>` mode** in `academic-pipeline`. Lets users resume a pipeline run in a fresh Claude Code session from the Material Passport ledger alone.
+- **Schema 9 `reset_boundary[]`** optional append-only field with two entry kinds (`boundary`, `resume`). Entry shape in `shared/contracts/passport/reset_ledger_entry.schema.json` (oneOf split with `kind` discriminator). Hash computed via JSON Canonical Form + SHA-256 with `"000000000000"` placeholder for self-reference safety. Optional `pending_decision` field handles MANDATORY branch choices (Stage 3 reject/restructure/abort, Stage 5 finalization) that survive the reset boundary.
+- **Protocol doc:** `academic-pipeline/references/passport_as_reset_boundary.md` (authoritative; every file mentioning `ARS_PASSPORT_RESET` must co-locate a reference).
+- **CI lint:** `scripts/check_passport_reset_contract.py` + unittest suite. Wired into `.github/workflows/spec-consistency.yml`.
+- **`docs/PERFORMANCE.md` + `docs/PERFORMANCE.zh-TW.md`** long-running-session subsection documenting when reset beats continuation, passport file-location convention, and empirical-measurement disclaimer.
+
+### Changed
+- `academic-pipeline/agents/pipeline_orchestrator_agent.md` adds §"Passport Reset Boundary (v3.6.3+)" and §"Resume Mode: `resume_from_passport`". FULL Checkpoint Template includes conditional reset-handoff tag slot.
+- `academic-pipeline/references/pipeline_state_machine.md` documents `awaiting_resume` transitions derived from the ledger (no out-of-band state).
+- `academic-pipeline/SKILL.md` adds `resume_from_passport` to the mode table and bumps version 3.6.2 → 3.6.3.
+- `shared/handoff_schemas.md` Schema 9 gains `reset_boundary` row + "Reset Boundary Extension (v3.6.3)" subsection with full YAML example showing both kinds.
+
+### Changed (post-P1 fixes)
+- `pending_decision.options[]` now carries per-branch routing (`{value, next_stage, next_mode}`); `value` uniqueness within one options array is enforced by CI lint (`scripts/check_passport_reset_contract.py`). The matched option's `next_stage` supersedes the boundary entry's advisory `next` field. `next` MAY be `null` when all branches terminate or no sensible default exists.
+- Exclusive advisory lock (POSIX `fcntl.flock LOCK_EX`, bounded timeout not exceeding 60 s, 30 s recommended) is required for the resume read-check-append sequence. Non-POSIX implementations MUST refuse to resume rather than degrade silently.
+
+### Notes
+- **Flag OFF is the default.** Pre-v3.6.3 behavior is preserved byte-for-byte when `ARS_PASSPORT_RESET` is unset or `=0`.
+- Out of scope (deferred to v3.6.4): `examples/adapters/{folder_scan, zotero, obsidian}/` reference adapters and the `literature_corpus` entry shape on Schema 9.
+- No breaking changes. No existing mode behavior changes when the flag is OFF.
+
 ## [3.6.2] - 2026-04-23
 
 ### Added
