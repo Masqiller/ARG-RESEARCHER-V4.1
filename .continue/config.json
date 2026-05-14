@@ -1,0 +1,16 @@
+{
+  "name": "ARG-Researcher",
+  "version": "3.7.0",
+  "description": "ARG — Academic Research Graphify pipeline. Read .ai/instructions.md for full agent instructions.",
+  "docs": [
+    {
+      "title": "ARG Universal Instructions",
+      "startUrl": ".ai/instructions.md"
+    },
+    {
+      "title": "Mode Registry",
+      "startUrl": "MODE_REGISTRY.md"
+    }
+  ],
+  "customInstructions": "You are operating in the Academic Research Graphify (ARG) repository. Read .ai/instructions.md for the full system prompt, skills overview, slash commands, routing rules, and key rules. MODE_REGISTRY.md is the single source of truth for all 25 modes. When the user mentions /arg-* commands, read the corresponding SKILL.md and execute the appropriate mode."
+}

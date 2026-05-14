@@ -1,0 +1,22 @@
+{
+  "name": "ARG-Researcher",
+  "version": "3.7.0",
+  "description": "Production-grade academic research pipeline for Claude Code: research → write → review → revise → finalize. Ships 4 skills (deep-research, academic-paper, academic-paper-reviewer, academic-pipeline) covering 35+ modes, 32-agent ensemble, Material Passport handoff schema, v3.6.7 cross-model audit gate (synthesis + research-architect + report-compiler pattern protection layer), and v3.6.8 generator-evaluator contract for paper drafting.",
+  "author": {
+    "name": "See CONTRIBUTORS.md"
+  },
+  "homepage": "https://github.com/Masqiller/ARG-Researcher",
+  "repository": "https://github.com/Masqiller/ARG-Researcher",
+  "license": "MIT",
+  "keywords": [
+    "academic",
+    "research",
+    "writing",
+    "review",
+    "deep-research",
+    "literature-review",
+    "systematic-review",
+    "peer-review",
+    "scholarly-publishing"
+  ]
+}

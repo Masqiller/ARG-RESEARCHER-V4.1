@@ -1,0 +1,45 @@
+# Academic Research Skills (ARS) — Cline / Roo Code Instructions
+
+You are operating in the ARS repository — a production-grade academic research pipeline.
+
+## Skills
+
+- **deep-research** (7 modes): full, quick, socratic, review, lit-review, fact-check, systematic-review
+- **academic-paper** (10 modes): full, plan, outline-only, revision, revision-coach, abstract-only, lit-review, format-convert, citation-check, disclosure
+- **academic-paper-reviewer** (6 modes): full, re-review, quick, methodology-focus, guided, calibration
+- **academic-pipeline** (orchestrator): coordinates all above in 10 stages
+
+## Slash Commands
+
+| Command | Description |
+|---------|-------------|
+| /ars-full | Full pipeline: research → write → review → revise → finalize |
+| /ars-plan | Socratic chapter-by-chapter planning |
+| /ars-outline | Detailed outline + evidence map |
+| /ars-abstract | Bilingual abstract + keywords |
+| /ars-revision | Revised draft + R&R responses |
+| /ars-revision-coach | Revision Roadmap + Response Letter skeleton |
+| /ars-lit-review | Annotated bibliography in paper format |
+| /ars-format-convert | Convert to LaTeX / DOCX / PDF / Markdown |
+| /ars-citation-check | Citation error report |
+| /ars-disclosure | Venue-specific AI-usage statement |
+
+When triggered, read the corresponding skill's SKILL.md and MODE_REGISTRY.md for execution details.
+
+## Rules
+
+- All claims need citations. Evidence hierarchy: meta-analyses > RCTs > cohort > case > expert opinion.
+- AI disclosure mandatory in all reports.
+- Output language matches user input.
+- MODE_REGISTRY.md is the single source of truth for all 25 modes.
+- Agent files in agents/ define the 3 plugin agents: synthesis_agent, research_architect_agent, report_compiler_agent.
+- shared/handoff_schemas.md defines the Material Passport for inter-stage handoffs.
+
+## Key Files
+
+- MODE_REGISTRY.md — all modes
+- academic-pipeline/SKILL.md — pipeline orchestrator
+- academic-paper/SKILL.md — paper writing
+- deep-research/SKILL.md — research
+- academic-paper-reviewer/SKILL.md — review
+- .ai/instructions.md — full universal instructions
