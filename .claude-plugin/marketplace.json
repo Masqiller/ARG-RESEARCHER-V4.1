@@ -1,7 +1,7 @@
 {
   "name": "ARG-Researcher",
   "owner": {
-    "name": "See CONTRIBUTORS.md"
+    "name": "Masqiller"
   },
   "description": "Academic Research Graphify — production-grade research, writing, peer review, and pipeline orchestration for Claude Code.",
   "plugins": [

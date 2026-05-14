@@ -1,8 +1,6 @@
 # NOTICE
 
-This project (arg) is an academic research pipeline suite.
-
-See [CONTRIBUTORS.md](CONTRIBUTORS.md) for original authorship and contributor information.
+This project (ARG-Researcher) is an academic research pipeline suite developed and maintained by Masqiller.
 
 ## License
 
