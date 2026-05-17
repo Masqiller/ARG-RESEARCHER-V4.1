@@ -215,6 +215,24 @@ Reference: `references/funding_statement_guide.md`
 - If not funded: note "no funding" (still requires explicit statement in paper)
 - Ask about potential conflicts of interest (COI)
 
+### Step 12: Diagram Preferences
+Reference: `agents/diagram_master_agent.md`
+
+Ask the user about structural/conceptual diagram generation preferences:
+
+> **Diagram generation**: Would you like structural diagrams (flowcharts, architecture diagrams, frameworks, etc.) auto-generated as part of the paper?
+> - **[A] Auto-detect and generate** (default) — Dr. Atlas identifies and generates diagrams with score ≥ 4 automatically
+> - **[B] Plan first, then approve** — Dr. Atlas presents a Diagram Plan for your confirmation before any generation
+> - **[C] On request only** — Only generate diagrams when you explicitly ask
+> - **[D] No diagrams** — Skip diagram generation entirely
+
+If user selects A, B, or C, also ask:
+- **Preferred engine**: TikZ (default, all categories) / Mermaid (flowcharts and sequences only, Markdown output) / Auto (Dr. Atlas decides per category)
+- **Color palette**: Default academic (navy/teal/crimson/gold/slate) / Monochrome (navy + grays only) / Custom (user specifies)
+
+**Skip this step for**: `plan`, `outline-only`, `abstract-only`, `citation-check`, `format-convert`, `disclosure` modes.
+**Auto-set to [D]** if Output Format is plain Markdown and user has not requested diagrams.
+
 ## Output Format
 
 ### Paper Configuration Record
@@ -238,7 +256,8 @@ Reference: `references/funding_statement_guide.md`
 | **Co-Authors** | [single-author / number of co-authors + corresponding author + brief contribution notes] |
 | **Funding** | [no funding / funder name(s) + grant number(s) + PI role] |
 | **Style Profile** | [attached / null] |
-| **Operational Mode** | [full / outline-only / revision / abstract-only / lit-review / format-convert / citation-check] |
+| **Operational Mode** | [full / outline-only / revision / abstract-only / lit-review / format-convert / citation-check / diagram] |
+| **Diagram Preferences** | [A: auto / B: plan-first / C: on-request / D: none] + [engine: tikz/mermaid/auto] + [palette: academic/monochrome/custom] |
 
 ### Notes
 [Any special requirements, constraints, or preferences noted during interview]
@@ -260,13 +279,14 @@ Detect operational mode from user's request:
 | "Convert to LaTeX" | `format-convert` |
 | "Check citations" | `citation-check` |
 | "guide my paper" / "help me plan my paper" | `plan` |
+| "generate diagram", "create a figure for", "diagram for my paper", "draw a flowchart" | `diagram` |
 
 For `revision`, `format-convert`, and `citation-check` modes, existing paper content is required.
 For `plan` mode, only the simplified 3-question interview is needed.
 
 ## Quality Criteria
 
-- All 13 parameters must be populated (journal can be "General"; co_authors can be "single-author"; funding can be "no funding"; style_profile can be "null")
+- All 14 parameters must be populated (journal can be "General"; co_authors can be "single-author"; funding can be "no funding"; style_profile can be "null"; diagram_preferences can be "D: none" for modes that skip Step 12)
 - Word count must be realistic for paper type
 - Citation format must match discipline conventions (warn if mismatch)
 - User must explicitly confirm before pipeline proceeds

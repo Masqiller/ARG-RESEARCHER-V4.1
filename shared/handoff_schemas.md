@@ -754,6 +754,117 @@ Ordering: chronological by `generated_at`. A Stage 2.5 FAIL followed by backfill
 
 ---
 
+## Schema 13: Diagram Plan Handoff (v4.0.0+)
+
+**Producer**: `academic-paper/agents/diagram_master_agent` (Planner sub-role)
+**Consumer**: `diagram_master_agent` (Generator sub-role), `draft_writer_agent`, `formatter_agent`, `citation_compliance_agent`
+**Carried by**: Material Passport (Schema 9), optional field
+
+**Purpose**: Records all planned, generated, and validated structural/conceptual diagrams for a paper. Acts as the coordination contract between the three sub-roles of `diagram_master_agent` and downstream agents.
+
+### Required Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `paper_title` | string | Title of the paper this plan belongs to |
+| `output_engine_preference` | enum | `"tikz"` / `"mermaid"` / `"auto"` |
+| `total_diagrams_planned` | integer | Count of all diagram entries in the plan |
+| `diagrams` | list[DiagramEntry] | Ordered list of diagram specifications (see below) |
+
+### DiagramEntry Object
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique diagram ID (e.g., `D1`, `D2`) — sequential, never reused |
+| `title` | string | Yes | Short descriptive title |
+| `section` | string | Yes | Chapter/section name and number where diagram appears |
+| `category` | integer | Yes | 1–13 from `references/diagram_taxonomy.md` |
+| `engine` | enum | Yes | `"tikz"` / `"mermaid"` / `"pgfplots"` / `"plotneuralnet"` |
+| `necessity_score` | integer | Yes | 1–5 (1 = decorative/suppress, 5 = essential) |
+| `description` | string | Yes | One sentence: what the diagram shows and why it is needed |
+| `key_elements` | list[string] | Yes | Major nodes/components to include |
+| `relationships` | list[string] | Yes | Key edges/connections in `"A → B: label"` format |
+| `placement` | enum | Yes | `"inline"` / `"full-page"` / `"appendix"` |
+| `status` | enum | Yes | `"planned"` / `"generated"` / `"validated"` / `"rejected"` |
+| `depends_on` | list[string] | No | Other diagram IDs that must appear before this one (or empty list) |
+| `preamble_additions` | list[string] | No | Required `\usepackage` / `\usetikzlibrary` lines not already in preamble |
+| `caption_citations` | list[string] | No | Source strings cited in the caption (flagged to `citation_compliance_agent`) |
+
+### Optional Top-Level Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `preamble_injection_summary` | string | Consolidated LaTeX preamble additions block for all diagrams |
+| `diagram_audit_report` | list[AuditEntry] | Filled by Validator sub-role after Phase 5c |
+
+### AuditEntry Object (filled by Validator)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `diagram_id` | string | Corresponds to DiagramEntry.id |
+| `syntax` | enum | `"PASS"` / `"WARN"` / `"FAIL"` |
+| `packages` | enum | `"PASS"` / `"WARN"` / `"FAIL"` |
+| `labels` | enum | `"PASS"` / `"WARN"` / `"FAIL"` |
+| `cross_ref` | enum | `"PASS"` / `"WARN"` / `"FAIL"` |
+| `caption_citations` | enum | `"PASS"` / `"FLAGGED"` / `"N/A"` |
+| `overall_status` | enum | `"VALIDATED"` / `"NEEDS_REVIEW"` / `"REJECTED"` |
+| `issues` | list[string] | Specific issues found; empty list if none |
+
+### Validation Rules
+
+- All `id` values must be unique within the plan
+- `necessity_score` must be 1–5
+- `category` must be 1–13
+- Entries with `status: "rejected"` are kept for audit trail but excluded from generation
+- Every entry with `necessity_score` ≥ 4 must have a corresponding `status: "generated"` or `status: "validated"` entry before Phase 5c completes (unless user explicitly rejected it)
+- `caption_citations` non-empty → must appear in `citation_compliance_agent`'s verification scope
+
+### Example
+
+```yaml
+# Diagram Plan — Schema 13
+paper_title: "Transformer Architectures for Code Generation"
+output_engine_preference: tikz
+total_diagrams_planned: 4
+diagrams:
+  - id: D1
+    title: Training Pipeline Flow
+    section: "Chapter 3: Methodology"
+    category: 1
+    engine: tikz
+    necessity_score: 5
+    description: Shows the 4-phase data preprocessing and training pipeline
+    key_elements: [Raw Code Corpus, Tokenization, Pre-training, Fine-tuning, Evaluation]
+    relationships:
+      - "Raw Code Corpus → Tokenization: BPE"
+      - "Tokenization → Pre-training: masked LM"
+      - "Pre-training → Fine-tuning: transfer"
+    placement: inline
+    status: generated
+    depends_on: []
+    preamble_additions: ['\usetikzlibrary{positioning, arrows.meta, shapes.geometric}']
+    caption_citations: []
+
+  - id: D2
+    title: Transformer Architecture Overview
+    section: "Chapter 4: Architecture Design"
+    category: 9
+    engine: tikz
+    necessity_score: 5
+    description: Encoder-decoder Transformer with multi-head attention mechanism
+    key_elements: [Encoder, Decoder, Multi-Head Attention, Feed Forward, Positional Encoding]
+    relationships:
+      - "Encoder → Decoder: cross-attention"
+      - "Input → Positional Encoding → Encoder"
+    placement: full-page
+    status: planned
+    depends_on: [D1]
+    preamble_additions: ['\usetikzlibrary{positioning, arrows.meta, fit, calc}']
+    caption_citations: ["Adapted from Vaswani et al. (2017)"]
+```
+
+---
+
 ## Validation Rules
 
 1. **Required field check**: All schema fields marked without "(optional)" or "No" in the Required column are REQUIRED. Consumer agents MUST verify all required fields are present before proceeding

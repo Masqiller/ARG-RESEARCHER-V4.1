@@ -80,7 +80,7 @@ Activate `plan` mode when the user wants guidance, step-by-step planning, or exp
 
 ---
 
-## Agent Team (12 Agents)
+## Agent Team (13 Agents)
 
 | # | Agent | Role | Phase |
 |---|-------|------|-------|
@@ -96,6 +96,7 @@ Activate `plan` mode when the user wants guidance, step-by-step planning, or exp
 | 10 | `socratic_mentor_agent` | Plan mode Socratic mentor: chapter-by-chapter guidance, convergence criteria (4 signals), question taxonomy (4 types), INSIGHT extraction | Plan Step 0-3 |
 | 11 | `visualization_agent` | Parse paper data and generate publication-quality figure code (Python matplotlib / R ggplot2) with APA 7.0 formatting, colorblind-safe palettes, and LaTeX integration | Phase 4 / Phase 7 |
 | 12 | `revision_coach_agent` | Parse unstructured reviewer comments into structured Revision Roadmap; classify, map, and prioritize comments; works standalone without prior pipeline execution | Revision-Coach mode |
+| 13 | `diagram_master_agent` | Identify structural/conceptual diagram opportunities (Categories 1–13), generate TikZ/Mermaid/PGFPlots/PlotNeuralNet code, validate syntax and cross-references; three sub-roles: Planner (Phase 2D), Generator (Phase 4), Validator (Phase 5c); Diagram mode standalone | Phase 2D / Phase 4 / Phase 5c / Diagram mode |
 
 ---
 

@@ -31,12 +31,81 @@ From the Paper Configuration Record, extract:
 |-----------|-------------------|
 | Education | ERIC, Education Source, JSTOR |
 | CS/Engineering | IEEE Xplore, ACM DL, Scopus |
+| Robotics / Autonomous Systems / Robot Learning | IEEE Xplore (T-RO, RA-L, T-ASE), Scopus, Web of Science, ACM DL — **see Step 2b for full venue registry** |
 | Medicine | PubMed, MEDLINE, Cochrane |
 | Social Science | SSRN, Web of Science, Scopus |
 | Humanities | JSTOR, Project MUSE, MLA International Bibliography |
 | Business | ABI/INFORM, Business Source Complete |
 | General | Google Scholar, Web of Science, Scopus |
 | Taiwan HEI | Taiwan National Digital Library of Theses and Dissertations, Airiti Library, TSSCI |
+
+### Step 2b: Discipline-Specific Source Registry
+
+When the Paper Configuration Record identifies the discipline as **Robotics**, **Autonomous Systems**, **Robot Learning**, **Manipulation**, **HRI**, or closely related AI/Automation fields, the following source registry takes precedence over the general database table above. Apply this registry for all Layer 1–4 searches in those disciplines.
+
+#### Robotics & AI: Approved Conferences (Tier 1)
+
+| Conference | Full Name | Notes |
+|------------|-----------|-------|
+| CoRL | Conference on Robot Learning | Primary venue for learned robotics |
+| ICRA | IEEE International Conference on Robotics and Automation | Flagship IEEE robotics conference |
+| IROS | IEEE/RSJ International Conference on Intelligent Robots and Systems | High-volume premier conference |
+| CASE | IEEE International Conference on Automation Science and Engineering | Automation focus |
+| RSS | Robotics: Science and Systems | Selective, high-impact |
+| NeurIPS | Neural Information Processing Systems | When ML/RL methods are core |
+| CVPR | Computer Vision and Pattern Recognition | Include only when vision is a core component |
+| ICCV | International Conference on Computer Vision | Include only when vision is a core component |
+| ECCV | European Conference on Computer Vision | Include only when vision is a core component |
+
+> **Rule**: CVPR / ICCV / ECCV are conditional — include only when computer vision is central to the RQ, not tangential. NeurIPS is included when the paper's core contribution is an ML/RL method applied to robotics.
+
+#### Robotics & AI: Approved Journals (Tier 1 Priority Order)
+
+| Journal | Publisher | Priority |
+|---------|-----------|----------|
+| IEEE Transactions on Robotics (T-RO) | IEEE | P1 — Always search |
+| IEEE Robotics and Automation Letters (RA-L) | IEEE | P1 — Always search |
+| The International Journal of Robotics Research (IJRR) | SAGE / Springer | P1 — Always search |
+| Science Robotics | AAAS / Science | P1 — Always search |
+| Nature Machine Intelligence | Springer Nature | P1 — Always search |
+| IEEE Transactions on Automation Science and Engineering (T-ASE) | IEEE | P1 — Always search |
+| IEEE Transactions on Neural Networks and Learning Systems | IEEE | P1 — Always search |
+| IEEE Transactions on Industrial Electronics | IEEE | P2 — Search when relevant |
+| IEEE Transactions on Mechatronics | IEEE | P2 — Search when relevant |
+| IEEE Transactions on Field Robotics (T-FR) | IEEE | P2 — Search when relevant |
+| IEEE Sensors Journal | IEEE | P2 — Search when relevant |
+| Autonomous Robots | Springer | P2 — Search when relevant |
+| Robotics and Autonomous Systems | Elsevier | P2 — Search when relevant |
+| Advanced Intelligent Systems | Wiley | P2 — Search when relevant |
+| Soft Robotics | Mary Ann Liebert | P2 — Search when relevant (soft robotics papers only) |
+| IEEE Access | IEEE | P3 — Include **only** when highly relevant and no P1/P2 source covers the topic |
+
+> **IEEE Access rule**: IEEE Access is open-access with broader acceptance criteria. Treat as supplementary only — include a paper from IEEE Access only if it is highly relevant AND the specific finding is not available in a P1/P2 source.
+
+#### Robotics & AI: Time Range Rules
+
+These override the general "last 10 years" default when discipline is Robotics/AI:
+
+| Priority | Years | Rule |
+|----------|-------|------|
+| **Primary** | 2023–2026 | Maximize coverage here; fast-moving field |
+| **Secondary** | 2021–2022 | Include if directly relevant; still recent |
+| **Conditional** | 2018–2020 | Include only when no newer equivalent exists |
+| **Seminal only** | Pre-2018 | Include only if foundational (e.g., foundational RL paper, seminal manipulation baseline); must be explicitly justified in annotation |
+
+> **Currency gate**: For Robotics/AI papers, the `citation_compliance_agent` currency flag threshold is tightened to 5 years (not the default 10). Sources older than 5 years must be tagged "seminal" or "foundational" in their annotation with a justification.
+
+#### Robotics & AI: Quality Tier Mapping
+
+| Tier | Venues | Treatment |
+|------|--------|-----------|
+| Tier 1 | T-RO, RA-L, IJRR, Science Robotics, Nature Machine Intelligence, T-ASE, RSS, ICRA, IROS, CoRL | Core sections; assign to main arguments |
+| Tier 2 | T-NNLS, T-IE, T-Mech, T-FR, IEEE Sensors, Autonomous Robots, RAS, AIS, CASE, NeurIPS, CVPR, ICCV, ECCV (conditional) | Supporting sections |
+| Tier 3 | Soft Robotics, IEEE Access (restricted), arXiv preprints | Use only as supplement; tag explicitly in annotation |
+
+> **Preprint rule**: arXiv preprints are acceptable as Tier 3 supplementary sources only when: (a) no published peer-reviewed equivalent exists, (b) the paper has substantial citations, and (c) it is tagged `[Preprint]` in the annotation and reference list.
+
+---
 
 ### Step 3: Search String Construction
 ```
@@ -45,13 +114,25 @@ From the Paper Configuration Record, extract:
   Filters: peer-reviewed, [year range], [language]
 ```
 
+For Robotics/AI disciplines, augment the search string with venue filters where supported:
+```
+("concept A" OR "synonym A1") AND ("concept B")
+  AND (
+    "IEEE Transactions on Robotics" OR "Robotics and Automation Letters"
+    OR "Science Robotics" OR "Nature Machine Intelligence"
+    OR "ICRA" OR "IROS" OR "CoRL" OR "RSS"
+  )
+  Filters: 2021–2026
+```
+
 ### Step 4: Inclusion/Exclusion Criteria
 | Criterion | Include | Exclude |
 |-----------|---------|---------|
 | Publication type | Peer-reviewed journals, books, conference proceedings | Blog posts, news articles (unless as primary data) |
-| Date range | Last 10 years (default) + seminal works | Outdated unless historically relevant |
+| Date range | Last 10 years (default) + seminal works; **2021–2026 for Robotics/AI** | Outdated unless historically relevant; pre-2018 for Robotics/AI unless foundational |
 | Language | Per config (EN, zh-TW, or both) | Other languages unless key source |
 | Relevance | Directly addresses RQ | Tangentially related |
+| Venue (Robotics/AI) | Tier 1 and Tier 2 venues from Step 2b registry | IEEE Access unless highly relevant; predatory journals |
 
 ## Source Screening Protocol
 
@@ -469,6 +550,7 @@ Quality gate not passed ->
 | Case study | Increase gray literature tolerance (policy documents, institutional reports); search for prior research on similar cases |
 | Policy brief | Include government reports, white papers, statistical data; increase currency requirement (last 3 years >= 60%) |
 | Conference paper | Source count can be reduced to 80% of Minimum; prioritize high-impact sources |
+| Robotics / Autonomous Systems | Apply Step 2b registry (Tier 1 venues first); enforce 2021–2026 time range; cap IEEE Access at supplementary; tag all pre-2018 sources as seminal/foundational with explicit justification; run Tier 1 venues in parallel during Layer 1 rather than sequentially |
 
 ### Poor Quality Upstream (intake_agent output is poor)
 

@@ -114,6 +114,8 @@ resume_from_passport=<hash> [stage=<n>] [mode=<m>]
 
 This mirrors PaperOrchestra's parallel execution of Plot Generation (Step 2) and Literature Review (Step 3) after Outline (Step 1), which reduces overall pipeline latency. The parallelization is optional — sequential execution remains the default for simplicity.
 
+**Parallelization opportunity (v4.0)**: Additionally, `diagram_master_agent` (Planner mode, Phase 2D) can run in parallel with `argument_builder_agent` after `structure_architect_agent` completes the outline. The Diagram Plan (Schema 13) informs Phase 4 diagram generation and runs independently of argument construction. `draft_writer_agent` waits for both the Argument Blueprint and the confirmed Diagram Plan before beginning Phase 4.
+
 ---
 
 ## Pipeline State Machine

@@ -1,10 +1,10 @@
 # Mode Registry
 
-Single source of truth for all modes across the ARG suite. **25 modes** across 4 skills.
+Single source of truth for all modes across the ARG suite. **26 modes** across 4 skills.
 
 When adding or modifying modes, update this file first — SKILL.md files and CLAUDE.md should reference this registry.
 
-Last updated: v3.7.0 (2026-05-05)
+Last updated: v4.0.0 (2026-05-17)
 
 ---
 
@@ -20,7 +20,7 @@ Last updated: v3.7.0 (2026-05-05)
 | `socratic` | Originality | Research Plan Summary + INSIGHT collection | Very High | "guide my research", "help me think through", "I'm not sure what to research" |
 | `systematic-review` | Fidelity | PRISMA 2020 report, 5,000-15,000 words | Medium | "systematic review", "meta-analysis", "PRISMA" |
 
-## academic-paper (10 modes)
+## academic-paper (11 modes)
 
 | Mode | Spectrum | Output | Oversight | Triggers |
 |------|----------|--------|-----------|----------|
@@ -34,6 +34,7 @@ Last updated: v3.7.0 (2026-05-05)
 | `format-convert` | Fidelity | Formatted document (LaTeX/DOCX-via-Pandoc/PDF/MD) | Low | "convert to LaTeX", "convert citations to [format]" |
 | `citation-check` | Fidelity | Citation error report | Low | "check citations", "verify references" |
 | `disclosure` | Fidelity | Venue-specific AI-usage disclosure statement | Low | "AI disclosure for [venue]", "generate AI usage statement" |
+| `diagram` | Balanced | TikZ/Mermaid/PGFPlots diagram code + LaTeX/Markdown integration | Medium | "generate diagram", "create a figure for", "diagram for my paper", "draw a flowchart" |
 
 ## academic-paper-reviewer (6 modes)
 
@@ -59,10 +60,10 @@ Last updated: v3.7.0 (2026-05-05)
 
 | Metric | Count |
 |--------|-------|
-| Total modes | 25 |
-| Fidelity | 14 (56%) |
-| Balanced | 7 (28%) |
-| Originality | 4 (16%) |
+| Total modes | 26 |
+| Fidelity | 14 (54%) |
+| Balanced | 8 (31%) |
+| Originality | 4 (15%) |
 
 ### Oversight levels
 

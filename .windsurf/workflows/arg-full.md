@@ -10,7 +10,16 @@ Trigger the `academic-pipeline` orchestrator (`(pipeline)` in MODE_REGISTRY.md �
 4. Execute the 10-stage pipeline:
    - Stage 1: Deep research (literature search, source verification, synthesis)
    - Stage 2: Academic paper drafting (IMRaD or domain-appropriate structure)
-   - Stage 2.5: Integrity checkpoint (compliance agent)
+     - Phase 2D (parallel with argument building): invoke `diagram_master_agent` Planner mode
+       → Read `academic-paper/agents/diagram_master_agent.md` and `academic-paper/references/diagram_taxonomy.md`
+       → Scan outline for diagram opportunities; score and present Diagram Plan to user
+     - Phase 4 (drafting): invoke `diagram_master_agent` Generator mode for each diagram with score ≥ 4
+       → Generate TikZ/Mermaid/PGFPlots code; embed inline in draft with \caption and \label
+       → Inject required preamble packages; add in-text figure references
+     - Phase 5c (parallel with citation check and abstract): invoke `diagram_master_agent` Validator mode
+       → Run syntax, package, label, cross-reference, and caption-citation checks
+       → Produce Diagram Audit Report; flag caption citations to `citation_compliance_agent`
+   - Stage 2.5: Integrity checkpoint (compliance agent; includes diagram code in verification scope)
    - Stage 3: Peer review (5-reviewer panel + editorial synthesis)
    - Stage 4: Revision (point-by-point response to reviewers)
    - Stage 4.5: Final integrity checkpoint
