@@ -10,6 +10,7 @@ ARG works with **any** AI coding agent. This guide covers setup for each support
 |-------|----------------|-------------------|
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/arg-*.md` | Native slash commands (`/arg-full`, etc.) |
 | **Windsurf (Cascade)** | `.windsurf/workflows/arg-*.md` | Native workflows (`/arg-full`, etc.) |
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Native `/arg-*` slash commands in Agent Manager |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | Mention `/arg-*` in chat — rules auto-load |
 | **GitHub Copilot** | `.github/copilot-instructions.md` | Mention `/arg-*` in chat |
 | **Cline / Roo Code** | `.clinerules` | Mention `/arg-*` in chat |
@@ -45,6 +46,28 @@ ln -s ~/ARG-Researcher/academic-pipeline .claude/skills/academic-pipeline
 Slash commands are natively available as `/arg-full`, `/arg-plan`, etc.
 
 See [QUICKSTART.md](QUICKSTART.md) and [docs/SETUP.md](docs/SETUP.md) for more options.
+
+---
+
+### Google Antigravity
+
+**No extra setup needed** if you open this repo in Antigravity. The `.agents/` directory is auto-discovered:
+- `.agents/rules/arg-instructions.md` — always-on rules (auto-loaded for every session)
+- `.agents/workflows/arg-*.md` — 12 native slash commands available via `/` in the Agent Manager panel
+
+Also, `AGENTS.md` in the project root is loaded automatically (cross-tool format, Antigravity v1.20.3+).
+
+To use ARG in a **different project**, copy both directories:
+
+```bash
+cd /path/to/your/project
+mkdir -p .agents/rules .agents/workflows
+cp ~/ARG-Researcher/.agents/rules/arg-instructions.md .agents/rules/
+cp ~/ARG-Researcher/.agents/workflows/arg-*.md .agents/workflows/
+cp ~/ARG-Researcher/AGENTS.md .
+```
+
+All 12 slash commands (`/arg-full`, `/arg-plan`, `/arg-diagram`, etc.) will be available in the Agent Manager panel.
 
 ---
 
@@ -172,7 +195,10 @@ Tell your agent what you want. It will use the ARG skills and modes automaticall
 
 ```
 ARG-Researcher/
-├── .ai/instructions.md              # Universal agent instructions
+├── .agents/rules/arg-instructions.md   # Antigravity always-on rules
+├── .agents/workflows/arg-*.md          # Antigravity slash command workflows
+├── AGENTS.md                           # Cross-tool root file (Antigravity + Cursor + Claude Code)
+├── .ai/instructions.md                 # Universal agent instructions
 ├── .aider/conventions.md            # Aider conventions
 ├── .claude/CLAUDE.md                # Claude Code instructions
 ├── .claude-plugin/                  # Claude Code plugin metadata

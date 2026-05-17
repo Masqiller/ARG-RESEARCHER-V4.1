@@ -52,6 +52,7 @@ Open the repo in your IDE. Config files are auto-discovered:
 
 | Agent | Config file | How commands work |
 |:------|:------------|:------------------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Native `/arg-*` slash commands in Agent Manager |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | Native `/arg-*` slash commands in chat |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | Type `/arg-*` in chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Native `/arg-*` commands |
