@@ -473,6 +473,51 @@ ARG deploys **38 specialized agents**, each with a named persona and a defined r
 
 ---
 
+## Recommended Workflow
+
+For the highest quality output, run these four steps in sequence. Each step feeds into the next.
+
+```
+Step 1 — Deep Research
+  /deep-research
+  "Research [your topic]" or "Guide my research on [topic]"
+  → Produces: Annotated Bibliography, Synthesis Report, RQ Brief
+
+         ↓  hand off literature + RQ to next step
+
+Step 2 — Paper Planning
+  /arg-plan
+  "Help me plan my paper on [topic]" (paste your RQ and key findings from Step 1)
+  → Produces: Chapter Plan, INSIGHT Collection, Diagram Plan
+
+         ↓  hand off Chapter Plan to next step
+
+Step 3 — Plan Review
+  /academic-paper-reviewer  (use quick or guided mode on the Chapter Plan)
+  "Quick review of this chapter plan" (paste the Chapter Plan from Step 2)
+  → Produces: Structural feedback, gap analysis, argument stress-test
+
+         ↓  incorporate feedback, then run the full pipeline
+
+Step 4 — Full Pipeline
+  /arg-full
+  "Write a complete paper on [topic]" (paste your approved Chapter Plan + literature from Steps 1–2)
+  → Produces: Complete paper draft → integrity gate → peer review → revision → final output
+```
+
+### Why this order?
+
+| Step | Why it matters |
+|------|---------------|
+| **Deep Research first** | ARG writes from a verified bibliography. Running research before planning ensures every argument has a source already identified. |
+| **Plan before writing** | `/arg-plan` uses Socratic dialogue — you make structural decisions before any prose is generated. Changes at this stage cost seconds, not hours. |
+| **Review the plan** | The `academic-paper-reviewer` catches logical gaps and weak arguments in the Chapter Plan before the draft exists. Far cheaper to fix structure now than after 10,000 words are written. |
+| **Full pipeline last** | `/arg-full` already includes research, planning, review, and revision internally — but when you feed it a pre-approved Chapter Plan and bibliography from Steps 1–3, it skips the early uncertainty phases and produces a tighter draft in fewer iterations. |
+
+> **Shortcut:** If you're in a hurry, just run `/arg-full` directly. It runs all 10 stages internally. The 4-step workflow above gives you more control and typically better structure at the cost of more upfront dialogue.
+
+---
+
 ## Which Command Should I Use?
 
 | I want to... | Use this |
