@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-el-equipo-de-agentes)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-el-equipo-de-agentes)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-habilidades-y-modos)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-habilidades-y-modos)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-habilidades-y-modos)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37 agentes de IA especializados** en **4 habilidades** y **25 modos** para llevar tu investigacion desde la idea hasta la publicacion.
+**38 agentes de IA especializados** en **4 habilidades** y **26 modos** para llevar tu investigacion desde la idea hasta la publicacion.
 Compatible con **cualquier agente de IA** — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue y mas.
 
 [Inicio rapido](#-inicio-rapido) | [Caracteristicas](#-caracteristicas) | [Arquitectura](docs/ARCHITECTURE.md) | [Guia de configuracion](UNIVERSAL_SETUP.md)
@@ -41,13 +41,14 @@ Compatible con **cualquier agente de IA** — Windsurf, Cursor, Claude Code, Git
 ## Inicio rapido
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 Abre el repositorio en tu IDE. Los archivos de configuracion se detectan automaticamente:
 
 | Agente | Configuracion | Comandos |
 |:-------|:-------------|:---------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Comandos `/arg-*` nativos en Agent Manager |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | Workflows nativos `/arg-*` |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | `/arg-*` en chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Comandos nativos `/arg-*` |
@@ -82,16 +83,15 @@ Abre el repositorio en tu IDE. Los archivos de configuracion se detectan automat
 <td width="50%">
 
 ### Paper Academico
-*12 agentes | 10 modos*
+*13 agentes | 11 modos*
 
 - Calibracion de estilo (aprende tu voz)
 - Control de calidad de escritura
 - Endurecimiento LaTeX (APA 7.0, IEEE, Chicago)
 - Agente de visualizacion
+- **Agente Maestro de Diagramas** (TikZ/PGFPlots/Mermaid, 13 categorias)
 - Coaching de revision y respuesta R&R
 - Conversion de formato de citas (5 formatos)
-- Protocolo anti-fuga
-- Verificacion VLM de figuras
 
 </td>
 </tr>
@@ -141,6 +141,39 @@ Abre el repositorio en tu IDE. Los archivos de configuracion se detectan automat
 | `/arg-format-convert` | Convertir a LaTeX / DOCX / PDF / Markdown |
 | `/arg-citation-check` | Informe de errores de citas |
 | `/arg-disclosure` | Declaracion de uso de IA segun el venue |
+| `/arg-diagram` | Generacion de diagrama estructural (TikZ / Mermaid / PGFPlots) |
+
+---
+
+## Flujo de trabajo recomendado
+
+Para la mejor calidad, ejecuta estos cuatro pasos en orden:
+
+```
+Paso 1 — Investigacion profunda
+  /deep-research
+  → Produce: Bibliografia anotada, Informe de sintesis, Resumen de RQ
+
+         ↓  Pasar literatura + RQ al siguiente paso
+
+Paso 2 — Planificacion del paper
+  /arg-plan
+  → Produce: Plan de capitulos, Coleccion INSIGHT, Plan de diagramas
+
+         ↓  Pasar plan de capitulos al siguiente paso
+
+Paso 3 — Revision del plan
+  /academic-paper-reviewer  (modo quick o guided)
+  → Produce: Retroalimentacion estructural, analisis de brechas, prueba de estres logico
+
+         ↓  Incorporar retroalimentacion, luego ejecutar pipeline completo
+
+Paso 4 — Pipeline completo
+  /arg-full
+  → Produce: Borrador completo → puerta de integridad → revision → correccion → resultado final
+```
+
+> **Atajo:** Si tienes prisa, ejecuta `/arg-full` directamente — contiene las 10 etapas internamente.
 
 ---
 

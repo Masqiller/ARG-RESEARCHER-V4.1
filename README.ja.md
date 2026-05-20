@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-機能)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-機能)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-スキルとモード)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-スキルとモード)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-スキルとモード)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37の専門AIエージェント**が**4つのスキル**と**25のモード**で、研究のアイデアから論文出版まで支援します。
+**38の専門AIエージェント**が**4つのスキル**と**26のモード**で、研究のアイデアから論文出版まで支援します。
 **あらゆるAIコーディングエージェント**に対応 — Windsurf、Cursor、Claude Code、GitHub Copilot、Cline、Aider、Continue等。
 
 [クイックスタート](#-クイックスタート) | [機能](#-機能) | [アーキテクチャ](docs/ARCHITECTURE.md) | [セットアップ](UNIVERSAL_SETUP.md)
@@ -40,13 +40,14 @@
 ## クイックスタート
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 IDEでリポジトリを開きます。設定ファイルは自動検出されます：
 
 | エージェント | 設定 | コマンド |
 |:------------|:-----|:--------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Agent Managerネイティブ `/arg-*` コマンド |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | ネイティブ `/arg-*` ワークフロー |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | チャットで `/arg-*` |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | ネイティブ `/arg-*` コマンド |
@@ -76,12 +77,13 @@ IDEでリポジトリを開きます。設定ファイルは自動検出され�
 <td width="50%">
 
 ### 学術論文
-*12エージェント | 10モード*
+*13エージェント | 11モード*
 
 - スタイルキャリブレーション
 - 執筆品質チェック
 - LaTeX強化（APA 7.0、IEEE、Chicago）
 - 可視化エージェント
+- **図表マスターエージェント**（TikZ/PGFPlots/Mermaid、カテゴリ 13）
 - 改訂コーチング & R&R対応
 
 </td>
@@ -125,8 +127,42 @@ IDEでリポジトリを開きます。設定ファイルは自動検出され�
 | `/arg-revision` | 改訂原稿 + R&R回答 |
 | `/arg-lit-review` | 論文形式の注釈付き書誌 |
 | `/arg-format-convert` | LaTeX / DOCX / PDF / Markdownへの変換 |
+| `/arg-revision-coach` | 改訂ロードマップ + 回答レター骨格 |
 | `/arg-citation-check` | 引用エラーレポート |
 | `/arg-disclosure` | AI使用開示声明 |
+| `/arg-diagram` | 構造図表生成（TikZ / Mermaid / PGFPlots） |
+
+---
+
+## 推奨ワークフロー
+
+最高品質の論文を生成するために、以下の4ステップを順番に実行してください：
+
+```
+ステップ 1 — 深層研究
+  /deep-research
+  → 成果：注釈付き文献リスト、合成レポート、RQ概要
+
+         ↓  文献とRQを次のステップへ引き継ぎ
+
+ステップ 2 — 論文計画
+  /arg-plan
+  → 成果：章構成計画、INSIGHTコレクション、図表計画
+
+         ↓  章構成計画を次のステップへ引き継ぎ
+
+ステップ 3 — 計画レビュー
+  /academic-paper-reviewer  (quickまたはguidedモード)
+  → 成果：構造的フィードバック、議論のギャップ分析、論理的ストレステスト
+
+         ↓  フィードバックを反映してパイプラインを実行
+
+ステップ 4 — 完全パイプライン
+  /arg-full
+  → 成果：完全な草稿 → 整合性チェック → 査読 → 修正 → 最終出力
+```
+
+> **ショートカット：** 時間がない場合は、直接 `/arg-full` を実行してください — 10ステージ全てを内部に含んでいます。
 
 ---
 

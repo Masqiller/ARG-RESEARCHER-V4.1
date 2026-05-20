@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-funktionen)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-funktionen)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-faehigkeiten-und-modi)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-faehigkeiten-und-modi)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-faehigkeiten-und-modi)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37 spezialisierte KI-Agenten** in **4 Faehigkeiten** und **25 Modi** — von der Idee bis zur Veroeffentlichung.
+**38 spezialisierte KI-Agenten** in **4 Faehigkeiten** und **26 Modi** — von der Idee bis zur Veroeffentlichung.
 Kompatibel mit **jedem KI-Coding-Agenten** — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue u.v.m.
 
 [Schnellstart](#-schnellstart) | [Funktionen](#-funktionen) | [Architektur](docs/ARCHITECTURE.md) | [Einrichtung](UNIVERSAL_SETUP.md)
@@ -40,13 +40,14 @@ Kompatibel mit **jedem KI-Coding-Agenten** — Windsurf, Cursor, Claude Code, Gi
 ## Schnellstart
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 Oeffne das Repository in deiner IDE. Konfigurationsdateien werden automatisch erkannt:
 
 | Agent | Konfiguration | Befehle |
 |:------|:-------------|:--------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Native `/arg-*` im Agent Manager |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | Native `/arg-*` Workflows |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | `/arg-*` im Chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Native `/arg-*` Befehle |
@@ -77,12 +78,13 @@ Oeffne das Repository in deiner IDE. Konfigurationsdateien werden automatisch er
 <td width="50%">
 
 ### Akademisches Paper
-*12 Agenten | 10 Modi*
+*13 Agenten | 11 Modi*
 
 - Stil-Kalibrierung (lernt deine Stimme)
 - Schreibqualitaetskontrolle
 - LaTeX-Haertung (APA 7.0, IEEE, Chicago)
 - Visualisierungsagent
+- **Diagramm-Master-Agent** (TikZ/PGFPlots/Mermaid, 13 Kategorien)
 - Revisions-Coaching & R&R-Antwort
 - Zitat-Format-Konvertierung (5 Formate)
 
@@ -127,8 +129,42 @@ Oeffne das Repository in deiner IDE. Konfigurationsdateien werden automatisch er
 | `/arg-revision` | Ueberarbeiteter Entwurf + R&R-Antworten |
 | `/arg-lit-review` | Annotierte Bibliographie im Paper-Format |
 | `/arg-format-convert` | Konvertierung in LaTeX / DOCX / PDF / Markdown |
+| `/arg-revision-coach` | Revisions-Roadmap + Antwortbrief-Skelett |
 | `/arg-citation-check` | Zitierfehlerbericht |
 | `/arg-disclosure` | KI-Nutzungserklaerung |
+| `/arg-diagram` | Strukturdiagramm-Generierung (TikZ / Mermaid / PGFPlots) |
+
+---
+
+## Empfohlener Workflow
+
+Fuer die beste Qualitaet diese vier Schritte in Reihenfolge ausfuehren:
+
+```
+Schritt 1 — Tiefenforschung
+  /deep-research
+  → Ergebnis: Annotierte Bibliographie, Synthesebericht, RQ-Zusammenfassung
+
+         ↓  Literatur + RQ an naechsten Schritt weitergeben
+
+Schritt 2 — Papierplanung
+  /arg-plan
+  → Ergebnis: Kapitelplan, INSIGHT-Sammlung, Diagrammplan
+
+         ↓  Kapitelplan an naechsten Schritt weitergeben
+
+Schritt 3 — Planpruefung
+  /academic-paper-reviewer  (quick oder guided Modus)
+  → Ergebnis: Strukturelles Feedback, Argumentationsluecken, Logik-Stresstest
+
+         ↓  Feedback einarbeiten, dann vollstaendige Pipeline starten
+
+Schritt 4 — Vollstaendige Pipeline
+  /arg-full
+  → Ergebnis: Vollstaendiger Entwurf → Integritaetscheck → Review → Revision → Endergebnis
+```
+
+> **Abkuerzung:** Wenn du wenig Zeit hast, starte direkt mit `/arg-full` — es enthaelt intern alle 10 Stufen.
 
 ---
 

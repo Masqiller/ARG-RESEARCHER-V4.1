@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-возможности)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-возможности)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-навыки-и-режимы)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-навыки-и-режимы)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-навыки-и-режимы)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md)
 
 ---
 
-**37 специализированных ИИ-агентов** в **4 навыках** и **25 режимах** — от идеи исследования до публикации.
+**38 специализированных ИИ-агентов** в **4 навыках** и **26 режимах** — от идеи исследования до публикации.
 Совместим с **любым ИИ-агентом** — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue и др.
 
 [Быстрый старт](#-быстрый-старт) | [Возможности](#-возможности) | [Архитектура](docs/ARCHITECTURE.md) | [Руководство](UNIVERSAL_SETUP.md)
@@ -40,13 +40,14 @@
 ## Быстрый старт
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 Откройте репозиторий в IDE. Конфигурационные файлы обнаруживаются автоматически:
 
 | Агент | Конфигурация | Команды |
 |:------|:------------|:--------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Нативные `/arg-*` в Agent Manager |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | Нативные `/arg-*` воркфлоу |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | `/arg-*` в чате |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Нативные `/arg-*` команды |
@@ -76,12 +77,13 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 <td width="50%">
 
 ### Академическая статья
-*12 агентов | 10 режимов*
+*13 агентов | 11 режимов*
 
 - Калибровка стиля (изучает ваш голос)
 - Проверка качества письма
 - Укрепление LaTeX (APA 7.0, IEEE, Chicago)
 - Агент визуализации
+- **Агент-мастер диаграмм** (TikZ/PGFPlots/Mermaid, 13 категорий)
 - Коучинг ревизии и ответ R&R
 
 </td>
@@ -125,8 +127,42 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 | `/arg-revision` | Исправленная рукопись + ответы R&R |
 | `/arg-lit-review` | Аннотированная библиография в формате статьи |
 | `/arg-format-convert` | Конвертация в LaTeX / DOCX / PDF / Markdown |
+| `/arg-revision-coach` | Дорожная карта ревизии + скелет письма-ответа |
 | `/arg-citation-check` | Отчёт об ошибках цитирования |
 | `/arg-disclosure` | Заявление об использовании ИИ |
+| `/arg-diagram` | Генерация структурной диаграммы (TikZ / Mermaid / PGFPlots) |
+
+---
+
+## Рекомендуемый рабочий процесс
+
+Для наилучшего результата выполняйте эти четыре шага по порядку:
+
+```
+Шаг 1 — Глубокое исследование
+  /deep-research
+  → Результат: Аннотированная библиография, Отчёт синтеза, Краткое RQ
+
+         ↓  Передать литературу + RQ на следующий шаг
+
+Шаг 2 — Планирование статьи
+  /arg-plan
+  → Результат: План глав, Коллекция INSIGHT, План диаграмм
+
+         ↓  Передать план глав на следующий шаг
+
+Шаг 3 — Рецензирование плана
+  /academic-paper-reviewer  (режим quick или guided)
+  → Результат: Структурная обратная связь, анализ пробелов, логический стресс-тест
+
+         ↓  Учесть замечания, затем запустить полный конвейер
+
+Шаг 4 — Полный конвейер
+  /arg-full
+  → Результат: Полный черновик → шлюз целостности → рецензия → правка → итог
+```
+
+> **Краткий путь:** Если времени мало, запустите `/arg-full` напрямую — внутри уже все 10 этапов.
 
 ---
 

@@ -17,7 +17,7 @@
 **38 specialized AI agents** across **4 skills** and **26 modes** — from research idea to publication-ready paper.  
 Works with **any AI coding agent**: Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue, and more.
 
-[Quick Start](#quick-start) · [Slash Commands](#slash-commands) · [All Modes](#all-modes-reference) · [All 26 Commands](WINDSURF_COMMANDS.md) · [Agent Team](#the-agent-team) · [Setup Guide](UNIVERSAL_SETUP.md)
+[Quick Start](#quick-start) · [Slash Commands](#slash-commands) · [All Modes](#all-modes-reference) · [All 26 Commands](SLASH_COMMANDS_EXPLAINED.md) · [Agent Team](#the-agent-team) · [Setup Guide](UNIVERSAL_SETUP.md)
 
 </div>
 
@@ -53,7 +53,7 @@ Open the repo in your IDE. Config files are auto-discovered:
 | Agent | Config file | How commands work |
 |:------|:------------|:------------------|
 | **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Native `/arg-*` slash commands in Agent Manager |
-| **Windsurf** | `.windsurf/workflows/arg-*.md` | 26 native `/arg-*` slash commands — see [WINDSURF_COMMANDS.md](WINDSURF_COMMANDS.md) |
+| **Windsurf** | `.windsurf/workflows/arg-*.md` | 26 native `/arg-*` slash commands — see [SLASH_COMMANDS_EXPLAINED.md](SLASH_COMMANDS_EXPLAINED.md) |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | Type `/arg-*` in chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Native `/arg-*` commands |
 | **GitHub Copilot** | `.github/copilot-instructions.md` | Type `/arg-*` in chat |

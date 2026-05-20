@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-विशेषताएं)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-विशेषताएं)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-कौशल-और-मोड)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-कौशल-और-मोड)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-कौशल-और-मोड)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37 विशेष AI एजेंट**, **4 कौशल** और **25 मोड** में — आपके शोध को विचार से प्रकाशन तक ले जाते हैं।
+**38 विशेष AI एजेंट**, **4 कौशल** और **26 मोड** में — आपके शोध को विचार से प्रकाशन तक ले जाते हैं।
 **किसी भी AI कोडिंग एजेंट** के साथ संगत — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue आदि।
 
 [त्वरित शुरुआत](#-त्वरित-शुरुआत) | [विशेषताएं](#-विशेषताएं) | [आर्किटेक्चर](docs/ARCHITECTURE.md) | [सेटअप गाइड](UNIVERSAL_SETUP.md)
@@ -40,13 +40,14 @@
 ## त्वरित शुरुआत
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 अपने IDE में रेपो खोलें। कॉन्फ़िगरेशन फ़ाइलें स्वचालित रूप से पहचानी जाती हैं:
 
 | एजेंट | कॉन्फ़िग | कमांड |
 |:-------|:---------|:------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Agent Manager में नेटिव `/arg-*` कमांड |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | नेटिव `/arg-*` वर्कफ़्लो |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | चैट में `/arg-*` |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | नेटिव `/arg-*` कमांड |
@@ -76,12 +77,13 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 <td width="50%">
 
 ### शैक्षणिक पेपर
-*12 एजेंट | 10 मोड*
+*13 एजेंट | 11 मोड*
 
 - शैली अंशांकन (आपकी आवाज सीखता है)
 - लेखन गुणवत्ता जांच
 - LaTeX सुदृढ़ीकरण (APA 7.0, IEEE, Chicago)
 - विज़ुअलाइज़ेशन एजेंट
+- **डायग्राम मास्टर एजेंट** (TikZ/PGFPlots/Mermaid, 13 श्रेणियां)
 - संशोधन कोचिंग और R&R प्रतिक्रिया
 
 </td>
@@ -125,8 +127,42 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 | `/arg-revision` | संशोधित पांडुलिपि + R&R उत्तर |
 | `/arg-lit-review` | पेपर प्रारूप में एनोटेटेड ग्रंथसूची |
 | `/arg-format-convert` | LaTeX / DOCX / PDF / Markdown में रूपांतरण |
+| `/arg-revision-coach` | संशोधन रोडमैप + उत्तर पत्र ढांचा |
 | `/arg-citation-check` | उद्धरण त्रुटि रिपोर्ट |
 | `/arg-disclosure` | AI उपयोग प्रकटीकरण वक्तव्य |
+| `/arg-diagram` | संरचनात्मक डायग्राम निर्माण (TikZ / Mermaid / PGFPlots) |
+
+---
+
+## अनुशंसित वर्कफ़्लो
+
+सर्वोत्तम गुणवत्ता के लिए ये चार चरण क्रमशः चलाएं:
+
+```
+चरण 1 — गहन शोध
+  /deep-research
+  → उत्पन्न: एनोटेटेड ग्रंथसूची, संश्लेषण रिपोर्ट, RQ सार
+
+         ↓  साहित्य + RQ अगले चरण को दें
+
+चरण 2 — पेपर नियोजन
+  /arg-plan
+  → उत्पन्न: अध्याय योजना, INSIGHT संग्रह, डायग्राम योजना
+
+         ↓  अध्याय योजना अगले चरण को दें
+
+चरण 3 — योजना समीक्षा
+  /academic-paper-reviewer  (quick या guided मोड)
+  → उत्पन्न: संरचनात्मक फीडबैक, तर्क अंतराल विश्लेषण, तार्किक तनाव परीक्षण
+
+         ↓  फीडबैक शामिल करें, फिर पाइपलाइन चलाएं
+
+चरण 4 — पूर्ण पाइपलाइन
+  /arg-full
+  → उत्पन्न: पूर्ण मसौदा → अखंडता गेट → समीक्षा → संशोधन → अंतिम आउटपुट
+```
+
+> **शॉर्टकट:** यदि समय कम है, तो सीधे `/arg-full` चलाएं — इसमें सभी 10 चरण अंदर मौजूद हैं।
 
 ---
 

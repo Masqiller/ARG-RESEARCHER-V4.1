@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-代理團隊)
-[![Skills](https://img.shields.io/badge/skills-4-orange)](#-技能與模式)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-技能與模式)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#代理團隊)
+[![Skills](https://img.shields.io/badge/skills-4-orange)](#技能與模式)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#技能與模式)
 
 [English](README.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37 個專業 AI 代理**，橫跨 **4 項技能** 和 **25 種模式**，帶你從研究構思到論文發表。
+**38 個專業 AI 代理**，橫跨 **4 項技能** 和 **26 種模式**，帶你從研究構思到論文發表。
 支援**任何 AI 編碼助手** — Windsurf、Cursor、Claude Code、GitHub Copilot、Cline、Aider、Continue 等。
 
 [快速開始](#-快速開始) | [功能特色](#-功能特色) | [架構](docs/ARCHITECTURE.md) | [設置指南](UNIVERSAL_SETUP.md)
@@ -45,13 +45,14 @@ ARG 建立在一個前提上：**人類研究者 + AI 的組合，比任何一�
 ## 快速開始
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 在 IDE 中開啟，設定檔自動偵測：
 
 | 助手 | 設定檔 | 指令 |
 |:-----|:-------|:-----|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Agent Manager 面板原生 `/arg-*` 指令 |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | 原生 `/arg-*` 工作流 |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | 聊天中輸入 `/arg-*` |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | 原生 `/arg-*` 指令 |
@@ -88,16 +89,16 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 <td width="50%">
 
 ### 學術論文
-*12 個代理 | 10 種模式*
+*13 個代理 | 11 種模式*
 
 - 風格校準（學習你的寫作風格）
 - 寫作品質檢查
 - LaTeX 強化（APA 7.0、IEEE、Chicago）
 - 視覺化代理（matplotlib/seaborn/ggplot2）
+- **圖表主代理**（TikZ/PGFPlots/Mermaid 結構圖，13 類別）
 - 修訂指導 & R&R 回覆
 - 引用格式轉換（5 種格式）
-- 反洩漏協議
-- VLM 圖表驗證
+- 三層引用協議 + 主張忠實度錨定
 
 </td>
 </tr>
@@ -147,6 +148,43 @@ git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
 | `/arg-format-convert` | 轉換為 LaTeX / DOCX / PDF / Markdown |
 | `/arg-citation-check` | 引用錯誤報告 |
 | `/arg-disclosure` | 特定場合 AI 使用聲明 |
+| `/arg-diagram` | 獨立結構圖生成（TikZ / Mermaid / PGFPlots） |
+
+---
+
+## 推薦工作流程
+
+以最高品質產出論文，請依序執行以下四個步驟：
+
+```
+第 1 步 — 深度研究
+  /deep-research
+  「研究 [你的主題]」或「引導我的研究」
+  → 產出：文獻綜述、合成報告、研究問題摘要
+
+         ↓  將文獻與 RQ 帶入下一步
+
+第 2 步 — 論文規劃
+  /arg-plan
+  「幫我規劃關於 [主題] 的論文」（貼上第 1 步的結果）
+  → 產出：章節計畫、INSIGHT 集合、圖表計畫
+
+         ↓  將章節計畫帶入下一步
+
+第 3 步 — 計畫審查
+  /academic-paper-reviewer  （對章節計畫使用 quick 或 guided 模式）
+  「快速審查這份章節計畫」（貼上第 2 步的章節計畫）
+  → 產出：結構回饋、論證缺口分析、邏輯壓力測試
+
+         ↓  整合回饋後執行完整管線
+
+第 4 步 — 完整管線
+  /arg-full
+  「撰寫關於 [主題] 的完整論文」（貼上第 1–2 步的章節計畫與文獻）
+  → 產出：完整草稿 → 誠信閘門 → 同行評審 → 修訂 → 最終輸出
+```
+
+> **快速通道：** 若時間有限，直接執行 `/arg-full` 即可——它內部已包含所有 10 個階段。上述四步驟適合需要更多掌控與更佳架構品質的使用者。
 
 ---
 
@@ -190,4 +228,4 @@ Stage 1  S2    S3     S4     S5
 
 ## 授權條款
 
-本專案採用 [MIT 授權](LICENSE)。可自由使用、修改、散布，不限商業用途。詳見 [CONTRIBUTORS.md](CONTRIBUTORS.md)。
+本專案採用 [MIT 授權](LICENSE)。可自由使用、修改、散布，不限商業用途。

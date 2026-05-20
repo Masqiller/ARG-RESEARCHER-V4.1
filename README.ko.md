@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-기능)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-기능)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-스킬-및-모드)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-스킬-및-모드)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-스킬-및-모드)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37개의 전문 AI 에이전트**가 **4개의 스킬**과 **25개의 모드**로 연구 아이디어부터 논문 출판까지 지원합니다.
+**38개의 전문 AI 에이전트**가 **4개의 스킬**과 **26개의 모드**로 연구 아이디어부터 논문 출판까지 지원합니다.
 **모든 AI 코딩 에이전트**와 호환 — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue 등.
 
 [빠른 시작](#-빠른-시작) | [기능](#-기능) | [아키텍처](docs/ARCHITECTURE.md) | [설정 가이드](UNIVERSAL_SETUP.md)
@@ -40,13 +40,14 @@
 ## 빠른 시작
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 IDE에서 레포를 엽니다. 설정 파일이 자동으로 감지됩니다:
 
 | 에이전트 | 설정 | 명령어 |
 |:---------|:-----|:-------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Agent Manager 네이티브 `/arg-*` 명령어 |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | 네이티브 `/arg-*` 워크플로 |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | 채팅에서 `/arg-*` |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | 네이티브 `/arg-*` 명령어 |
@@ -76,12 +77,13 @@ IDE에서 레포를 엽니다. 설정 파일이 자동으로 감지됩니다:
 <td width="50%">
 
 ### 학술 논문
-*12 에이전트 | 10 모드*
+*13 에이전트 | 11 모드*
 
 - 스타일 캘리브레이션 (당신의 문체 학습)
 - 작성 품질 검사
 - LaTeX 강화 (APA 7.0, IEEE, Chicago)
 - 시각화 에이전트
+- **다이어그램 마스터 에이전트** (TikZ/PGFPlots/Mermaid, 13 카테고리)
 - 수정 코칭 & R&R 응답
 
 </td>
@@ -125,8 +127,42 @@ IDE에서 레포를 엽니다. 설정 파일이 자동으로 감지됩니다:
 | `/arg-revision` | 수정 원고 + R&R 응답 |
 | `/arg-lit-review` | 논문 형식의 주석 참고문헌 |
 | `/arg-format-convert` | LaTeX / DOCX / PDF / Markdown 변환 |
+| `/arg-revision-coach` | 수정 로드맵 + 응답 편지 개요 |
 | `/arg-citation-check` | 인용 오류 보고서 |
 | `/arg-disclosure` | AI 사용 공개 성명 |
+| `/arg-diagram` | 구조 다이어그램 생성 (TikZ / Mermaid / PGFPlots) |
+
+---
+
+## 추쳜 워크플로
+
+최고 품질의 논문을 위해 다음 네 단계를 순서대로 실행하세요:
+
+```
+단계 1 — 심층 연구
+  /deep-research
+  → 결과: 주석 목록, 합성 보고서, RQ 요약
+
+         ↓  문헌과 RQ를 다음 단계로 전달
+
+단계 2 — 논문 계획
+  /arg-plan
+  → 결과: 장 구성 계획, INSIGHT 콜렉션, 다이어그램 계획
+
+         ↓  장 구성 계획을 다음 단계로 전달
+
+단계 3 — 계획 리부
+  /academic-paper-reviewer  (quick 또는 guided 모드)
+  → 결과: 구조적 피드백, 논증 겪차 분석, 논리 스트레스 테스트
+
+         ↓  피드백 반영 후 파이프라인 실행
+
+단계 4 — 전체 파이프라인
+  /arg-full
+  → 결과: 완전한 초안 → 무결성 게이트 → 동료 심사 → 수정 → 최종 출력
+```
+
+> **단축키:** 시간이 없으면 `/arg-full`을 직접 실행하세요 — 10단계를 내부에 모두 포함합니다.
 
 ---
 

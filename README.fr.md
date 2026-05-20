@@ -6,15 +6,15 @@
 
 [![Version](https://img.shields.io/badge/version-v4.0.0-blue)](#)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
-[![Agents](https://img.shields.io/badge/agents-37-purple)](#-fonctionnalites)
+[![Agents](https://img.shields.io/badge/agents-38-purple)](#-fonctionnalites)
 [![Skills](https://img.shields.io/badge/skills-4-orange)](#-competences-et-modes)
-[![Modes](https://img.shields.io/badge/modes-25-red)](#-competences-et-modes)
+[![Modes](https://img.shields.io/badge/modes-26-red)](#-competences-et-modes)
 
 [English](README.md) | [繁體中文](README.zh-TW.md) | [Español](README.es.md) | [Deutsch](README.de.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Português](README.pt-BR.md) | [हिन्दी](README.hi.md) | [العربية](README.ar.md) | [Русский](README.ru.md)
 
 ---
 
-**37 agents IA specialises** dans **4 competences** et **25 modes** pour mener votre recherche de l'idee a la publication.
+**38 agents IA specialises** dans **4 competences** et **26 modes** pour mener votre recherche de l'idee a la publication.
 Compatible avec **tout agent IA** — Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue et plus.
 
 [Demarrage rapide](#-demarrage-rapide) | [Fonctionnalites](#-fonctionnalites) | [Architecture](docs/ARCHITECTURE.md) | [Guide d'installation](UNIVERSAL_SETUP.md)
@@ -41,13 +41,14 @@ Compatible avec **tout agent IA** — Windsurf, Cursor, Claude Code, GitHub Copi
 ## Demarrage rapide
 
 ```bash
-git clone https://github.com/Masqiller/ARG-Researcher.git ~/ARG-Researcher
+git clone https://github.com/Masqiller/ARG-RESEARCHER-V4.1.git ~/ARG-Researcher
 ```
 
 Ouvrez le depot dans votre IDE. Les fichiers de configuration sont detectes automatiquement :
 
 | Agent | Configuration | Commandes |
 |:------|:-------------|:----------|
+| **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Commandes `/arg-*` natives dans Agent Manager |
 | **Windsurf** | `.windsurf/workflows/arg-*.md` | Workflows natifs `/arg-*` |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | `/arg-*` dans le chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Commandes natives `/arg-*` |
@@ -78,12 +79,13 @@ Ouvrez le depot dans votre IDE. Les fichiers de configuration sont detectes auto
 <td width="50%">
 
 ### Article academique
-*12 agents | 10 modes*
+*13 agents | 11 modes*
 
 - Calibration de style (apprend votre voix)
 - Controle qualite d'ecriture
 - Durcissement LaTeX (APA 7.0, IEEE, Chicago)
 - Agent de visualisation
+- **Agent Maitre des Diagrammes** (TikZ/PGFPlots/Mermaid, 13 categories)
 - Coaching de revision et reponse R&R
 - Conversion de format de citation (5 formats)
 
@@ -128,8 +130,10 @@ Ouvrez le depot dans votre IDE. Les fichiers de configuration sont detectes auto
 | `/arg-revision` | Brouillon revise + reponses R&R |
 | `/arg-lit-review` | Bibliographie annotee en format article |
 | `/arg-format-convert` | Convertir en LaTeX / DOCX / PDF / Markdown |
+| `/arg-revision-coach` | Feuille de route de revision + Squelette de lettre de reponse |
 | `/arg-citation-check` | Rapport d'erreurs de citations |
 | `/arg-disclosure` | Declaration d'utilisation de l'IA |
+| `/arg-diagram` | Generation de diagramme structurel (TikZ / Mermaid / PGFPlots) |
 
 ---
 
@@ -140,6 +144,38 @@ Ouvrez le depot dans votre IDE. Les fichiers de configuration sont detectes auto
 | **Styles de citation** | APA 7.0 (defaut), Chicago, MLA, IEEE, Vancouver |
 | **Types d'article** | IMRaD, Revue de litterature, Analyse theorique, Etude de cas, Policy Brief |
 | **Formats de sortie** | Markdown, LaTeX, DOCX (Pandoc), PDF (tectonic) |
+
+---
+
+## Flux de travail recommande
+
+Pour la meilleure qualite, executez ces quatre etapes dans l'ordre :
+
+```
+Etape 1 — Recherche approfondie
+  /deep-research
+  → Produit : Bibliographie annotee, Rapport de synthese, Resume RQ
+
+         ↓  Transmettre la litterature + RQ a l'etape suivante
+
+Etape 2 — Planification de l'article
+  /arg-plan
+  → Produit : Plan de chapitres, Collection INSIGHT, Plan de diagrammes
+
+         ↓  Transmettre le plan de chapitres a l'etape suivante
+
+Etape 3 — Revision du plan
+  /academic-paper-reviewer  (mode quick ou guided)
+  → Produit : Retour structurel, Analyse des lacunes, Test de stress logique
+
+         ↓  Integrer les retours, puis lancer le pipeline complet
+
+Etape 4 — Pipeline complet
+  /arg-full
+  → Produit : Brouillon complet → Controle d'integrite → Revue → Revision → Resultat final
+```
+
+> **Raccourci :** Si vous etes presse, lancez directement `/arg-full` — il contient les 10 etapes en interne.
 
 ---
 
