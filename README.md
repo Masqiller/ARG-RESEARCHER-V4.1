@@ -17,7 +17,7 @@
 **38 specialized AI agents** across **4 skills** and **26 modes** — from research idea to publication-ready paper.  
 Works with **any AI coding agent**: Windsurf, Cursor, Claude Code, GitHub Copilot, Cline, Aider, Continue, and more.
 
-[Quick Start](#quick-start) · [Slash Commands](#slash-commands) · [All Modes](#all-modes-reference) · [Agent Team](#the-agent-team) · [Setup Guide](UNIVERSAL_SETUP.md)
+[Quick Start](#quick-start) · [Slash Commands](#slash-commands) · [All Modes](#all-modes-reference) · [All 26 Commands](WINDSURF_COMMANDS.md) · [Agent Team](#the-agent-team) · [Setup Guide](UNIVERSAL_SETUP.md)
 
 </div>
 
@@ -53,7 +53,7 @@ Open the repo in your IDE. Config files are auto-discovered:
 | Agent | Config file | How commands work |
 |:------|:------------|:------------------|
 | **Google Antigravity** | `.agents/rules/arg-instructions.md` + `.agents/workflows/arg-*.md` | Native `/arg-*` slash commands in Agent Manager |
-| **Windsurf** | `.windsurf/workflows/arg-*.md` | Native `/arg-*` slash commands in chat |
+| **Windsurf** | `.windsurf/workflows/arg-*.md` | 26 native `/arg-*` slash commands — see [WINDSURF_COMMANDS.md](WINDSURF_COMMANDS.md) |
 | **Cursor** | `.cursor/rules/arg-instructions.mdc` | Type `/arg-*` in chat |
 | **Claude Code** | `.claude/CLAUDE.md` + `commands/` | Native `/arg-*` commands |
 | **GitHub Copilot** | `.github/copilot-instructions.md` | Type `/arg-*` in chat |
@@ -353,19 +353,19 @@ Generates publication-quality structural and conceptual diagrams on demand.
 
 | Mode | Slash Command | What you say | Output | Cost |
 |------|--------------|--------------|--------|------|
-| `full` | — | "research [topic]", "deep research on..." | APA 7.0 report, 3–8k words | ~$1–2 |
-| `quick` | — | "quick brief on...", "30-minute summary" | Research brief, 500–1,500 words | ~$0.20 |
-| `review` | — | "review this paper", "evaluate this source" | Reviewer report on provided text | ~$0.50 |
+| `full` | `/arg-deep-research` | "research [topic]", "deep research on..." | APA 7.0 report, 3–8k words | ~$1–2 |
+| `quick` | `/arg-deep-research-quick` | "quick brief on...", "30-minute summary" | Research brief, 500–1,500 words | ~$0.20 |
+| `review` | `/arg-deep-research-review` | "review this paper", "evaluate this source" | Reviewer report on provided text | ~$0.50 |
 | `lit-review` | `/arg-lit-review` | "literature review", "annotated bibliography" | Annotated bib + synthesis | ~$0.50–1 |
-| `fact-check` | — | "verify claims", "fact-check this" | Claim-by-claim verification report | ~$0.30 |
-| `socratic` | — | "guide my research", "help me think through" | Research Plan + INSIGHT collection | ~$0.50 |
-| `systematic-review` | — | "systematic review", "meta-analysis", "PRISMA" | PRISMA 2020 report, 5–15k words | ~$2–3 |
+| `fact-check` | `/arg-deep-research-fact-check` | "verify claims", "fact-check this" | Claim-by-claim verification report | ~$0.30 |
+| `socratic` | `/arg-deep-research-socratic` | "guide my research", "help me think through" | Research Plan + INSIGHT collection | ~$0.50 |
+| `systematic-review` | `/arg-deep-research-systematic-review` | "systematic review", "meta-analysis", "PRISMA" | PRISMA 2020 report, 5–15k words | ~$2–3 |
 
 ### `academic-paper` — 11 modes
 
 | Mode | Slash Command | What you say | Output | Cost |
 |------|--------------|--------------|--------|------|
-| `full` | — | "write a paper on...", "academic paper about..." | Complete paper draft | ~$3–4 |
+| `full` | `/arg-paper` | "write a paper on...", "academic paper about..." | Complete paper draft | ~$3–4 |
 | `plan` | `/arg-plan` | "guide my paper", "help me plan chapter by chapter" | Chapter Plan + Diagram Plan + INSIGHTs | ~$0.50 |
 | `outline-only` | `/arg-outline` | "paper outline", "just need an outline" | Detailed outline + evidence map | ~$0.30 |
 | `revision` | `/arg-revision` | "revise paper", "incorporate reviewer feedback" | Revised draft + R&R responses | ~$1–2 |
@@ -381,19 +381,19 @@ Generates publication-quality structural and conceptual diagrams on demand.
 
 | Mode | Slash Command | What you say | Output | Cost |
 |------|--------------|--------------|--------|------|
-| `full` | — | "review paper", "peer review", "manuscript review" | 5 review reports + Editorial Decision + Revision Roadmap | ~$1–2 |
-| `re-review` | — | "check revisions", "verification review" | Revision verification checklist + residual issues | ~$0.50 |
-| `quick` | — | "quick review", "quick look" | EIC quick assessment + key issues | ~$0.30 |
-| `methodology-focus` | — | "check methodology", "focus on methods" | In-depth methodology review | ~$0.50 |
-| `guided` | — | "guide me to improve", "walk me through issues" | Socratic issue-by-issue dialogue | ~$0.50 |
-| `calibration` | — | "calibrate reviewer", "measure reviewer accuracy" | Calibration Report (FNR/FPR/AUC) | ~$0.30 |
+| `full` | `/academic-paper-reviewer` | "review paper", "peer review", "manuscript review" | 5 review reports + Editorial Decision + Revision Roadmap | ~$1–2 |
+| `re-review` | `/arg-reviewer-re-review` | "check revisions", "verification review" | Revision verification checklist + residual issues | ~$0.50 |
+| `quick` | `/arg-reviewer-quick` | "quick review", "quick look" | EIC quick assessment + key issues | ~$0.30 |
+| `methodology-focus` | `/arg-reviewer-methodology` | "check methodology", "focus on methods" | In-depth methodology review | ~$0.50 |
+| `guided` | `/arg-reviewer-guided` | "guide me to improve", "walk me through issues" | Socratic issue-by-issue dialogue | ~$0.50 |
+| `calibration` | `/arg-reviewer-calibration` | "calibrate reviewer", "measure reviewer accuracy" | Calibration Report (FNR/FPR/AUC) | ~$0.30 |
 
 ### `academic-pipeline` — orchestrator
 
-| Mode | What you say | Output |
-|------|--------------|--------|
-| Full pipeline | "full paper workflow", "research to paper end-to-end" | 10-stage orchestrated workflow: research → write → integrity gate → review → revise → integrity gate → finalize |
-| Resume | "resume from passport", "continue pipeline from reset boundary" | Resumes a prior pipeline run from a saved Material Passport checkpoint |
+| Mode | Slash Command | What you say | Output |
+|------|--------------|--------------|--------|
+| Full pipeline | `/arg-full` | "full paper workflow", "research to paper end-to-end" | 10-stage orchestrated workflow: research → write → integrity gate → review → revise → integrity gate → finalize |
+| Resume | `/arg-pipeline-resume` | "resume from passport", "continue pipeline from reset boundary" | Resumes a prior pipeline run from a saved Material Passport checkpoint |
 
 ---
 
